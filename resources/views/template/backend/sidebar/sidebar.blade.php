@@ -2,10 +2,6 @@
 <!-- Left panel : Navigation area -->
 <!-- Note: This width of the aside area can be adjusted through LESS variables -->
 <aside id="left-panel">
-
-
-
-
     <nav>
         <!--
         NOTE: Notice the gaps after each icon usage <i></i>..
@@ -17,6 +13,7 @@
         </ul>
         <ul>
             @if(Auth::guard('perusahaan')->check())
+
             @elseif(Auth::guard('user')->check())
             <li>
                 <a href="{{url('/dashboard-user')}}" title="Dashboard"><i class="fa fa-lg fa-fw fa-tachometer"></i> <span class="menu-item-parent">Dashboard</span></a>

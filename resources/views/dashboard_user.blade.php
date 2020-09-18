@@ -54,64 +54,7 @@ Dashboard E-Report
                                         <div class="jarviswidget-editbox">
                                         </div>
                                         <div class="widget-body">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="col-lg-6">
-                                                        @foreach($employee as $emp)
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-4 control-label">
-                                                                Nama Pegawai</label>
-                                                            <div class="col-sm-8">
-                                                                {{$emp->nama_empl}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-4 control-label">
-                                                                Jenis Kelamin</label>
-                                                            <div class="col-sm-8">
-                                                                {{$emp->gender}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-4 control-label">
-                                                                Nomor Induk Pegawai</label>
-                                                            <div class="col-sm-8">
-                                                                {{$emp->nip}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-4 control-label">
-                                                                Alamat</label>
-                                                            <div class="col-sm-8">
-                                                                {{$emp->alamat}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-4 control-label">
-                                                                Alamat E-Mail</label>
-                                                            <div class="col-sm-8">
-                                                                {{$emp->email}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-4 control-label">
-                                                                No. Telp</label>
-                                                            <div class="col-sm-8">
-                                                                {{$emp->telp}}
-                                                            </div>
-                                                        </div>
-                                                        @endforeach
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <h6>Scan This For Absence !</h6>
-                                                        <br/>
-                                                        <?php $aaa = 'https://localhost/dukminops/public/absence-input/' . base64_encode($employee[0]->nip) . '/' . base64_encode(date('Y-m-d h:m:s')); //dd($aaa);
-                                                        ?>
-                                                        <!-- {{$aaa}} -->
-                                                        <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->merge('assets/images/logo.png', 0.4, true)->size(500)->errorCorrection('H')->generate($aaa)) !!} " style="width: 50%;">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                         <hr class="simple">
                                     </div>

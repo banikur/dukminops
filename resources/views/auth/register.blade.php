@@ -16,8 +16,6 @@
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                <input id="id_perusahaan" type="text" class="form-control @error('name') is-invalid @enderror" name="id_perusahaan" value="1" required autocomplete="name" autofocus>
-                                <input id="id_grup_akses" type="text" class="form-control @error('name') is-invalid @enderror" name="grup_akses" value="1" required autocomplete="name" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">

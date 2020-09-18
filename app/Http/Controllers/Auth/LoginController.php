@@ -51,6 +51,8 @@ class LoginController extends BaseController
             Auth::guard('perusahaan')->logout();
         } elseif (Auth::guard('hrd')->check()) {
             Auth::guard('hrd')->logout();
+        }elseif (Auth::guard('web')->check()) {
+            Auth::guard('web')->logout();
         }
 
         return redirect('/');

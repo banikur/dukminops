@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>E - Absence</title>
+    <title>E - DATADUKMINOPS SOPS MABES POLRI</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -42,13 +42,12 @@ Header
             <!-- <h1 class="text-light"><a href="#header"><span>NewBiz</span></a></h1> -->
             <a href="{{route('login')}}" class="scrollto"><img src="{{url('front_layout/img/minerba/logo-o.png')}}" alt="" class="img-fluid"></a>
         </div>
-
         <nav class="main-nav float-right d-none d-lg-block">
             <ul>
                 <li class="active"><a href="#intro">Beranda</a></li>
-                <li><a href="#about">Tentang RKAB</a></li>
-                <li><a href="#services">Layanan</a></li>
-                <li><a href="#clients">Pihak Terkait</a></li>
+                <li><a href="#about">Tentang Dukminops</a></li>
+                <li><a href="#services">Layanan Dukminops</a></li>
+                <li><a href="#clients">Internal Dukminops</a></li>
                 <li><a href="#contact">Kontak Kami</a></li>
                  <!--<li><a href="{{route('login')}}">Masuk</a></li>-->
             </ul>
@@ -68,9 +67,9 @@ Header
         </div>
 
         <div class="intro-info">
-            <h2 style="color:#004289;">Absensi Online</h2>
+            <h4 style="color:#004289;">E-DATADUKMINOPS SOPS MABES POLRI</h4>
             <!-- <a href="{{url('/Costumer/costumer-table')}}" class="btn btn-lg btn-outline-dark">Pesan Sekarang &nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i/></a> -->
-            <a href="{{route('login')}}" class="btn btn-lg btn-outline-dark">Sign In<i class="fa fa-arrow-right"></i/></a>
+            <a href="{{route('login')}}" class="btn btn-lg btn-outline-dark">Masuk<i class="fa fa-arrow-right"></i/></a>
         </div>
 
     </div>
@@ -99,8 +98,8 @@ Header
 <!--==========================
   Footer
 ============================-->
-<!-- <footer id="footer">
-    <div class="footer-top">
+<footer id="footer">
+    <!-- <div class="footer-top">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 footer-info">
@@ -139,14 +138,14 @@ Header
 
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="container">
         <div class="copyright">
-            &copy; Copyright <strong>KEMENTRIAN ESDM</strong>. All Rights Reserved
+            &copy; Copyright <strong>SOPS MABES POLRI</strong>. All Rights Reserved
         </div>
     </div>
-</footer> -->
+</footer>
 
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 <!-- Uncomment below i you want to use a preloader -->
