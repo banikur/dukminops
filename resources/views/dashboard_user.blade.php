@@ -46,7 +46,7 @@ Dashboard E-Report
                                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                     <header role="heading">
                                         <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
-                                        <h2>Data Diri</h2>
+                                        <h2>Sebaran Operasi yang Sedang Berlansung</h2>
 
                                         <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
                                     </header>
@@ -54,7 +54,29 @@ Dashboard E-Report
                                         <div class="jarviswidget-editbox">
                                         </div>
                                         <div class="widget-body">
-                                            
+                                            <div class="row">
+                                                <div class="container">
+                                                    <div id="maps"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="simple">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
+                                    <header role="heading">
+                                        <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
+                                        <h2>Daftar Operasi</h2>
+
+                                        <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+                                    </header>
+                                    <div role="content">
+                                        <div class="jarviswidget-editbox">
+                                        </div>
+                                        <div class="widget-body">
+
                                         </div>
                                         <hr class="simple">
                                     </div>
@@ -95,56 +117,6 @@ Dashboard E-Report
 
         return pieces.join(decPoint);
     };
-
-    function haha() {
-        var sum = 0;
-        //alert("masul");
-        var x = $("#totals").text();
-        var a = x.split(',').join(".");
-        $(".totalharga").each(function() {
-            var tmpNilai = this.value.split('.').join("");
-            var nilai = tmpNilai.split(',').join(".");
-            if (!isNaN(nilai) && nilai.length != 0) {
-                sum += parseFloat(nilai);
-                // $(this).css("background-color", "#FEFFB0");
-            } else if (nilai.length != 0) {
-
-            } else {
-                //add only if the value is number
-                sum += parseFloat(nilai);
-                if (!isNaN(nilai) && nilai.length != 0) {
-                    sum += parseFloat(nilai);
-                    // $(this).css("background-color", "#FEFFB0");
-                } else if (nilai.length != 0) {
-                    sum += parseFloat(nilai);
-                }
-            }
-        });
-        $('#totals').val(numberFormat(sum, 2, ',', '.'));
-        $("#labelnya").html(numberFormat(sum, 2, ',', '.'));
-    }
-
-    function selectmenu() {
-        var category = $("#category").val();
-        var json = null;
-        $.get('{{URL::to("/Cashier/cek_menu/")}}/' + category, function(data) {
-            json = JSON.parse(data);
-            console.log(json);
-            test =
-                "<option class='mst_perusahaan' disabled='' selected='' value='0'>-PILIH-</option>";
-            for (let i = 0; i < json.length; i++) {
-                test += "<option class='mst_perusahaan' value='" + json[i].id_menu +
-                    "'>" + json[i].nama_menu + "</option>";
-            }
-            $('#menu').html(test);
-            // $('#menu').val(json.no_meja);
-            // for (let index = 0; index < json.length; index++) {
-            //     console.log(json);
-
-            // }
-        });
-        clear();
-    }
 
     function refresh() {
         setTimeout(function() {
@@ -192,79 +164,83 @@ Dashboard E-Report
         })
 
     }
+</script>
+<script>
+    var data = [
+        ['id-3700', 0],
+        ['id-ac', 1],
+        ['id-jt', 2],
+        ['id-be', 3],
+        ['id-bt', 4],
+        ['id-kb', 5],
+        ['id-bb', 6],
+        ['id-ba', 7],
+        ['id-ji', 8],
+        ['id-ks', 9],
+        ['id-nt', 10],
+        ['id-se', 11],
+        ['id-kr', 12],
+        ['id-ib', 13],
+        ['id-su', 14],
+        ['id-ri', 15],
+        ['id-sw', 16],
+        ['id-ku', 17],
+        ['id-la', 18],
+        ['id-sb', 19],
+        ['id-ma', 20],
+        ['id-nb', 21],
+        ['id-sg', 22],
+        ['id-st', 23],
+        ['id-pa', 24],
+        ['id-jr', 25],
+        ['id-ki', 26],
+        ['id-1024', 27],
+        ['id-jk', 28],
+        ['id-go', 29],
+        ['id-yo', 30],
+        ['id-sl', 31],
+        ['id-sr', 32],
+        ['id-ja', 33],
+        ['id-kt', 34]
+    ];
 
-    function getdetail() {
-        var menu = $("#menu").val();
-        var json = null;
-        $.get('{{URL::to("/Cashier/get_detail_menu/")}}/' + menu, function(data) {
-            json = JSON.parse(data);
-            console.log(json);
+    // Create the chart
+    Highcharts.mapChart('maps', {
+        chart: {
+            map: 'countries/id/id-all'
+        },
+        title: {
+            text: 'Sebaran Operasi yang Sedang Berlansung'
+        },
 
-            for (let i = 0; i < json.length; i++) {
-                var x = json[i].price;
-                $('#harga').val(x);
+        subtitle: {
+            text: ''
+        },
+
+        mapNavigation: {
+            enabled: true,
+            buttonOptions: {
+                verticalAlign: 'bottom'
             }
-        });
-        clear();
-    }
+        },
 
-    function clear() {
-        $('#qty').val('');
-        $('#total').val('');
-        $('#harga').val('');
-    }
+        colorAxis: {
+            min: 0
+        },
 
-
-    function dikali() {
-        var harga = parseInt($('#harga').val());
-        var qty = parseInt($('#qty').val());
-        var total_bayar = harga * qty;
-        $('#total').val(total_bayar);
-    }
-    $('#addmore').on('click', function() {
-        var html = '';
-        var no = 0;
-        var menu = $('#menu :selected').text();
-        var qty = $('#qty').val();
-        var harga = $('#harga').val();
-        var id_menu = $('#menu :selected').val();
-        var total = $('#total').val();
-        if (menu == 'undefined' || harga == 'undefined' || qty == 'undefined' || total == 'undefined') {
-            menu = '';
-            harga = '';
-            total = '';
-            qty = '';
-        }
-        $('#nodetail').val(no + 1);
-        $('#halu').css("display", "none");
-
-        html += '<tr id="isiContentTable' + $('#nodetail').val() + '">';
-        html += '<td><center><input type="text" style="display:none;" name="nama_menu[]" value="' +
-            id_menu + '">' + menu + '</center></td>';
-        html += '<td><center><input type="text" style="display:none;" name="qty[]" value="' +
-            qty + '">' + qty + '</td>';
-        html += '<td><center><input type="text" style="display:none;" name="hargasat[]" value="' +
-            harga + '">' + numberFormat(harga, 2, ',', '.') + '</center></td>';
-        html +=
-            '<td><center><input type="text" style="display:none;"id="totalharga" class="totalharga" name="totalharga[]" value="' +
-            total + '">' + numberFormat(total, 2, ',', '.') + '</center></td>';
-        html += '<td><center><button type="button" onclick="delete_detail(' + $('#nodetail').val() +
-            ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
-
-        html += '</tr>';
-        $('#isiTableedit').append(html);
-        clear();
-        haha();
+        series: [{
+            data: data,
+            name: 'Random data',
+            states: {
+                hover: {
+                    color: '#BADA55'
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            }
+        }]
     });
-
-    function delete_detail(no) {
-        var cek = parseInt($('#nodetail').val());
-        if (cek != 0) {
-            $('#nodetail').val(cek - 1);
-        }
-        $('#isiContentTable' + no).remove();
-        clear();
-        haha();
-    }
 </script>
 @endsection
