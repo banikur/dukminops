@@ -29,6 +29,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::name('hrd')->middleware('auth:hrd')->group(function () {
     Route::get('/dashboard-hrd', 'HrdController@index')->name('dashboard.hrd');
+
+    Route::namespace('master')->group(function(){
+        //Master Provinsi
+        Route::get('master/provinsi-dashboard','MasterProvinsiController@index');
+        Route::post('master/provinsi-dashboard/tambah','MasterProvinsiController@tambah');
+        Route::post('master/provinsi-dashboard/edit','MasterProvinsiController@edit');
+        Route::get('master/provinsi-dashboard/hapus/{id}','MasterProvinsiController@hapus');
+    });
+    
 });
 
 Route::name('user')->middleware('auth:user')->group(function () {
