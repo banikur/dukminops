@@ -86,7 +86,7 @@ Header
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <a href=""><img src="front_layout/img/judul_layanan.png" alt="SARPAS UNRAS" class="img-fluid"></a>
+                <img src="front_layout/img/judul_layanan.png" alt="SARPAS UNRAS" class="img-fluid">
             </div>
             <div class="col-md-4">
                 <img src="front_layout/img/layanan1.png" alt="SARPAS UNRAS" class="img-fluid">
