@@ -20,13 +20,28 @@
             </li>
             @elseif(Auth::guard('hrd')->check())
             <li>
-                <a href="{{url('master/provinsi-dashboard')}}" title="Master Procinsi"><i class="fa fa-lg fa-fw fa-clone"></i> <span class="menu-item-parent">Master Provinsi</span></a>
+                <a href="{{url('/dashboard-hrd')}}" title="Dashboard"><i class="fa fa-lg fa-fw fa-tachometer"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
             <li>
-                <a href="{{url('/pangkat-dashboard')}}" title="Master Pangkat"><i class="fa fa-lg fa-fw fa-calculator"></i> <span class="menu-item-parent">Master Pangkat</span></a>
+                <a href="{{url('/employee-dashboard')}}" title="Data Pegawai"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">Pegawai</span></a>
             </li>
             <li>
-                <a href="{{url('/jenis-peralatan-dashboard')}}" title="Master Jenis Peralatan"><i class="fa fa-lg fa-fw fa-exclamation-circle"></i> <span class="menu-item-parent">Master Jenis Peralatan</span></a>
+                <a href="{{url('/absence-dashboard')}}" title="Data Absensi Pegawai"><i class="fa fa-lg fa-fw fa-archive"></i> <span class="menu-item-parent">Absensi Pegawai</span></a>
+            </li>
+            <li>
+                <a href="{{url('/payroll-dashboard')}}" title="Master Gaji"><i class="fa fa-lg fa-fw fa-credit-card "></i> <span class="menu-item-parent">Upah Pegawai</span></a>
+            </li>
+            <li>
+                <a href="{{url('/penilaian-pegawai-dashboard')}}" title="Peniliain Pegawai"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Penilaian Pegawai</span></a>
+            </li>
+            <li>
+                <a href="{{url('master/provinsi-dashboard')}}" title="Master Procinsi"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">Master Provinsi</span></a>
+            </li>
+            <li>
+                <a href="{{url('master/pangkat-dashboard')}}" title="Master Pangkat"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">Master Pangkat</span></a>
+            </li>
+            <li>
+                <a href="{{url('master/jenis-peralatan-dashboard')}}" title="Master Jenis Peralatan"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">Master Jenis Peralatan</span></a>
             </li>
             @endif
         </ul>
