@@ -36,6 +36,18 @@ Route::name('hrd')->middleware('auth:hrd')->group(function () {
         Route::post('master/provinsi-dashboard/tambah','MasterProvinsiController@tambah');
         Route::post('master/provinsi-dashboard/edit','MasterProvinsiController@edit');
         Route::get('master/provinsi-dashboard/hapus/{id}','MasterProvinsiController@hapus');
+
+        //Master Pangkat
+        Route::get('master/pangkat-dashboard','MasterPangkatController@index');
+        Route::post('master/pangkat-dashboard/tambah','MasterPangkatController@tambah');
+        Route::post('master/pangkat-dashboard/edit','MasterPangkatController@edit');
+        Route::get('master/pangkat-dashboard/hapus/{id}','MasterPangkatController@hapus');
+
+        //Master Jenis Peralatan
+        Route::get('master/jenis-peralatan-dashboard','MasterJenisPeralatanController@index');
+        Route::post('master/jenis-peralatan-dashboard/tambah','MasterJenisPeralatanController@tambah');
+        Route::post('master/jenis-peralatan-dashboard/edit','MasterJenisPeralatanController@edit');
+        Route::get('master/jenis-peralatan-dashboard/hapus/{id}','MasterJenisPeralatanController@hapus');
     });
     
 });
