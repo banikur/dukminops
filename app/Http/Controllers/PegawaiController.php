@@ -32,4 +32,13 @@ class PegawaiController extends Controller
         //dd($data);
         return view('dashboard_user', $data);
     }
+
+    public function add_operasi_index()
+    {
+        $data['user'] = Auth::user();
+        $data['provinsi'] = DB::table('master_provinsi')->get();
+        // $data['employee'] = DB::table('employee')->where('id_empl', Auth::user()->id_pegawai)->get();
+        //dd($data);
+        return view('staff.add_operasi', $data);
+    }
 }

@@ -16,12 +16,8 @@
 
             @elseif(Auth::guard('user')->check())
             <li>
-                <a href="{{url('/dashboard-user')}}" title="Dashboard"><i class="fa fa-lg fa-fw fa-tachometer"></i> <span class="menu-item-parent">Dashboard</span></a>
+                <a href="{{url('/dashboard-user')}}" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
-            <li>
-                <a href="{{url('/nilai-user')}}" title="Nilai Pegawai"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Nilai</span></a>
-            </li>
-
             @elseif(Auth::guard('hrd')->check())
             <li>
                 <a href="{{url('/dashboard-hrd')}}" title="Dashboard"><i class="fa fa-lg fa-fw fa-tachometer"></i> <span class="menu-item-parent">Dashboard</span></a>
