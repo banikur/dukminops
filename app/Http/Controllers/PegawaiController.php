@@ -37,8 +37,108 @@ class PegawaiController extends Controller
     {
         $data['user'] = Auth::user();
         $data['provinsi'] = DB::table('master_provinsi')->get();
+        $data['master_pangkat'] = DB::table('master_pangkat')->get();
         // $data['employee'] = DB::table('employee')->where('id_empl', Auth::user()->id_pegawai)->get();
         //dd($data);
         return view('staff.add_operasi', $data);
     }
+
+    public function store_data(Request $request)
+    {
+        //dd($request->all());
+
+        $array_master = [
+            'nama_operasi' => $request->nama_divisi,
+            'lokasi' => $request->lokasi,
+            'prov_id' => $request->prov,
+            'tgl_mulai' => $request->tgl_start,
+            'tgl_selesai' => $request->tgl_end,
+            'status' => $request->status,
+            'jml_personil' => $request->count_personil,
+            'jml_anggaran' => str_replace('.', '', $request->anggaran),
+            'created_at' => date('Y-m-d h:i:s')
+        ];
+        DB::table('operasi')->insert($array_master);
+        $last_id = DB::table('operasi')->orderBy('id', 'DESC')->first();
+        $id = $last_id->id;
+        $coun_personil = $request->count_personil;
+        for ($i = 0; $i < $coun_personil; $i++) {
+            $array_personil = [
+                'operasi_id' => $id,
+                'nama_personil' => $request->nama_personil_s[$i],
+                'nip' => $request->nip_s[$i],
+                'pangkat' => $request->pangkat_s[$i],
+                'satuan_asal' => $request->satuan_s[$i],
+                'status' => 1,
+                'created_at' => date('Y-m-d h:i:s')
+            ];
+            DB::table('personil')->insert($array_personil);
+        }
+        $count_alat = $request->count_alat;
+        
+        for ($j = 0; $j < $count_alat; $j++) {
+            $array_peralatan = [
+                'operasi_id' => $id,
+                'nama_peralatan' => $request->nama_peralatan_s[$j],
+                'jenis' => $request->jenis_alat_array[$j],
+                'jml' => $request->jumlah_alat[$j],
+                'created_at' => date('Y-m-d h:i:s')
+            ];
+            DB::table('peralatan')->insert($array_peralatan);
+        }
+        
+        $nodetaidok_rencana = $request->nodetaidok_rencana;
+        for ($dok_rencana = 0; $dok_rencana < $nodetaidok_rencana; $dok_rencana++) {
+            $bukti_bayar = $request->file('dok_perencanaans')[$dok_rencana];
+            //dd($bukti_bayar);
+            $destination = public_path() . '/upload-dokumen/dok_rencana\\';
+            $nama_file2 = 'dok_rencana-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
+            $bukti_bayar->move($destination, $nama_file2);
+            $dok_rencana_array = [
+                'id_operasi' => $id,
+                'path' => $destination,
+                'nama_dokumen' => $request->name_dok_perencanaans[$dok_rencana],
+                'created_at' => date('Y-m-d h:i:s'),
+                'kategori_dokumen' => 1,
+                'dokumen' => $nama_file2,
+            ];
+            DB::table('dokumen_operasi')->insert($dok_rencana_array);
+        }
+
+        $nodetaidok_laporan = $request->nodetaidok_laporan;
+        for ($dok_laporan = 0; $dok_laporan < $nodetaidok_laporan; $dok_laporan++) {
+            $bukti_bayar = $request->file('dok_pelaporan')[$dok_laporan];
+            $destination = public_path() . '/upload-dokumen/dok_laporan\\';
+            $nama_file2 = 'dok_laporan-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
+            $bukti_bayar->move($destination, $nama_file2);
+
+            $dok_laporan_array = [
+                'id_operasi' => $id,
+                'path' => $destination,
+                'nama_dokumen' => $request->name_dok_pelaporan[$dok_laporan],
+                'created_at' => date('Y-m-d h:i:s'),
+                'kategori_dokumen' => 2,
+                'dokumen' => $nama_file2,
+            ];
+            DB::table('dokumen_operasi')->insert($dok_laporan_array);
+        }
+
+        $nodetaidok_anggaran = $request->nodetaidok_anggaran;
+        for ($dok_anggaran = 0; $dok_anggaran < $nodetaidok_anggaran; $dok_anggaran++) {
+            $bukti_bayar = $request->file('dok_anggaran')[$dok_anggaran];
+            $destination = public_path() . '/upload-dokumen/dok_anggaran\\';
+            $nama_file2 = 'dok_anggaran-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
+            $bukti_bayar->move($destination, $nama_file2);
+
+            $dok_anggaran_array = [
+                'id_operasi' => $id,
+                'path' => $destination,
+                'nama_dokumen' => $request->name_dok_anggaran[$dok_anggaran],
+                'created_at' => date('Y-m-d h:i:s'),
+                'kategori_dokumen' => 3,
+                'dokumen' => $nama_file2,
+            ];
+            DB::table('dokumen_operasi')->insert($dok_anggaran_array);
+        }
+        return redirect()->back()->with(['success'=>'Data Simpan']);    }
 }
