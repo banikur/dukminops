@@ -62,4 +62,5 @@ Route::name('user')->middleware('auth:user')->group(function () {
     //Entry Operasi
     Route::get('/entry-operasi','EntryOperasiController@index');
 
+    Route::post('/store_data','PegawaiController@store_data');
  });

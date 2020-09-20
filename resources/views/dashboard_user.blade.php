@@ -54,6 +54,14 @@ Dashboard E-Report
                                         <div class="jarviswidget-editbox">
                                         </div>
                                         <div class="widget-body">
+                                        <br/>
+                                        <br/>
+                                            <center>
+                                                <a href="{{url('/tambah-operasi')}}" class="btn btn-lg btn-warning">
+                                                    <strong>Tambah Operasi</strong>
+                                                </a>
+                                            </center>
+                                            <br/><br/>
                                             <div class="row">
                                                 <div class="container">
                                                     <div id="maps"></div>
@@ -64,24 +72,7 @@ Dashboard E-Report
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
-                                    <header role="heading">
-                                        <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
-                                        <h2>Daftar Operasi</h2>
 
-                                        <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
-                                    </header>
-                                    <div role="content">
-                                        <div class="jarviswidget-editbox">
-                                        </div>
-                                        <div class="widget-body">
-
-                                        </div>
-                                        <hr class="simple">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <!-- END -->
                     </div>
