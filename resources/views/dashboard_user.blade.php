@@ -221,7 +221,7 @@ Dashboard E-Report
 
         series: [{
             data: data,
-            name: 'Random data',
+            name: 'Jumlah Operasi',
             states: {
                 hover: {
                     color: '#BADA55'
