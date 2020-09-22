@@ -58,6 +58,7 @@ Route::name('user')->middleware('auth:user')->group(function () {
     
     //Sarpas Unras
     Route::get('/daftar-sarpas-unras','SarpasUnpasController@index');
+    Route::get('/daftar-sarpas-unras/detail/{id}', 'SarpasUnpasController@detailSarpasUnpas');
 
     //Entry Operasi
     Route::get('/entry-operasi','EntryOperasiController@index');

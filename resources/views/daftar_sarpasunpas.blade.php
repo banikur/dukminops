@@ -27,11 +27,6 @@ function tgl_indo($tanggal)
         'Desember'
     );
     $pecahkan = explode('-', $tanggal);
-
-    // variabel pecahkan 0 = tanggal
-    // variabel pecahkan 1 = bulan
-    // variabel pecahkan 2 = tahun
-
     return $pecahkan[2] . ' ' . $bulan[(int) $pecahkan[1]] . ' ' . $pecahkan[0];
 }
 ?>
@@ -100,7 +95,7 @@ function tgl_indo($tanggal)
                                                         <td><center>{{ tgl_indo($op->tgl_mulai) }}</center></td>
                                                         <td><center>{{ $op->status }}</center></td>
                                                         <td><center>
-                                                           <button type="submit" class="btn btn-sm btn-warning">Detail</button>
+                                                           <a href="{{ url('/daftar-sarpas-unras/detail/'.$op->id) }}" class="btn btn-sm btn-warning">Detail</a>
                                                         </center></td>
                                                     </tr>
                                                     @endforeach
