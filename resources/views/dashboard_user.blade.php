@@ -56,12 +56,12 @@ Dashboard E-Report
                                         <div class="widget-body">
                                         <br/>
                                         <br/>
-                                            <center>
+                                            <!-- <center>
                                                 <a href="{{url('/tambah-operasi')}}" class="btn btn-lg btn-warning">
                                                     <strong>Tambah Operasi</strong>
                                                 </a>
                                             </center>
-                                            <br/><br/>
+                                            <br/><br/> -->
                                             <div class="row">
                                                 <div class="container">
                                                     <div id="maps"></div>

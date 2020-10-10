@@ -55,6 +55,7 @@ Route::name('hrd')->middleware('auth:hrd')->group(function () {
 Route::name('user')->middleware('auth:user')->group(function () {
     Route::get('/dashboard-user', 'PegawaiController@index')->name('dashboard.user');
     Route::get('/tambah-operasi', 'PegawaiController@add_operasi_index')->name('add_operasi_index.user');
+    Route::get('/entry-operasi/detail/{id}', 'PegawaiController@detail_operasi')->name('detail_operasi.user');
     
     //Sarpas Unras
     Route::get('/daftar-sarpas-unras','SarpasUnpasController@index');

@@ -19,10 +19,10 @@
                 <a href="{{url('/dashboard-user')}}" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
             <li>
-                <a href="{{url('/daftar-sarpas-unras')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">SARPAS UNRAS</span></a>
+                <a href="{{url('/daftar-sarpas-unras')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-home"></i>SARPAS UNRAS</a>
             </li>
             <li>
-                <a href="{{url('/entry-operasi')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Entry Operasi</span></a>
+                <a href="{{url('/entry-operasi')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-home"></i>Entry Operasi</a>
             </li>
             @elseif(Auth::guard('hrd')->check())
             <li>

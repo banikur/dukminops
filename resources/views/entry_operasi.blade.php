@@ -78,7 +78,7 @@ function tgl_indo($tanggal)
                                     <div role="content">
                                         <div class="widget-body">
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;Tambah</button>
+                                                <a href="{{url('/tambah-operasi')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;Tambah</a>
                                             </div>
                                             <br><br><br>
                                             <table id="dt_basic_1" class="table table-hover table-bordered table-striped table-responsive">
@@ -106,7 +106,7 @@ function tgl_indo($tanggal)
                                                         <td><center>{{ tgl_indo($op->tgl_mulai) }}</center></td>
                                                         <td><center>{{ $op->status }}</center></td>
                                                         <td><center>
-                                                           <button type="submit" class="btn btn-sm btn-warning">Detail</button>
+                                                           <a href="{{url('/entry-operasi/detail/'.$op->id)}}" class="btn btn-sm btn-warning">Detail</a>
                                                            <button type="submit" class="btn btn-sm btn-success">Edit</button>
                                                         </center></td>
                                                     </tr>

@@ -140,5 +140,22 @@ class PegawaiController extends Controller
             ];
             DB::table('dokumen_operasi')->insert($dok_anggaran_array);
         }
-        return redirect()->back()->with(['success'=>'Data Simpan']);    }
+        return redirect()->back()->with(['success'=>'Data Simpan']);
+    }
+
+    public function detail_operasi($id)
+    {
+        $data['user'] = Auth::user();
+        $data['provinsi'] = DB::table('master_provinsi')->get();
+        $data['master_pangkat'] = DB::table('master_pangkat')->get();
+
+        $data['operasi'] = DB::table('operasi')->where('id', $id)->first();
+        $data['dokumenRencana'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen',1)->get();
+        $data['personil'] = DB::table('personil')->where('operasi_id', $id)->get();
+        $data['peralatan'] = DB::table('peralatan')->where('operasi_id', $id)->get();
+        $data['dokumenPelaporan'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen',2)->get();
+        $data['dokumenAnggaran'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen',3)->get();
+        
+        return view('staff.detail_operasi', $data);
+    }
 }
