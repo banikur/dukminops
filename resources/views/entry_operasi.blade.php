@@ -114,7 +114,7 @@ function tgl_indo($tanggal)
                                                         <td><center>{{ tgl_indo($op->tgl_mulai) }}</center></td>
                                                         <td><center>{{ $op->status }}</center></td>
                                                         <td><center>
-                                                           <button type="submit" class="btn btn-sm btn-warning">Detail</button>
+                                                           <a href="{{url('/entry-operasi/detail/'.$op->id)}}" class="btn btn-sm btn-warning">Detail</a>
                                                            <button type="submit" class="btn btn-sm btn-success">Edit</button>
                                                         </center></td>
                                                     </tr>

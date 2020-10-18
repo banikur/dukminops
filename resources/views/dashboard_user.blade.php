@@ -60,8 +60,8 @@ Dashboard E-Report
                                                 <a href="{{url('/tambah-operasi')}}" class="btn btn-lg btn-warning">
                                                     <strong>Tambah Operasi</strong>
                                                 </a>
-                                            </center> -->
-                                            <br /><br />
+                                            </center>
+                                            <br/><br/> -->
                                             <div class="row">
                                                 <div class="col-md-10 col-md-offset-1">
                                                     <div id="maps"></div>

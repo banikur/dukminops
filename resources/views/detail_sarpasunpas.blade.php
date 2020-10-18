@@ -120,7 +120,7 @@ function tgl_indo($tanggal)
                                                             <label class="col-sm-4 control-label">
                                                                 Jumlah Anggaran</label>
                                                             <div class="col-sm-7">
-                                                                <input class="form-control uang" type="text" id="anggaran" name="anggaran" value="{{$operasi->jml_anggaran}}">
+                                                                <input class="form-control uang" type="text" id="anggaran" name="anggaran" value="Rp{{$operasi->jml_anggaran}}">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -234,7 +234,6 @@ function tgl_indo($tanggal)
 <script>
     $(document).ready(function() {
         setMask();
-        // $('#status').val("{{$operasi->status}}");
     })
     $('.js-example-basic-single').select2({
         width: '100%'
