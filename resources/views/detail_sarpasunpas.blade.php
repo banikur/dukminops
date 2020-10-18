@@ -1,6 +1,6 @@
 @extends('template.backend.main')
 @section('title')
-Dashboard E-Report
+SIDUKOPS
 @endsection
 @section('ribbon')
 <ol class="breadcrumb">
@@ -64,12 +64,12 @@ function tgl_indo($tanggal)
                         @endif
                         <div class="row">
                             <div class="col-md-12">
-                                <div style ="position: absolute; top: 0;right:15px;">
-                                    <a href="{{url('/daftar-sarpas-unras')}}" class="btn btn-warning">Kembali</a>
+                                <div style="position: absolute; top: 0;right:15px;">
+                                    <a href="{{url('/daftar-sarpas-unras')}}" class="btn btn-info">Kembali</a>
                                 </div>
                                 <br><br><br>
                                 <form id="detail_operasi" class="form-horizontal">
-                                    <div class="jarviswidget" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
+                                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="true" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                         <header role="heading">
                                             <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
                                             <h2>Detail Operasi</h2>
@@ -138,7 +138,7 @@ function tgl_indo($tanggal)
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="jarviswidget" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
+                                            <div class="jarviswidget jarviswidget-color-magenta" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                                 <header role="heading">
                                                     <h2><b>Data Personil</b></h2>
                                                 </header>
@@ -156,31 +156,31 @@ function tgl_indo($tanggal)
                                                         <div class="col-md-12">
                                                             <table id="dt_basic_1" class="table table-striped table-bordered table-hover table-condensed">
                                                                 <thead>
-                                                                <tr>
-                                                                    <th>No</th>
-                                                                    <th>Nama Personil</th>
-                                                                    <th>NIP</th>
-                                                                    <th>Pangkat</th>
-                                                                    <th>Satuan Asal</th>
-                                                                </tr>
+                                                                    <tr>
+                                                                        <th>No</th>
+                                                                        <th>Nama Personil</th>
+                                                                        <th>NIP</th>
+                                                                        <th>Pangkat</th>
+                                                                        <th>Satuan Asal</th>
+                                                                    </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                @foreach($personil as $p)
-                                                                <tr>
-                                                                    <td>{{$no++}}</td>
-                                                                    <td>{{ $p->nama_personil }}</td>
-                                                                    <td>{{ $p->nip }}</td>
-                                                                    <td>{{ $p->pangkat }}</td>
-                                                                    <td>{{ $p->satuan_asal }}</td>
-                                                                </tr>
-                                                                @endforeach
+                                                                    @foreach($personil as $p)
+                                                                    <tr>
+                                                                        <td>{{$no++}}</td>
+                                                                        <td>{{ $p->nama_personil }}</td>
+                                                                        <td>{{ $p->nip }}</td>
+                                                                        <td>{{ $p->pangkat }}</td>
+                                                                        <td>{{ $p->satuan_asal }}</td>
+                                                                    </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="jarviswidget" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
+                                            <div class="jarviswidget jarviswidget-color-magenta" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                                 <header role="heading">
                                                     <h2><b>Data Peralatan</b></h2>
                                                 </header>
@@ -192,23 +192,23 @@ function tgl_indo($tanggal)
                                                         <div class="col-md-12">
                                                             <table id="dt_basic_1" class="table table-striped table-bordered table-hover table-condensed">
                                                                 <thead>
-                                                                <tr class="bg-warning">
-                                                                    <th>No</th>
-                                                                    <th>Nama Peralatan</th>
-                                                                    <th>Jenis</th>
-                                                                    <th>Jumlah</th>
-                                                                </tr>
+                                                                    <tr class="bg-warning">
+                                                                        <th>No</th>
+                                                                        <th>Nama Peralatan</th>
+                                                                        <th>Jenis</th>
+                                                                        <th>Jumlah</th>
+                                                                    </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                <?php $nom = 1 ?>
-                                                                @foreach($peralatan as $pe)
-                                                                <tr>
-                                                                    <td>{{$nom++}}</td>
-                                                                    <td>{{ $pe->nama_peralatan }}</td>
-                                                                    <td>{{ $pe->jenis }}</td>
-                                                                    <td>{{ $pe->jml }}</td>
-                                                                </tr>
-                                                                @endforeach
+                                                                    <?php $nom = 1 ?>
+                                                                    @foreach($peralatan as $pe)
+                                                                    <tr>
+                                                                        <td>{{$nom++}}</td>
+                                                                        <td>{{ $pe->nama_peralatan }}</td>
+                                                                        <td>{{ $pe->jenis }}</td>
+                                                                        <td>{{ $pe->jml }}</td>
+                                                                    </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -239,7 +239,7 @@ function tgl_indo($tanggal)
     $('.js-example-basic-single').select2({
         width: '100%'
     });
-    
+
 
     // flatpickr("#tgl_mulai", {
     //     altInput: true,
@@ -253,6 +253,5 @@ function tgl_indo($tanggal)
     //     dateFormat: "Y-m-d",
     //     minDate: "today",
     // });
-
 </script>
 @endsection

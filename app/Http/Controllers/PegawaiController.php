@@ -46,8 +46,15 @@ class PegawaiController extends Controller
     public function store_data(Request $request)
     {
         //dd($request->all());
+        $status = 0;
+        if (!empty(Auth::guard('user')->check())) {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
 
         $array_master = [
+            'nomor_operasi' => $request->nomor_operasi,
             'nama_operasi' => $request->nama_divisi,
             'lokasi' => $request->lokasi,
             'prov_id' => $request->prov,
@@ -56,7 +63,9 @@ class PegawaiController extends Controller
             'status' => $request->status,
             'jml_personil' => $request->count_personil,
             'jml_anggaran' => str_replace('.', '', $request->anggaran),
-            'created_at' => date('Y-m-d h:i:s')
+            'created_at' => date('Y-m-d h:i:s'),
+            'is_wilayah' => $status,
+            
         ];
         DB::table('operasi')->insert($array_master);
         $last_id = DB::table('operasi')->orderBy('id', 'DESC')->first();
@@ -75,7 +84,7 @@ class PegawaiController extends Controller
             DB::table('personil')->insert($array_personil);
         }
         $count_alat = $request->count_alat;
-        
+
         for ($j = 0; $j < $count_alat; $j++) {
             $array_peralatan = [
                 'operasi_id' => $id,
@@ -86,7 +95,7 @@ class PegawaiController extends Controller
             ];
             DB::table('peralatan')->insert($array_peralatan);
         }
-        
+
         $nodetaidok_rencana = $request->nodetaidok_rencana;
         for ($dok_rencana = 0; $dok_rencana < $nodetaidok_rencana; $dok_rencana++) {
             $bukti_bayar = $request->file('dok_perencanaans')[$dok_rencana];
@@ -140,5 +149,6 @@ class PegawaiController extends Controller
             ];
             DB::table('dokumen_operasi')->insert($dok_anggaran_array);
         }
-        return redirect()->back()->with(['success'=>'Data Simpan']);    }
+        return redirect()->back()->with(['success' => 'Data Simpan']);
+    }
 }

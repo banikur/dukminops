@@ -31,7 +31,8 @@ class LoginController extends BaseController
         // Attempt to log the user in
         // Passwordnya pake bcrypt
         if (Auth::check()) { }
-
+        //1 user wilayah (polri polda)
+        //2 admin
         if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
             return redirect()->intended('/dashboard-user');
         } else if (Auth::guard('perusahaan')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 4])) {

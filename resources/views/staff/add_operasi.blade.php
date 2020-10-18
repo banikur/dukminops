@@ -44,10 +44,10 @@ Dashboard E-Report
                         <div class="row">
                             <div class="col-md-12">
                                 <form method="post" class="form-horizontal" action="{{url('/store_data')}}" enctype="multipart/form-data" id="employee_form">
-                                    <div class="jarviswidget" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
+                                    <div class="jarviswidget jarviswidget-color-magenta" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                         <header role="heading">
                                             <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
-                                            <h2>Daftar Operasi</h2>
+                                            <h2>Tambah Operasi</h2>
 
                                             <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
                                         </header>
@@ -57,7 +57,17 @@ Dashboard E-Report
                                             <div class="widget-body">
 
                                                 <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
-
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label">
+                                                                Nomor Operasi</label>
+                                                            <div class="col-sm-7">
+                                                                <input class="form-control" required="" type="text" placeholder="Nomor Operasi" name="nomor_operasi" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
@@ -122,14 +132,7 @@ Dashboard E-Report
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label class="col-sm-4 control-label">
-                                                            </label>
-                                                            <div class="col-sm-7">
-                                                                <button type="submit" onclick="konfirmasi()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;Simpan
-                                                                </button>
-                                                            </div>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -138,19 +141,19 @@ Dashboard E-Report
                                                 <ul id="myTab1" class="nav nav-tabs bordered">
 
                                                     <li class="active">
-                                                        <a href="#s1" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i>Dokumen Perencanaan</a>
+                                                        <a href="#s1" data-toggle="tab"><i class="fa fa-fw fa-lg fa-file"></i>Dokumen Perencanaan</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#s2" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i>Data Personil</a>
+                                                        <a href="#s2" data-toggle="tab"><i class="fa fa-fw fa-lg fa-user"></i>Data Personil</a>
                                                     </li>
                                                     <li>
                                                         <a href="#s3" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i>Data Peralatan</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#s4" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i>Dokumen Pelaporan Kegiatan Operasi</a>
+                                                        <a href="#s4" data-toggle="tab"><i class="fa fa-fw fa-lg fa-file"></i>Dokumen Pelaporan Kegiatan Operasi</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#s5" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i>Dokumen Pelaporan Anggaran</a>
+                                                        <a href="#s5" data-toggle="tab"><i class="fa fa-fw fa-lg fa-file"></i>Dokumen Pelaporan Anggaran</a>
                                                     </li>
                                                 </ul>
 
@@ -167,7 +170,7 @@ Dashboard E-Report
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6">
-                                                                <button type="button" id="add_dok_perencanaan" class="btn bg-color-blueLight txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
+                                                                <button type="button" id="add_dok_perencanaan" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
                                                             </div>
                                                             <input type="hidden" name="nodetaidok_rencana" id="nodetaidok_rencana" value="0" />
 
@@ -238,7 +241,7 @@ Dashboard E-Report
                                                                     <label class="col-sm-4 control-label">
                                                                     </label>
                                                                     <div class="col-sm-7">
-                                                                        <button type="button" id="add_personil" class="btn bg-color-blueLight txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
+                                                                        <button type="button" id="add_personil" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -300,10 +303,10 @@ Dashboard E-Report
                                                                     <label class="col-sm-4 control-label">
                                                                         Jenis</label>
                                                                     <div class="col-sm-7">
-                                                                    <select id="jenis_peralatan" name="jenis_peralatan" class="form-control js-example-basic-single" required maxlength="200">
-                                                                    <option selected="" value="1">Peralatan Pendukung</option>
-                                                                    <option value="2">Peralatan Utama</option>
-                                                                </select>
+                                                                        <select id="jenis_peralatan" name="jenis_peralatan" class="form-control js-example-basic-single" required maxlength="200">
+                                                                            <option selected="" value="1">Peralatan Pendukung</option>
+                                                                            <option value="2">Peralatan Utama</option>
+                                                                        </select>
                                                                         <!-- <input class="form-control" type="text" name="jenis_peralatan" id="jenis_peralatan" autocomplete="off"> -->
                                                                     </div>
                                                                 </div>
@@ -321,7 +324,7 @@ Dashboard E-Report
                                                                     <label class="col-sm-4 control-label">
                                                                     </label>
                                                                     <div class="col-sm-7">
-                                                                        <button type="button" id="add_peralatan" class="btn bg-color-blueLight txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
+                                                                        <button type="button" id="add_peralatan" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -362,7 +365,7 @@ Dashboard E-Report
                                                         <div class="row" style="padding: 2% 0 2% 0;">
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
+                                                                    <label class="col-sm-5 control-label">
                                                                         Dokumen Pelaporan Operasi</label>
                                                                     <div class="col-sm-7">
                                                                         <!-- <input type="file" accept=".pdf" class="form-control" id="dokpelaporan" name="pelaporan"> -->
@@ -370,7 +373,7 @@ Dashboard E-Report
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6">
-                                                                <button type="button" id="add_dok_laporan" class="btn bg-color-blueLight txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
+                                                                <button type="button" id="add_dok_laporan" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
                                                             </div>
                                                             <input type="hidden" name="nodetaidok_laporan" id="nodetaidok_laporan" value="0" />
                                                         </div>
@@ -405,7 +408,7 @@ Dashboard E-Report
                                                         <div class="row" style="padding: 2% 0 2% 0;">
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
+                                                                    <label class="col-sm-5 control-label">
                                                                         Dokumen Pelaporan Anggaran</label>
                                                                     <div class="col-sm-7">
                                                                         <!-- <input type="file" accept=".pdf" class="form-control" id="dok_anggaran" name="dok_anggaran"> -->
@@ -413,7 +416,7 @@ Dashboard E-Report
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6">
-                                                                <button type="button" id="add_laporan_anggaran" class="btn bg-color-blueLight txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
+                                                                <button type="button" id="add_laporan_anggaran" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
                                                             </div>
                                                             <input type="hidden" name="nodetaidok_anggaran" id="nodetaidok_anggaran" value="0" />
                                                         </div>
@@ -447,7 +450,16 @@ Dashboard E-Report
                                                 </div>
 
                                             </div>
+
                                             <hr class="simple">
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label">
+                                                </label>
+                                                <div class="col-sm-7">
+                                                    <button type="submit" onclick="konfirmasi()" class="btn btn-lg btn-success btn-sm pull-right"><i class="fa fa-save" aria-hidden="true"></i>&nbsp;&nbsp;Simpan
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -545,11 +557,11 @@ Dashboard E-Report
         var html = '';
         var no = 0;
         //var doc = $('#dok_perencanaan').val();
-        var no = parseFloat($('#nodetaidok_rencana').val()) +1;
+        var no = parseFloat($('#nodetaidok_rencana').val()) + 1;
         $('#nodetaidok_rencana').val(no);
         $('#halu').css("display", "none");
 
-        html += '<tr id="id_table_dok_perencanaan' +no + '">';
+        html += '<tr id="id_table_dok_perencanaan' + no + '">';
         // html += '<td><center>' + $('#nodetail').val() + '</center></td>';
         html += '<td><center><input type="text" class="form-control" name="name_dok_perencanaans[]"></center></td>';
         html += '<td><center><input type="file" class="form-control" name="dok_perencanaans[]"></center></td>';
@@ -572,7 +584,7 @@ Dashboard E-Report
         var html = '';
         var no = 0;
         //var doc = $('#nodetaidok_laporan').val();
-        var no = parseFloat($('#nodetaidok_laporan').val()) +1;
+        var no = parseFloat($('#nodetaidok_laporan').val()) + 1;
         $('#nodetaidok_laporan').val(no);
         $('#halu').css("display", "none");
 
@@ -599,7 +611,7 @@ Dashboard E-Report
         var html = '';
         var no = 0;
         //var doc = $('#dok_perencanaan').val();
-        var no = parseFloat($('#nodetaidok_anggaran').val()) +1;
+        var no = parseFloat($('#nodetaidok_anggaran').val()) + 1;
         $('#nodetaidok_anggaran').val(no);
         $('#halu').css("display", "none");
 

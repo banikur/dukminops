@@ -74,6 +74,11 @@
             max-height: 130px;
             max-width: 130px;
         }
+
+        .jarviswidget-color-magenta .nav-tabs li:not(.active) a,
+        .jarviswidget-color-magenta>header>.jarviswidget-ctrls a {
+            color: #000 !important;
+        }
     </style>
 
 </head>

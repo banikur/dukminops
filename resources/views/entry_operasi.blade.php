@@ -1,6 +1,6 @@
 @extends('template.backend.main')
 @section('title')
-Dashboard E-Report
+SIDUKOPS
 @endsection
 @section('ribbon')
 <ol class="breadcrumb">
@@ -72,13 +72,21 @@ function tgl_indo($tanggal)
                                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                     <header role="heading">
                                         <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
-                                        <h2>Entry Operasi</h2>
+                                        @if(Auth::guard('user')->check())
+                                        <h2>Tambah Operasi Wilayah</h2>
+                                        @else
+                                        <h2>Tambah Operasi Pusat</h2>
+                                        @endif
                                         <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
                                     </header>
                                     <div role="content">
                                         <div class="widget-body">
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;Tambah</button>
+                                                @if(Auth::guard('user')->check())
+                                                <a href="{{url('/tambah-operasi')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;Tambah</a>
+                                                @else
+                                                <a href="{{url('/tambah-operasi-pusat')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;Tambah</a>
+                                                @endif
                                             </div>
                                             <br><br><br>
                                             <table id="dt_basic_1" class="table table-hover table-bordered table-striped table-responsive">

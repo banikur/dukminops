@@ -18,17 +18,17 @@
             <li>
                 <a href="{{url('/dashboard-user')}}" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
+            <!-- <li>
+                <a href="{{url('/daftar-sarpas-unras')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Data SARPAS UNRAS</span></a>
+            </li> -->
             <li>
-                <a href="{{url('/daftar-sarpas-unras')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">SARPAS UNRAS</span></a>
-            </li>
-            <li>
-                <a href="{{url('/entry-operasi')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Entry Operasi</span></a>
+                <a href="{{url('/entry-operasi')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Operasi Wilayah</span></a>
             </li>
             @elseif(Auth::guard('hrd')->check())
             <li>
                 <a href="{{url('/dashboard-hrd')}}" title="Dashboard"><i class="fa fa-lg fa-fw fa-tachometer"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{url('/employee-dashboard')}}" title="Data Pegawai"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">Pegawai</span></a>
             </li>
             <li>
@@ -39,7 +39,7 @@
             </li>
             <li>
                 <a href="{{url('/penilaian-pegawai-dashboard')}}" title="Peniliain Pegawai"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Penilaian Pegawai</span></a>
-            </li>
+            </li> -->
             <li>
                 <a href="{{url('master/provinsi-dashboard')}}" title="Master Provinsi"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">Master Provinsi</span></a>
             </li>
@@ -48,6 +48,9 @@
             </li>
             <li>
                 <a href="{{url('master/jenis-peralatan-dashboard')}}" title="Master Jenis Peralatan"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">Master Jenis Peralatan</span></a>
+            </li>
+            <li>
+                <a href="{{url('/list-operasi-all')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Operasi Pusat</span></a>
             </li>
             @endif
         </ul>
