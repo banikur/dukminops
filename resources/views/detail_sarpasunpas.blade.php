@@ -170,7 +170,7 @@ function tgl_indo($tanggal)
                                                                         <td>{{$no++}}</td>
                                                                         <td>{{ $p->nama_personil }}</td>
                                                                         <td>{{ $p->nip }}</td>
-                                                                        <td>{{ $p->pangkat }}</td>
+                                                                        <td>{{ $p->nama_pangkat }}</td>
                                                                         <td>{{ $p->satuan_asal }}</td>
                                                                     </tr>
                                                                     @endforeach
