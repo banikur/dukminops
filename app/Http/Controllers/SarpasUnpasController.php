@@ -25,7 +25,9 @@ class SarpasUnpasController extends Controller
     {
         $data['operasi'] = DB::table('operasi')->where('id', $id)->first();
         $data['peralatan'] = DB::table('peralatan')->where('operasi_id', $id)->get();
-        $data['personil'] = DB::table('personil')->where('operasi_id', $id)->get();
+        $data['personil'] = DB::table('personil')
+                            ->leftjoin('master_pangkat as mp','mp.id','=','personil.pangkat')
+                            ->where('operasi_id', $id)->get();
         $data['provinsi'] = DB::table('master_provinsi')->get();
         $data['no'] = 1;
 

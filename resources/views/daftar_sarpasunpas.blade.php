@@ -117,9 +117,15 @@ function tgl_indo($tanggal)
                                                         <td>
                                                             <center>{{ tgl_indo($op->tgl_mulai) }}</center>
                                                         </td>
-                                                        <td>
-                                                            <center>{{ $op->status }}</center>
-                                                        </td>
+                                                        @if($op->status==1)
+                                                        <td><center>Perencanaan</center></td>
+                                                        @elseif($op->status==2)
+                                                        <td><center>Berlangsung</center></td>
+                                                        @elseif($op->status==3)
+                                                        <td><center>Selesai</center></td>
+                                                        @elseif($op->status==4)
+                                                        <td><center>Dilanjutkan</center></td>
+                                                        @endif
                                                         <td>
                                                             <center>
                                                                 <a href="{{ url('/daftar-sarpas-unras/detail/'.$op->id) }}" class="btn btn-sm btn-warning">Detail</a>
