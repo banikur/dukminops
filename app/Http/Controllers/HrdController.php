@@ -34,7 +34,8 @@ class HrdController extends Controller
         $bulan = date('m');
         $data['user'] = Auth::user();
 
-
+        $data['cek'] = DB::table('users_detail')->where('id_user', Auth::guard('hrd')->user()->id)->count();
+        // dd($data);
         // dd($data);
         return view('hr_view.dashboard_hrd', $data);
     }
