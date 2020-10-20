@@ -21,6 +21,8 @@ class LoginController extends BaseController
         return view('template.front_login.login');
     }
 
+    
+
     public function postLogin(Request $request)
     {
         // Validate the form data
