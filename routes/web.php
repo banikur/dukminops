@@ -15,7 +15,8 @@ Route::get('/', function () {
     return view('template.front.index');
 });
 
-Route::get('/absence-input/{data}/{date}', 'VerifiedController@postdata')->name('logout');
+// Route::get('/absence-input/{data}/{date}', 'VerifiedController@postdata')->name('logout');
+Route::get('/data_map', 'VerifiedController@get_map')->name('get_map');
 
 Auth::routes();
 Route::namespace('Auth')->group(function () {
@@ -51,7 +52,7 @@ Route::name('hrd')->middleware('auth:hrd')->group(function () {
     });
     Route::get('/tambah-operasi-pusat', 'PegawaiController@add_operasi_index')->name('admin.add_operasi');
     Route::get('/list-operasi-all', 'EntryOperasiController@index')->name('admin.list-operasi');
-
+    Route::post('/store_data_pusat','PegawaiController@store_data');
     
 });
 

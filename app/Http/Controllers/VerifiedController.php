@@ -26,41 +26,17 @@ class VerifiedController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function postdata($data, $date)
+
+    public function get_map()
     {
-        date_default_timezone_set("Asia/Bangkok");
-        $tanggalskr = date('Y-m-d H:i:s');
-        $dates  = date('Y-m-d');
-
-        $users = DB::table('employee')->where('nip', base64_decode($data))->get();
-        $cek_absen = DB::table('tbl_absensi')->where('id_pegawai', $users[0]->id_empl)
-            ->whereDate('created_at', $dates)
-            ->first();
-        
-        $batas = date('08:00:00');
-        if (empty($cek_absen)) {
-            $jam_masuk = date('H:i:s');
-            if ($jam_masuk > $batas) {
-                $status = 2;
-            } else {
-                $status = 1;
-            }
-            $data = [
-                'created_at' => $tanggalskr,
-                'jam_masuk' => $jam_masuk,
-                'id_pegawai'=>$users[0]->id_empl,
-                'status_keterlambatan' => $status,
-                'tgl_absen' => $tanggalskr,
-            ];
-            DB::table('tbl_absensi')->insert($data);
-        } else {
-            $id_absen = $cek_absen->id_absensi;
-            DB::table('tbl_absensi')->where('id_absensi', $id_absen)->update([
-                'jam_keluar' => $tanggalskr,
-            ]);
+        $prov = DB::table('master_provinsi')->get();
+        foreach ($prov as $key) {
+            $seriesData['kode_provinsi'][] = $key->kode_provinsi;
+            $seriesData['count'][] = DB::table('operasi')->where('prov_id', $key->id)->count();
         }
+        $series[] = $seriesData;
+        $seriesData = [];
 
-
-        return view('_blank')->with('message', 'Data Berhasil Disimpan');
+        return json_encode($series,true);
     }
 }
