@@ -78,9 +78,15 @@ function tgl_indo($tanggal)
                                             <div class="widget-body">
 
                                                 <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
-
                                                 <div class="row">
                                                     <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label">
+                                                                Nomor Operasi</label>
+                                                            <div class="col-sm-7">
+                                                                <input class="form-control" required="" type="text" placeholder="Nomor Operasi" name="nomor_operasi" value="{{$operasi->nomor_operasi}}" autocomplete="off">
+                                                            </div>
+                                                        </div>
                                                         <div class="form-group">
                                                             <label class="col-sm-4 control-label">
                                                                 Nama Operasi</label>
@@ -115,11 +121,19 @@ function tgl_indo($tanggal)
                                                             <label class="col-sm-4 control-label">
                                                                 Provinsi</label>
                                                             <div class="col-sm-7">
-                                                                <select id="prov" name="prov" class="form-control js-example-basic-single" required maxlength="200">
+                                                                <select id="prov" name="prov" onchange="getKabupaten()" class="form-control js-example-basic-single" required maxlength="200">
                                                                     <option selected="" disabled="">-- PILIH --</option>
                                                                     @foreach($provinsi as $z)
                                                                     <option value="{{$z->id}}" @if($operasi->prov_id==$z->id) selected @endif>{{$z->nama_prov}}</option>
                                                                     @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label">
+                                                                Kabupaten</label>
+                                                            <div class="col-sm-7">
+                                                                <select class="form-control" id="kabupaten" name="kabupaten">
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -265,7 +279,7 @@ function tgl_indo($tanggal)
                                                                             <td>{{$no++}}</td>
                                                                             <td>{{$p->nama_personil}}</td>
                                                                             <td>{{$p->nip}}</td>
-                                                                            <td>{{$p->pangkat}}</td>
+                                                                            <td>{{$p->nama_pangkat}}</td>
                                                                             <td>{{$p->satuan_asal}}</td>
                                                                         </tr>
                                                                         @endforeach
@@ -311,7 +325,7 @@ function tgl_indo($tanggal)
                                                                         <tr>
                                                                             <td>{{$no++}}</td>
                                                                             <td>{{$pe->nama_peralatan}}</td>
-                                                                            <td>{{$pe->jenis}}</td>
+                                                                            <td>{{($pe->jenis==1)?'Peralatan Pendukung':'Peralatan Utama'}}</td>
                                                                             <td>{{$pe->jml}}</td>
                                                                         </tr>
                                                                         @endforeach
@@ -402,9 +416,6 @@ function tgl_indo($tanggal)
                                                                             <th>
                                                                                 Dokumen
                                                                             </th>
-                                                                            <th>
-                                                                                Aksi
-                                                                            </th>
                                                                         </tr>
                                                                     </thead>
                                                                     <?php $no = 1; ?>
@@ -445,6 +456,7 @@ function tgl_indo($tanggal)
 <script>
     $(document).ready(function() {
         setMask();
+        getKabupaten();
         $('#pangkat').select2({
             width: '100%'
         });
@@ -484,6 +496,28 @@ function tgl_indo($tanggal)
     //     dateFormat: "Y-m-d",
     //     minDate: "today",
     // });
+    function getKabupaten(){
+        var provinsi = $('#prov').val();
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+        $.get('{{URL::to("/entry-operasi/prov")}}',{ provinsi:provinsi,_token:token},function(data){
+
+            var html = '';
+            var kabkota_id = '{{$operasi->kabkota_id}}';
+            var selec = '';
+            $.each(data, function( index, value ) {
+                
+            if(kabkota_id == value.id){
+                selec = 'selected';
+            }else{
+                selec = '';
+            }
+                html += '<option value="'+value.id+'" '+selec+'>'+value.kab_kota+'</option>';
+            });
+
+            $('#kabupaten').append(html);
+        })
+    }
 
     function refresh() {
         setTimeout(function() {

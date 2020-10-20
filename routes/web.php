@@ -53,6 +53,10 @@ Route::name('hrd')->middleware('auth:hrd')->group(function () {
     Route::get('/list-operasi-all', 'EntryOperasiController@index')->name('admin.list-operasi');
     Route::get('/list-operasi-all/detail/{id}', 'PegawaiController@detail_operasi')->name('admin.detail_operasi');
     Route::get('/list-operasi-all/edit/{id}', 'PegawaiController@edit_operasi')->name('admin.edit_operasi');
+    
+    //user management
+    Route::get('/user-management','UserManagementController@index');
+    Route::get('/user-management/prov', 'UserManagementController@getProvinsi');
 
     
 });
@@ -62,6 +66,7 @@ Route::name('user')->middleware('auth:user')->group(function () {
     Route::get('/tambah-operasi', 'PegawaiController@add_operasi_index')->name('add_operasi_index.user');
     Route::get('/entry-operasi/detail/{id}', 'PegawaiController@detail_operasi')->name('detail_operasi.user');
     Route::get('/entry-operasi/edit/{id}', 'PegawaiController@edit_operasi')->name('edit_operasi.user');
+    Route::get('/entry-operasi/prov', 'PegawaiController@getProvinsi')->name('getprovinsi.user');
     
     //Sarpas Unras
     Route::get('/daftar-sarpas-unras','SarpasUnpasController@index');
@@ -71,4 +76,5 @@ Route::name('user')->middleware('auth:user')->group(function () {
     Route::get('/entry-operasi','EntryOperasiController@index');
 
     Route::post('/store_data','PegawaiController@store_data');
+    Route::post('/update_data','PegawaiController@update_data');
  });

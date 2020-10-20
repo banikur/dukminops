@@ -52,6 +52,9 @@
             <li>
                 <a href="{{url('/list-operasi-all')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Operasi Pusat</span></a>
             </li>
+            <li>
+                <a href="{{url('/user-management')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">User Management</span></a>
+            </li>
             @endif
         </ul>
 

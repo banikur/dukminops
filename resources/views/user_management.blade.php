@@ -72,65 +72,46 @@ function tgl_indo($tanggal)
                                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                     <header role="heading">
                                         <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
-                                        @if(Auth::guard('user')->check())
-                                        <h2>Tambah Operasi Wilayah</h2>
-                                        @else
-                                        <h2>Tambah Operasi Pusat</h2>
-                                        @endif
+                                        <h2>User Management</h2>
                                         <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
                                     </header>
                                     <div role="content">
                                         <div class="widget-body">
                                             <div class="col-md-12">
-                                                @if(Auth::guard('user')->check())
-                                                <a href="{{url('/tambah-operasi')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;Tambah</a>
-                                                @else
-                                                <a href="{{url('/tambah-operasi-pusat')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;Tambah</a>
-                                                @endif
+                                            <!-- tambah -->
                                             </div>
                                             <br><br><br>
                                             <table id="dt_basic_1" class="table table-hover table-bordered table-striped table-responsive">
-                                                <thead> 
+                                                <thead>
                                                     <tr>
                                                         <th><center>No.</center></th>
-                                                        <th><center>Nama Operasi</center></th>
-                                                        <th><center>Jenis Operasi</center></th>
-                                                        <th><center>Lokasi</center></th>
-                                                        <th><center>Jumlah Personil</center></th>
-                                                        <th><center>Tgl. Mulai Operasi</center></th>
-                                                        <th><center>Status Operasi</center></th>
+                                                        <th><center>Nama</center></th>
+                                                        <th><center>Email</center></th>
+                                                        <th><center>Status User</center></th>
                                                         <th><center>Aksi</center></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php $no=1 ?>
-                                                    @foreach($operasi as $op)
+                                                    <?php $detail = DB::table('users_detail')->get() ?>
+                                                    @foreach($user as $u)
                                                     <tr>
-                                                        <td><center>{{ $no++ }}</center></td>
-                                                        <td><center>{{ $op->nama_operasi }}</center></td>
-                                                        <th><center></center></th>
-                                                        <td><center>{{ $op->lokasi }}</center></td>
-                                                        <td><center>{{ $op->jml_personil }}</center></td>
-                                                        <td><center>{{ tgl_indo($op->tgl_mulai) }}</center></td>
-                                                        @if($op->status==1)
-                                                        <td><center>Perencanaan</center></td>
-                                                        @elseif($op->status==2)
-                                                        <td><center>Berlangsung</center></td>
-                                                        @elseif($op->status==3)
-                                                        <td><center>Selesai</center></td>
-                                                        @elseif($op->status==4)
-                                                        <td><center>Dilanjutkan</center></td>
+                                                        <td><center>{{$no++}}</center></td>
+                                                        <td><center>{{$u->name}}</center></td>
+                                                        <td><center>{{$u->name}}</center></td>
+                                                        @if($u->id != $u->id_user)
+                                                        <td><center>Admin</center></td>
+                                                        @elseif(!empty($u->id_provinsi) && empty($u->id_kab_kota))
+                                                        <td><center>Polda</center></td>
+                                                        @elseif(!empty($u->id_provinsi) && !empty($u->id_kab_kota))
+                                                        <td><center>Polres</center></td>
+                                                        @else
+                                                        <td><center></center></td>
                                                         @endif
                                                         <td>
-                                                        <center>
-                                                        @if(Auth::guard('user')->check())
-                                                           <a href="{{url('/entry-operasi/detail/'.$op->id)}}" class="btn btn-sm btn-warning">Detail</a>
-                                                           <a href="{{url('/entry-operasi/edit/'.$op->id)}}" class="btn btn-sm btn-success">Edit</a>
-                                                        @else
-                                                            <a href="{{url('/list-operasi-all/detail/'.$op->id)}}" class="btn btn-sm btn-warning">Detail</a>
-                                                            <a href="{{url('/list-operasi-all/edit/'.$op->id)}}" class="btn btn-sm btn-success">Edit</a>
-                                                        @endif
-                                                        </center>
+                                                            <center>
+                                                                <button class="btn btn-sm btn-primary" onclick="edit(this)" data-item="{{json_encode($u)}}"><i class="fa fa-edit"></i>&nbsp;Edit</button>
+                                                                <button class="btn btn-sm btn-warning" onclick="view(this)" data-item="{{json_encode($u)}}"><i class="fa fa-edit"></i>&nbsp;Detail</button>
+                                                            </center>
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -148,19 +129,33 @@ function tgl_indo($tanggal)
     </div>
 </div>
 
-  <div class="modal fade" id="tambah-master" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="edit-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="exampleModalLabel">Tambah Master Jenis Peralatan</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Edit User Management</h4>
             </div>
-            <form id="formTambah" action="{{ url('master/jenis-peralatan-dashboard/tambah') }}" method="POST">
+            <form id="formTambah" action="" method="POST">
             @csrf
                 <div class="modal-body">
+                    <input type="hidden" name="id_kab_kota" id="id_kab_kota">
                     <div class="form-group">
-                        <label for="jenis_peralatan" class="col-form-label">Jenis Peralatan</label>
-                        <input type="text" class="form-control" id="jenis_peralatan" name="jenis_peralatan">
+                        <label for="jenis_peralatan" class="col-form-label">Nama User</label>
+                        <input type="text" class="form-control" id="nama_user" name="nama_user">
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_peralatan" class="col-form-label">Provinsi</label>
+                        <select class="form-control" name="prov_detail" id="prov_detail" onchange="getKabupaten()">
+                            @foreach($provinsi as $p)
+                                <option value="{{$p->id}}">{{$p->nama_prov}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_peralatan" class="col-form-label">Kabupaten</label>
+                        <select class="form-control" name="kab_detail" id="kab_detail">
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -172,7 +167,7 @@ function tgl_indo($tanggal)
     </div>
   </div>
 
-  <div class="modal fade" id="edit-master" role="dialog">
+  <div class="modal fade" id="view-user" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -203,6 +198,41 @@ function tgl_indo($tanggal)
     $(document).ready(function() {
         $('#dt_basic_1').DataTable();
     })
+
+    function edit(obj){
+        var item = $(obj).data('item');
+        getKabupaten();
+        console.log(item);
+        $('#nama_user').val(item.name);
+        $('#prov_detail').val(item.id_provinsi);
+        $('#id_kab_kota').val(item.id_kab_kota);
+
+        $('#edit-user').modal('show');
+    }
+
+    function getKabupaten(){
+        var provinsi = $('#prov_detail').val();
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+        $.get('{{URL::to("/user-management/prov")}}',{ provinsi:provinsi,_token:token},function(data){
+
+            var html = '';
+            var kabkota_id = $('#id_kab_kota').val();
+            console.log(kabkota_id);
+            var selec = '';
+            $.each(data, function( index, value ) {
+                
+            if(kabkota_id == value.id){
+                selec = 'selected';
+            }else{
+                selec = '';
+            }
+                html += '<option value="'+value.id+'" '+selec+'>'+value.kab_kota+'</option>';
+            });
+
+            $('#kab_detail').append(html);
+        })
+    }
 
     function EditMaster(obj){
         var data = $(obj).data('item');

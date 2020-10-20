@@ -66,10 +66,6 @@ Dashboard E-Report
                                                                 <input class="form-control" required="" type="text" placeholder="Nomor Operasi" name="nomor_operasi" autocomplete="off">
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label class="col-sm-4 control-label">
                                                                 Nama Operasi</label>
@@ -109,6 +105,14 @@ Dashboard E-Report
                                                                     @foreach($provinsi as $z)
                                                                     <option value="{{$z->id}}">{{$z->nama_prov}}</option>
                                                                     @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label">
+                                                                Kabupaten</label>
+                                                            <div class="col-sm-7">
+                                                                <select class="form-control" id="kabupaten" name="kabupaten">
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -517,6 +521,21 @@ Dashboard E-Report
         altFormat: "d-m-Y",
         dateFormat: "Y-m-d",
         minDate: "today",
+    });
+
+    $('#prov').on('change', function(){
+        var provinsi = $('#prov').val();
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+        $.get('{{URL::to("/entry-operasi/prov")}}',{ provinsi:provinsi,_token:token},function(data){
+            var html = '';
+
+            $.each(data, function( index, value ) {
+                html += '<option value="'+value.id+'">'+value.kab_kota+'</option>';
+            });
+
+            $('#kabupaten').append(html);
+        })
     });
 
     function refresh() {
