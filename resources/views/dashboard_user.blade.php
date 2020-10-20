@@ -161,9 +161,9 @@ Dashboard E-Report
         $.get("{{route('get_map')}}", function(data) {
             json = JSON.parse(data);
             console.log(json);
-            var data = [
-                [json.kode_provinsi, json.count],
-            ];
+            // var data = [
+            //     [json.kode_provinsi, json.count],
+            // ];
             Highcharts.mapChart('maps', {
                 chart: {
                     map: 'countries/id/id-all'
@@ -188,7 +188,7 @@ Dashboard E-Report
                 },
 
                 series: [{
-                    data: data,
+                    data: json.kode,
                     name: 'Jumlah Operasi',
                     states: {
                         hover: {

@@ -59,7 +59,10 @@ Route::name('hrd')->middleware('auth:hrd')->group(function () {
     Route::get('/user-management','UserManagementController@index');
     Route::get('/user-management/prov', 'UserManagementController@getProvinsi');
 
-    
+    Route::post('/pusat/store_data','PegawaiController@store_data');
+    Route::post('/pusat/update_data','PegawaiController@update_data');
+    Route::get('/pusat/entry-operasi/prov', 'PegawaiController@getProvinsi')->name('getprovinsi.user');
+
 });
 
 Route::name('user')->middleware('auth:user')->group(function () {
