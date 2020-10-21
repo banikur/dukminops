@@ -167,25 +167,37 @@ function tgl_indo($tanggal)
     </div>
   </div>
 
-  <div class="modal fade" id="view-user" role="dialog">
-    <div class="modal-dialog">
+  <div class="modal fade" id="view-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Master Jenis Peralatan</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Edit User Management</h4>
             </div>
-            <form id="formEdit" action="{{url('master/jenis-peralatan-dashboard/edit')}}" method="post">
+            <form id="formView" action="" method="POST">
             @csrf
                 <div class="modal-body">
-                    <input type="hidden" id="id_edit" name="id_edit">
+                    <input type="hidden" name="id_kab_kota" id="id_kab_kotap">
                     <div class="form-group">
-                        <label for="jenis_peralatan_edit" class="col-form-label">Jenis Peralatan</label>
-                        <input type="text" class="form-control" id="jenis_peralatan_edit" name="jenis_peralatan_edit">
+                        <label for="jenis_peralatan" class="col-form-label">Nama User</label>
+                        <input type="text" class="form-control" id="nama_userp" name="nama_user">
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_peralatan" class="col-form-label">Provinsi</label>
+                        <select class="form-control" name="prov_detail" id="prov_detailp" onchange="getKabupaten()">
+                            @foreach($provinsi as $p)
+                                <option value="{{$p->id}}">{{$p->nama_prov}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_peralatan" class="col-form-label">Kabupaten</label>
+                        <select class="form-control" name="kab_detail" id="kab_detailp">
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                    <button tton type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
@@ -201,37 +213,75 @@ function tgl_indo($tanggal)
 
     function edit(obj){
         var item = $(obj).data('item');
-        getKabupaten();
-        console.log(item);
+        $('#prov_detail').val('');
+        $('#kab_detail').val('');
         $('#nama_user').val(item.name);
         $('#prov_detail').val(item.id_provinsi);
         $('#id_kab_kota').val(item.id_kab_kota);
 
+        getKabupaten();
         $('#edit-user').modal('show');
+    }
+
+    function view(obj){
+        var item = $(obj).data('item');
+        
+        $('#prov_detailp').val('');
+        $('#kab_detailp').val('');
+        $('#nama_userp').val(item.name);
+        $('#prov_detailp').val(item.id_provinsi);
+        $('#id_kab_kotap').val(item.id_kab_kota);
+
+        var provinsi = $('#prov_detailp').val();
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+        if(provinsi){
+            $.get('{{URL::to("/user-management/prov")}}',{ provinsi:provinsi,_token:token},function(data){
+
+                var html = '';
+                var kabkota_id = $('#id_kab_kotap').val();
+                var selec = '';
+                $.each(data, function( index, value ) {
+                    if(kabkota_id == value.id){
+                        selec = 'selected';
+                    }else{
+                        selec = '';
+                    }
+                    html += '<option value="'+value.id+'" '+selec+'>'+value.kab_kota+'</option>';
+                });
+
+                $('#kab_detailp').append(html);
+            })
+        }else{
+            $('#prov_detailp').val('');
+            $('#kab_detailp').val('');
+        }
+        $('#view-user').modal('show');
     }
 
     function getKabupaten(){
         var provinsi = $('#prov_detail').val();
         var token = $('meta[name="csrf-token"]').attr('content');
+        if(provinsi){
+            $.get('{{URL::to("/user-management/prov")}}',{ provinsi:provinsi,_token:token},function(data){
+                var html = '';
+                var kabkota_id = $('#id_kab_kota').val();
+                var selec = '';
+                $.each(data, function( index, value ) {
+                    if(kabkota_id == value.id){
+                        selec = 'selected';
+                    }else{
+                        selec = '';
+                    }
+                    html += '<option value="'+value.id+'" '+selec+'>'+value.kab_kota+'</option>';
+                });
 
-        $.get('{{URL::to("/user-management/prov")}}',{ provinsi:provinsi,_token:token},function(data){
-
-            var html = '';
-            var kabkota_id = $('#id_kab_kota').val();
-            console.log(kabkota_id);
-            var selec = '';
-            $.each(data, function( index, value ) {
-                
-            if(kabkota_id == value.id){
-                selec = 'selected';
-            }else{
-                selec = '';
-            }
-                html += '<option value="'+value.id+'" '+selec+'>'+value.kab_kota+'</option>';
-            });
-
-            $('#kab_detail').append(html);
-        })
+                $('#kab_detail').append(html);
+            })
+        }else{
+            $('#prov_detail').val('');
+            $('#kab_detail').val('');
+        }
     }
 
     function EditMaster(obj){
