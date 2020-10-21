@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use DB;
 
 
 class LoginController extends BaseController
@@ -21,7 +22,7 @@ class LoginController extends BaseController
         return view('template.front_login.login');
     }
 
-    
+
 
     public function postLogin(Request $request)
     {
@@ -35,6 +36,7 @@ class LoginController extends BaseController
         if (Auth::check()) { }
         //1 user wilayah (polri polda)
         //2 admin
+
         if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
             return redirect()->intended('/dashboard-user');
         } else if (Auth::guard('perusahaan')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 4])) {
@@ -54,7 +56,7 @@ class LoginController extends BaseController
             Auth::guard('perusahaan')->logout();
         } elseif (Auth::guard('hrd')->check()) {
             Auth::guard('hrd')->logout();
-        }elseif (Auth::guard('web')->check()) {
+        } elseif (Auth::guard('web')->check()) {
             Auth::guard('web')->logout();
         }
 

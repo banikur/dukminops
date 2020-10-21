@@ -231,7 +231,11 @@ function tgl_indo($tanggal)
                                                                         @foreach($dokumenRencana as $d)
                                                                         <tr>
                                                                             <td><input type="hidden" value="{{$d->nama_dokumen}}" name="name_dok_perencanaans[]">{{$d->nama_dokumen}}</td>
-                                                                            <td><input type="file" style="display:none;" value="{{$d->dokumen}}" class="form-control" name="dok_perencanaans[]"><a href="{{$d->path}}" class="btn btn-default">Dokumen</a></td>
+                                                                            <td><input type="file" style="display:none;" value="{{$d->dokumen}}" class="form-control" name="dok_perencanaans[]">
+                                                                            <?php
+                                                                                $dokumen = $d->path.$d->dokumen;
+                                                                            ?>
+                                                                            <a target="download" href="<?php echo asset($d->path.$d->dokumen);?>" class="btn btn-default">Dokumen</a></td>
                                                                             <td><center><button type="button" onclick="delete_detail(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>
                                                                         </tr>
                                                                         @endforeach
@@ -594,23 +598,33 @@ function tgl_indo($tanggal)
         var provinsi = $('#prov').val();
         var token = $('meta[name="csrf-token"]').attr('content');
 
-        $.get('{{URL::to("/entry-operasi/prov")}}',{ provinsi:provinsi,_token:token},function(data){
-
+        @if(Auth::guard('user')->check())
+        $.get('{{URL::to("/entry-operasi/prov")}}', {
+            provinsi: provinsi,
+            _token: token
+        }, function(data) {
             var html = '';
-            var kabkota_id = '{{$operasi->kabkota_id}}';
-            var selec = '';
-            $.each(data, function( index, value ) {
-                
-            if(kabkota_id == value.id){
-                selec = 'selected';
-            }else{
-                selec = '';
-            }
-                html += '<option value="'+value.id+'" '+selec+'>'+value.kab_kota+'</option>';
+
+            $.each(data, function(index, value) {
+                html += '<option value="' + value.id + '">' + value.kab_kota + '</option>';
             });
 
             $('#kabupaten').append(html);
         })
+        @else
+        $.get('{{URL::to("/pusat/entry-operasi/prov")}}', {
+            provinsi: provinsi,
+            _token: token
+        }, function(data) {
+            var html = '';
+
+            $.each(data, function(index, value) {
+                html += '<option value="' + value.id + '">' + value.kab_kota + '</option>';
+            });
+
+            $('#kabupaten').append(html);
+        })
+        @endif
     }
 
     function refresh() {

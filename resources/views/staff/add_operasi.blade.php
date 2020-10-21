@@ -43,7 +43,15 @@ Dashboard E-Report
                         @endif
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" class="form-horizontal" action="{{url('/store_data')}}" enctype="multipart/form-data" id="employee_form">
+                                <?php $link;
+                                if (Auth::guard('user')->check()) {
+                                    $link = url('/store_data');
+                                } else {
+                                    $link = url('/pusat/store_data');
+                                }
+
+                                ?>
+                                <form method="post" class="form-horizontal" action="{{$link}}" enctype="multipart/form-data" id="employee_form">
                                     <div class="jarviswidget jarviswidget-color-magenta" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                         <header role="heading">
                                             <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
@@ -112,7 +120,7 @@ Dashboard E-Report
                                                             <label class="col-sm-4 control-label">
                                                                 Kabupaten</label>
                                                             <div class="col-sm-7">
-                                                                <select class="form-control" id="kabupaten" name="kabupaten">
+                                                                <select class="form-control js-example-basic-single" id="kabupaten" name="kabupaten">
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -514,28 +522,45 @@ Dashboard E-Report
         altInput: true,
         altFormat: "d-m-Y",
         dateFormat: "Y-m-d",
-        minDate: "today",
+        // minDate: "today",
     });
     flatpickr("#tgl_start", {
         altInput: true,
         altFormat: "d-m-Y",
         dateFormat: "Y-m-d",
-        minDate: "today",
+        // minDate: "today",
     });
 
-    $('#prov').on('change', function(){
+    $('#prov').on('change', function() {
         var provinsi = $('#prov').val();
         var token = $('meta[name="csrf-token"]').attr('content');
-
-        $.get('{{URL::to("/entry-operasi/prov")}}',{ provinsi:provinsi,_token:token},function(data){
+        @if(Auth::guard('user')->check())
+        $.get('{{URL::to("/entry-operasi/prov")}}', {
+            provinsi: provinsi,
+            _token: token
+        }, function(data) {
             var html = '';
 
-            $.each(data, function( index, value ) {
-                html += '<option value="'+value.id+'">'+value.kab_kota+'</option>';
+            $.each(data, function(index, value) {
+                html += '<option value="' + value.id + '">' + value.kab_kota + '</option>';
             });
 
             $('#kabupaten').append(html);
         })
+        @else
+        $.get('{{URL::to("/pusat/entry-operasi/prov")}}', {
+            provinsi: provinsi,
+            _token: token
+        }, function(data) {
+            var html = '';
+
+            $.each(data, function(index, value) {
+                html += '<option value="' + value.id + '">' + value.kab_kota + '</option>';
+            });
+
+            $('#kabupaten').append(html);
+        })
+        @endif
     });
 
     function refresh() {

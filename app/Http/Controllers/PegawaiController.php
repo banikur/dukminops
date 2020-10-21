@@ -62,11 +62,11 @@ class PegawaiController extends Controller
             'tgl_selesai' => $request->tgl_end,
             'status' => $request->status,
             'jml_personil' => $request->count_personil,
-            'jml_anggaran' => str_replace('.', '', $request->anggaran),
+            'jml_anggaran' => str_replace('.', '', str_replace(',', '.', $request->anggaran)),
             'created_at' => date('Y-m-d h:i:s'),
             'is_wilayah' => $status,
             "kabkota_id" => $request->kabupaten,
-            
+
         ];
         DB::table('operasi')->insert($array_master);
         $last_id = DB::table('operasi')->orderBy('id', 'DESC')->first();
@@ -106,7 +106,7 @@ class PegawaiController extends Controller
             $bukti_bayar->move($destination, $nama_file2);
             $dok_rencana_array = [
                 'id_operasi' => $id,
-                'path' => $destination,
+                'path' => 'upload-dokumen/dok_rencana/',
                 'nama_dokumen' => $request->name_dok_perencanaans[$dok_rencana],
                 'created_at' => date('Y-m-d h:i:s'),
                 'kategori_dokumen' => 1,
@@ -124,7 +124,7 @@ class PegawaiController extends Controller
 
             $dok_laporan_array = [
                 'id_operasi' => $id,
-                'path' => $destination,
+                'path' => 'upload-dokumen/dok_laporan/',
                 'nama_dokumen' => $request->name_dok_pelaporan[$dok_laporan],
                 'created_at' => date('Y-m-d h:i:s'),
                 'kategori_dokumen' => 2,
@@ -142,7 +142,7 @@ class PegawaiController extends Controller
 
             $dok_anggaran_array = [
                 'id_operasi' => $id,
-                'path' => $destination,
+                'path' => 'upload-dokumen/dok_anggaran/',
                 'nama_dokumen' => $request->name_dok_anggaran[$dok_anggaran],
                 'created_at' => date('Y-m-d h:i:s'),
                 'kategori_dokumen' => 3,
@@ -150,7 +150,7 @@ class PegawaiController extends Controller
             ];
             DB::table('dokumen_operasi')->insert($dok_anggaran_array);
         }
-        return redirect()->back()->with(['success'=>'Data Simpan']);
+        return redirect()->back()->with(['success' => 'Data Simpan']);
     }
 
     public function detail_operasi($id)
@@ -160,35 +160,37 @@ class PegawaiController extends Controller
         $data['master_pangkat'] = DB::table('master_pangkat')->get();
 
         $data['operasi'] = DB::table('operasi')->where('id', $id)->first();
-        $data['dokumenRencana'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen',1)->get();
+        $data['dokumenRencana'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 1)->get();
         $data['personil'] = DB::table('personil')
-                            ->leftjoin('master_pangkat','master_pangkat.id','=','personil.pangkat')
-                            ->where('operasi_id', $id)->get();
+            ->leftjoin('master_pangkat', 'master_pangkat.id', '=', 'personil.pangkat')
+            ->where('operasi_id', $id)->get();
         $data['peralatan'] = DB::table('peralatan')->where('operasi_id', $id)->get();
-        $data['dokumenPelaporan'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen',2)->get();
-        $data['dokumenAnggaran'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen',3)->get();
-        
+        $data['dokumenPelaporan'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 2)->get();
+        $data['dokumenAnggaran'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 3)->get();
+
         return view('staff.detail_operasi', $data);
     }
 
-    public function edit_operasi($id){
+    public function edit_operasi($id)
+    {
         $data['user'] = Auth::user();
         $data['provinsi'] = DB::table('master_provinsi')->get();
         $data['master_pangkat'] = DB::table('master_pangkat')->get();
 
         $data['operasi'] = DB::table('operasi')->where('id', $id)->first();
-        $data['dokumenRencana'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen',1)->get();
+        $data['dokumenRencana'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 1)->get();
         $data['personil'] = DB::table('personil')
-                            ->leftjoin('master_pangkat','master_pangkat.id','=','personil.pangkat')
-                            ->where('operasi_id', $id)->get();
+            ->leftjoin('master_pangkat', 'master_pangkat.id', '=', 'personil.pangkat')
+            ->where('operasi_id', $id)->get();
         $data['peralatan'] = DB::table('peralatan')->where('operasi_id', $id)->get();
-        $data['dokumenPelaporan'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen',2)->get();
-        $data['dokumenAnggaran'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen',3)->get();
-        
+        $data['dokumenPelaporan'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 2)->get();
+        $data['dokumenAnggaran'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 3)->get();
+
         return view('staff.edit_operasi', $data);
     }
 
-    public function update_data(Request $request){
+    public function update_data(Request $request)
+    {
         // dd($req);
         $status = 0;
         if (!empty(Auth::guard('user')->check())) {
@@ -215,7 +217,7 @@ class PegawaiController extends Controller
             "kabkota_id" => $request->kabupaten,
         ];
         DB::table('operasi')->where('id', $id_operasi)->update($array_master);
-        
+
         //Edit Table Personil
         $del_personil = DB::table('personil')->where('operasi_id', $id_operasi)->delete();
         $nama_personil = count($request->nama_personil_s);
@@ -250,21 +252,21 @@ class PegawaiController extends Controller
         $del_dok_rencana = DB::table('dokumen_operasi')->where('id_operasi', $id_operasi)->delete();
         $name_dok_perencanaans = count($request->name_dok_perencanaans);
         for ($dok_rencana = 0; $dok_rencana < $name_dok_perencanaans; $dok_rencana++) {
-            if($request->hasFile('dok_perencanaans')){
+            if ($request->hasFile('dok_perencanaans')) {
                 $bukti_bayar = $request->file('dok_perencanaans')[$dok_rencana];
                 $destination = public_path() . '/upload-dokumen/dok_rencana\\';
                 $nama_file2 = 'dok_rencana-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
                 $bukti_bayar->move($destination, $nama_file2);
                 $dok_rencana_array = [
                     'id_operasi' => $id_operasi,
-                    'path' => $destination,
+                    'path' => 'upload-dokumen/dok_rencana/',
                     'nama_dokumen' => $request->name_dok_perencanaans[$dok_rencana],
                     'created_at' => date('Y-m-d h:i:s'),
                     'kategori_dokumen' => 1,
                     'dokumen' => $nama_file2,
                 ];
                 DB::table('dokumen_operasi')->insert($dok_rencana_array);
-            }else{
+            } else {
                 $dok_rencana_array = [
                     'id_operasi' => $id_operasi,
                     'nama_dokumen' => $request->name_dok_perencanaans[$dok_rencana],
@@ -278,22 +280,22 @@ class PegawaiController extends Controller
         //Edit Table Documen Pelaporan
         $name_dok_pelaporan = count($request->name_dok_pelaporan);
         for ($dok_laporan = 0; $dok_laporan < $name_dok_pelaporan; $dok_laporan++) {
-            if($request->hasFile('dok_pelaporan')){
+            if ($request->hasFile('dok_pelaporan')) {
                 $bukti_bayar = $request->file('dok_pelaporan')[$dok_laporan];
                 $destination = public_path() . '/upload-dokumen/dok_laporan\\';
                 $nama_file2 = 'dok_laporan-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
                 $bukti_bayar->move($destination, $nama_file2);
-    
+
                 $dok_laporan_array = [
                     'id_operasi' => $id_operasi,
-                    'path' => $destination,
+                    'path' => 'upload-dokumen/dok_laporan/',
                     'nama_dokumen' => $request->name_dok_pelaporan[$dok_laporan],
                     'created_at' => date('Y-m-d h:i:s'),
                     'kategori_dokumen' => 2,
                     'dokumen' => $nama_file2,
                 ];
                 DB::table('dokumen_operasi')->insert($dok_laporan_array);
-            }else{
+            } else {
                 $dok_laporan_array = [
                     'id_operasi' => $id_operasi,
                     'nama_dokumen' => $request->name_dok_pelaporan[$dok_laporan],
@@ -307,22 +309,22 @@ class PegawaiController extends Controller
         //Edit Table Dokumen Anggaran
         $name_dok_anggaran = count($request->name_dok_anggaran);
         for ($dok_anggaran = 0; $dok_anggaran < $name_dok_anggaran; $dok_anggaran++) {
-            if($request->hasFile('dok_anggaran')){
+            if ($request->hasFile('dok_anggaran')) {
                 $bukti_bayar = $request->file('dok_anggaran')[$dok_anggaran];
                 $destination = public_path() . '/upload-dokumen/dok_anggaran\\';
                 $nama_file2 = 'dok_anggaran-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
                 $bukti_bayar->move($destination, $nama_file2);
-    
+
                 $dok_anggaran_array = [
                     'id_operasi' => $id_operasi,
-                    'path' => $destination,
+                    'path' => 'upload-dokumen/dok_anggaran/',
                     'nama_dokumen' => $request->name_dok_anggaran[$dok_anggaran],
                     'created_at' => date('Y-m-d h:i:s'),
                     'kategori_dokumen' => 3,
                     'dokumen' => $nama_file2,
                 ];
                 DB::table('dokumen_operasi')->insert($dok_anggaran_array);
-            }else{
+            } else {
                 $dok_anggaran_array = [
                     'id_operasi' => $id_operasi,
                     'nama_dokumen' => $request->name_dok_anggaran[$dok_anggaran],
@@ -332,10 +334,11 @@ class PegawaiController extends Controller
                 DB::table('dokumen_operasi')->insert($dok_anggaran_array);
             }
         }
-        return redirect()->back()->with(['success'=>'Data Update']);
+        return redirect()->back()->with(['success' => 'Data Update']);
     }
 
-    public function getProvinsi(){
+    public function getProvinsi()
+    {
         $id_prov = $_GET['provinsi'];
 
         $master_kab = DB::table('master_kab_kota')->where('id_provinsi', $id_prov)->get();

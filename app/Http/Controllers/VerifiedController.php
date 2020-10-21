@@ -31,12 +31,11 @@ class VerifiedController extends Controller
     {
         $prov = DB::table('master_provinsi')->get();
         foreach ($prov as $key) {
-            $seriesData['kode_provinsi'][] = $key->kode_provinsi;
-            $seriesData['count'][] = DB::table('operasi')->where('prov_id', $key->id)->count();
+            // $seriesData['kode'][] = $key->kode_provinsi;
+            // $seriesData['count'][] = DB::table('operasi')->where('prov_id', $key->id)->count();
+            $seriesData['kode'][] = [$key->kode_provinsi, DB::table('operasi')->where('prov_id', $key->id)->count()];
         }
-        $series[] = $seriesData;
-        $seriesData = [];
-
-        return json_encode($series,true);
+        $series = $seriesData;
+        return json_encode($series, true);
     }
 }

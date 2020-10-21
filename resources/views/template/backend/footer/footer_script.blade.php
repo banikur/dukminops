@@ -336,8 +336,8 @@ function setMask() {
 
     $('.uang').inputmask({
         alias: "decimal",
-        digits: 0,
-        repeat: 12,
+        digits: 2,
+        repeat: 36,
         digitsOptional: false,
         decimalProtect: true,
         groupSeparator: ".",

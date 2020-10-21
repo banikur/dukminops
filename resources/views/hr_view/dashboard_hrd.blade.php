@@ -103,12 +103,13 @@ function tgl_indo($tanggal)
 @section('js')
 <script>
     $(document).ready(function() {
-        $.get("{{route('get_map')}}", function(data) {
-            json = JSON.parse(data);
-            console.log(json);
-            var data = [
-                [json.kode_provinsi, json.count],
-            ];
+        $.get("{{route('get_map')}}", function(array) {
+            json = JSON.parse(array);
+            // console.log(json);
+            // var data = [
+            //     [json.kode, json.count],
+            // ];
+            // console.log(data);
             Highcharts.mapChart('maps', {
                 chart: {
                     map: 'countries/id/id-all'
@@ -133,7 +134,7 @@ function tgl_indo($tanggal)
                 },
 
                 series: [{
-                    data: data,
+                    data: json.kode,
                     name: 'Jumlah Operasi',
                     states: {
                         hover: {
