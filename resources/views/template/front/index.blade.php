@@ -117,6 +117,24 @@ Header
             <div class="col-md-12 text-center">
                 <img src="front_layout/img/judul_jobdesk.png" alt="Job Desk" class="img-fluid">
                 <div class="message">
+                    <ol>
+                        <li>memelihara keamanan dan ketertiban masyarakat;</li>
+                        <li>menegakkan hukum; dan</li>
+                        <li>memberikan perlindungan, pengayoman, dan pelayanan kepada masyarakat.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+<section id="callcenter">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <img src="front_layout/img/judul_callcenter.png" alt="Call Center" class="img-fluid">
+                
+				<div class="message">
                     <h3><b>Call Center Polri 110</b></h3>
                     <p>
                     Dalam rangka lebih cepat memberikan pelayanan kepada masyarakat,
@@ -132,23 +150,6 @@ Header
                     <br><br>
                     Masyarakat bisa menggunakan layanan Contact Center 110 secara gratis. Namun demikian, Polri menghimbau agar layanan 110 ini tidak dibuat main-main, karena jika nantinya terjadi seperti itu, pihak Polri tentu akan melacak masyarakat yang membuat laporan bohong.
                     </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<hr>
-<section id="callcenter">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <img src="front_layout/img/judul_callcenter.png" alt="Call Center" class="img-fluid">
-                <div class="message">
-                    <ol>
-                        <li>memelihara keamanan dan ketertiban masyarakat;</li>
-                        <li>menegakkan hukum; dan</li>
-                        <li>memberikan perlindungan, pengayoman, dan pelayanan kepada masyarakat.</li>
-                    </ol>
                 </div>
             </div>
         </div>
