@@ -58,6 +58,7 @@ Route::name('hrd')->middleware('auth:hrd')->group(function () {
     //user management
     Route::get('/user-management','UserManagementController@index');
     Route::get('/user-management/prov', 'UserManagementController@getProvinsi');
+    Route::post('/user-management/edit', 'UserManagementController@edit');
 
     Route::post('/pusat/store_data','PegawaiController@store_data');
     Route::post('/pusat/update_data','PegawaiController@update_data');

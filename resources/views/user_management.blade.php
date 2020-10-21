@@ -136,10 +136,11 @@ function tgl_indo($tanggal)
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="exampleModalLabel">Edit User Management</h4>
             </div>
-            <form id="formTambah" action="" method="POST">
+            <form id="formTambah" action="{{url('/user-management/edit')}}" method="POST">
             @csrf
                 <div class="modal-body">
-                    <input type="hidden" name="id_kab_kota" id="id_kab_kota">
+                    <input type="hidden" name="id_user_detail" id="id_user_detail">
+                    <input type="hidden" name="id_user" id="id_user">
                     <div class="form-group">
                         <label for="jenis_peralatan" class="col-form-label">Nama User</label>
                         <input type="text" class="form-control" id="nama_user" name="nama_user">
@@ -218,6 +219,9 @@ function tgl_indo($tanggal)
         $('#nama_user').val(item.name);
         $('#prov_detail').val(item.id_provinsi);
         $('#id_kab_kota').val(item.id_kab_kota);
+        $('#id_user_detail').val(item.id_detail);
+        $('#id_user').val(item.id);
+
 
         getKabupaten();
         $('#edit-user').modal('show');
