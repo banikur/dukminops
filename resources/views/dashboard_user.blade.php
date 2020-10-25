@@ -67,6 +67,11 @@ Dashboard E-Report
                                                     <div id="maps"></div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-offset-1">
+                                                    
+                                                </div>
+                                            </div>
                                         </div>
                                         <hr class="simple">
                                     </div>

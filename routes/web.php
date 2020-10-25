@@ -49,6 +49,13 @@ Route::name('hrd')->middleware('auth:hrd')->group(function () {
         Route::post('master/jenis-peralatan-dashboard/tambah','MasterJenisPeralatanController@tambah');
         Route::post('master/jenis-peralatan-dashboard/edit','MasterJenisPeralatanController@edit');
         Route::get('master/jenis-peralatan-dashboard/hapus/{id}','MasterJenisPeralatanController@hapus');
+
+        Route::get('master/jenis_operasi','MasterJenisOperasiController@index');
+        Route::post('master/jenis_operasi/tambah','MasterJenisOperasiController@tambah');
+        Route::post('master/jenis_operasi/edit','MasterJenisOperasiController@edit');
+        Route::get('master/jenis_operasi/hapus/{id}','MasterJenisOperasiController@hapus');
+
+
     });
     Route::get('/tambah-operasi-pusat', 'PegawaiController@add_operasi_index')->name('admin.add_operasi');
     Route::get('/list-operasi-all', 'EntryOperasiController@index')->name('admin.list-operasi');

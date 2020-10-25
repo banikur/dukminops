@@ -37,11 +37,14 @@
             <li>
                 <a href="{{url('master/provinsi-dashboard')}}" title="Master Provinsi"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">Master Provinsi</span></a>
             </li>
-            <!-- <li>
+            <li>
                 <a href="{{url('master/pangkat-dashboard')}}" title="Master Pangkat"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">Master Pangkat</span></a>
-            </li> -->
+            </li>
             <li>
                 <a href="{{url('master/jenis-peralatan-dashboard')}}" title="Master Jenis Peralatan"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">Master Jenis Peralatan</span></a>
+            </li>
+            <li>
+                <a href="{{url('master/jenis_operasi')}}" title="Master Provinsi"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">Master Jenis Operasi</span></a>
             </li>
             <li>
                 <a href="{{url('/user-management')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">User Management</span></a>
