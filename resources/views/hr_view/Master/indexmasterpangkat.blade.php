@@ -144,14 +144,14 @@ function tgl_indo($tanggal)
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Master Provinsi</h4>
+                <h4 class="modal-title">Edit Master Pangkat</h4>
             </div>
             <form id="formEdit" action="{{url('master/pangkat-dashboard/edit')}}" method="post">
             @csrf
                 <div class="modal-body">
                     <input type="hidden" id="id_edit" name="id_edit">
                     <div class="form-group">
-                        <label for="pangkat_edit" class="col-form-label">Nama Provinsi</label>
+                        <label for="pangkat_edit" class="col-form-label">Nama Pangkat</label>
                         <input type="text" class="form-control" id="pangkat_edit" name="pangkat_edit">
                     </div>
                 </div>

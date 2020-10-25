@@ -86,6 +86,38 @@ function tgl_indo($tanggal)
                                                 </div>
                                             </div>
                                             <hr class="simple">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="card bg-warning">
+                                                        <div class="card-header">
+                                                            <h5 class="card-title" style="text-align: center; font-weight: 1000;">Jumlah Operasi</h5>
+                                                        </div>
+                                                        <div class="card-body" style="text-align: center;">
+                                                            <h5 id="jumlah_ops">0</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card bg-info">
+                                                        <div class="card-header">
+                                                            <h5 class="card-title" style="text-align: center; font-weight: 1000;">Jumlah Operasi Berlangsung</h5>
+                                                        </div>
+                                                        <div class="card-body" style="text-align: center;">
+                                                            <h5 id="jumlah_ops_now">0</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card bg-danger">
+                                                        <div class="card-header">
+                                                            <h5 class="card-title" style="text-align: center; font-weight: 1000;">Jumlah Personil di Lapangan</h5>
+                                                        </div>
+                                                        <div class="card-body" style="text-align: center;">
+                                                            <h5 id="jumlah_personil">0</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -148,6 +180,13 @@ function tgl_indo($tanggal)
                 }]
             });
         })
+        $.get("{{route('dashboard_box')}}", function(data) {
+            json = JSON.parse(data);
+            console.log(json);
+            $('#jumlah_personil').text(json.personil);
+            $('#jumlah_ops_now').text(json.berlangsung);
+            $('#jumlah_ops').text(json.alldata);
+        });
     });
     $(document).ready(function() {
         setMask();

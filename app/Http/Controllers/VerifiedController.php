@@ -38,4 +38,24 @@ class VerifiedController extends Controller
         $series = $seriesData;
         return json_encode($series, true);
     }
+
+    public function dashboard_box()
+    {
+
+        $data['alldata'] = DB::table('operasi')->count();
+        $data['berlangsung'] = DB::table('operasi')->where('status', 2)->count();
+        $berlangsung = DB::table('operasi')->where('status', 2)->get();
+        $count = 0;
+
+        if ($data['berlangsung'] != 0) {
+            foreach ($berlangsung as $key) {
+                $count += DB::table('personil')->where('operasi_id', $key->id)->count();
+            }
+        }
+
+
+        $data['personil'] = $count;
+        return json_encode($data, true);
+    }
+
 }
