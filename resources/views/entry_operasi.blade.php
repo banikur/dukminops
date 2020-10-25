@@ -108,7 +108,7 @@ function tgl_indo($tanggal)
                                                     <tr>
                                                         <td><center>{{ $no++ }}</center></td>
                                                         <td><center>{{ $op->nama_operasi }}</center></td>
-                                                        <th><center></center></th>
+                                                        <td><center>{{ $op->jenis_operasi }}</center></td>
                                                         <td><center>{{ $op->lokasi }}</center></td>
                                                         <td><center>{{ $op->jml_personil }}</center></td>
                                                         <td><center>{{ tgl_indo($op->tgl_mulai) }}</center></td>

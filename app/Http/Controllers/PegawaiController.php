@@ -38,6 +38,7 @@ class PegawaiController extends Controller
         $data['user'] = Auth::user();
         $data['provinsi'] = DB::table('master_provinsi')->get();
         $data['master_pangkat'] = DB::table('master_pangkat')->get();
+        $data['master_jo'] = DB::table('master_jenis_operasi')->get();
         // $data['employee'] = DB::table('employee')->where('id_empl', Auth::user()->id_pegawai)->get();
         //dd($data);
         return view('staff.add_operasi', $data);
@@ -62,13 +63,15 @@ class PegawaiController extends Controller
             'tgl_selesai' => $request->tgl_end,
             'status' => $request->status,
             'jml_personil' => $request->count_personil,
-            'jml_anggaran' => str_replace('.', '', str_replace(',', '.', $request->anggaran)),
+            'jml_anggaran' => str_replace(',', '.', str_replace('.', '', $request->anggaran)),
             'created_at' => date('Y-m-d h:i:s'),
             'is_wilayah' => $status,
-            "kabkota_id" => $request->kabupaten,
-
+            'kabkota_id' => $request->kabupaten,
+            'id_jenis_operasi'  => $request->jenis_operasi,
         ];
         DB::table('operasi')->insert($array_master);
+
+        //personil
         $last_id = DB::table('operasi')->orderBy('id', 'DESC')->first();
         $id = $last_id->id;
         $coun_personil = $request->count_personil;
@@ -80,12 +83,15 @@ class PegawaiController extends Controller
                 'pangkat' => $request->pangkat_s[$i],
                 'satuan_asal' => $request->satuan_s[$i],
                 'status' => 1,
-                'created_at' => date('Y-m-d h:i:s')
+                'created_at' => date('Y-m-d h:i:s'),
+                'jabatan_struktural' => $request->jab_struk[$i],
+                'jabatan_fungsional' => $request->jab_fung[$i],
             ];
             DB::table('personil')->insert($array_personil);
         }
-        $count_alat = $request->count_alat;
 
+        //peralatan
+        $count_alat = $request->count_alat;
         for ($j = 0; $j < $count_alat; $j++) {
             $array_peralatan = [
                 'operasi_id' => $id,
@@ -97,42 +103,45 @@ class PegawaiController extends Controller
             DB::table('peralatan')->insert($array_peralatan);
         }
 
-        $nodetaidok_rencana = $request->nodetaidok_rencana;
-        for ($dok_rencana = 0; $dok_rencana < $nodetaidok_rencana; $dok_rencana++) {
-            $bukti_bayar = $request->file('dok_perencanaans')[$dok_rencana];
-            //dd($bukti_bayar);
+        //perencanan
+        if($request->hasFIle('dok_perencanaan')){
+            $file_perencanaan = $request->file('dok_perencanaan');
             $destination = public_path() . '/upload-dokumen/dok_rencana\\';
-            $nama_file2 = 'dok_rencana-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
-            $bukti_bayar->move($destination, $nama_file2);
-            $dok_rencana_array = [
-                'id_operasi' => $id,
-                'path' => 'upload-dokumen/dok_rencana/',
-                'nama_dokumen' => $request->name_dok_perencanaans[$dok_rencana],
-                'created_at' => date('Y-m-d h:i:s'),
-                'kategori_dokumen' => 1,
-                'dokumen' => $nama_file2,
-            ];
-            DB::table('dokumen_operasi')->insert($dok_rencana_array);
+            $nama_file = 'dok_rencana-' . uniqid() . '.' . $file_perencanaan->getClientOriginalExtension();
+            $file_perencanaan->move($destination, $nama_file);
+        }else{
+            $nama_file=null;
         }
+        $perencanaan = [
+            "operasi_id"        => $id,
+            "no_renops"         => $request->no_renops,
+            "tujuan"            => $request->tujuan,
+            "sasaran"           => $request->sasaran,
+            "target_operasi"    => $request->target_operasi,
+            "cara_bertindak"    => $request->cara_tindak,
+            "dokumen"           => $nama_file,
+        ];
+        DB::table('perencanaan')->insert($perencanaan);
 
-        $nodetaidok_laporan = $request->nodetaidok_laporan;
-        for ($dok_laporan = 0; $dok_laporan < $nodetaidok_laporan; $dok_laporan++) {
-            $bukti_bayar = $request->file('dok_pelaporan')[$dok_laporan];
-            $destination = public_path() . '/upload-dokumen/dok_laporan\\';
-            $nama_file2 = 'dok_laporan-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
-            $bukti_bayar->move($destination, $nama_file2);
-
-            $dok_laporan_array = [
-                'id_operasi' => $id,
-                'path' => 'upload-dokumen/dok_laporan/',
-                'nama_dokumen' => $request->name_dok_pelaporan[$dok_laporan],
-                'created_at' => date('Y-m-d h:i:s'),
-                'kategori_dokumen' => 2,
-                'dokumen' => $nama_file2,
-            ];
-            DB::table('dokumen_operasi')->insert($dok_laporan_array);
+        //pelaporan
+        if($request->hasFIle('dok_akhir')){
+            $file_pelaporan = $request->file('dok_akhir');
+            $destination1 = public_path() . '/upload-dokumen/dok_laporan\\';
+            $nama_file1 = 'dok_laporan-' . uniqid() . '.' . $file_pelaporan->getClientOriginalExtension();
+            $file_pelaporan->move($destination1, $nama_file1);
+        }else{
+            $nama_file1=null;
         }
+        $pelaporan = [
+            "operasi_id"=> $id,
+            "hasil"     => $request->hasil_akhir,
+            "kendala"   => $request->kendala_akhir,
+            "evaluasi"  => $request->evaluasi_akhir,
+            "dokumen"   => $nama_file1,
+        ];
+        DB::table('pelaporan_akhir')->insert($pelaporan);
 
+        //anggaran
         $nodetaidok_anggaran = $request->nodetaidok_anggaran;
         for ($dok_anggaran = 0; $dok_anggaran < $nodetaidok_anggaran; $dok_anggaran++) {
             $bukti_bayar = $request->file('dok_anggaran')[$dok_anggaran];
@@ -160,13 +169,15 @@ class PegawaiController extends Controller
         $data['master_pangkat'] = DB::table('master_pangkat')->get();
 
         $data['operasi'] = DB::table('operasi')->where('id', $id)->first();
-        $data['dokumenRencana'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 1)->get();
         $data['personil'] = DB::table('personil')
             ->leftjoin('master_pangkat', 'master_pangkat.id', '=', 'personil.pangkat')
             ->where('operasi_id', $id)->get();
         $data['peralatan'] = DB::table('peralatan')->where('operasi_id', $id)->get();
-        $data['dokumenPelaporan'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 2)->get();
+        $data['master_jo'] = DB::table('master_jenis_operasi')->get();
         $data['dokumenAnggaran'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 3)->get();
+
+        $data['perencanaan'] = DB::table('perencanaan')->where('operasi_id', $id)->first();
+        $data['pa'] = DB::table('pelaporan_akhir')->where('operasi_id', $id)->first();
 
         return view('staff.detail_operasi', $data);
     }
@@ -178,13 +189,16 @@ class PegawaiController extends Controller
         $data['master_pangkat'] = DB::table('master_pangkat')->get();
 
         $data['operasi'] = DB::table('operasi')->where('id', $id)->first();
-        $data['dokumenRencana'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 1)->get();
         $data['personil'] = DB::table('personil')
             ->leftjoin('master_pangkat', 'master_pangkat.id', '=', 'personil.pangkat')
             ->where('operasi_id', $id)->get();
         $data['peralatan'] = DB::table('peralatan')->where('operasi_id', $id)->get();
-        $data['dokumenPelaporan'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 2)->get();
         $data['dokumenAnggaran'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 3)->get();
+        
+        $data['master_jo'] = DB::table('master_jenis_operasi')->get();
+
+        $data['perencanaan'] = DB::table('perencanaan')->where('operasi_id', $id)->first();
+        $data['pa'] = DB::table('pelaporan_akhir')->where('operasi_id', $id)->first();
 
         return view('staff.edit_operasi', $data);
     }
@@ -211,10 +225,11 @@ class PegawaiController extends Controller
             'tgl_selesai' => $request->tgl_end,
             'status' => $request->status,
             'jml_personil' => $request->count_personil,
-            'jml_anggaran' => str_replace('.', '', $request->anggaran),
+            'jml_anggaran' => str_replace(',', '.', str_replace('.', '', $request->anggaran)),
             'created_at' => date('Y-m-d h:i:s'),
             'is_wilayah' => $status,
             "kabkota_id" => $request->kabupaten,
+            "id_jenis_operasi" =>$request->jenis_operasi,
         ];
         DB::table('operasi')->where('id', $id_operasi)->update($array_master);
 

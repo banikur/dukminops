@@ -3,6 +3,12 @@
 Dashboard E-Report
 @endsection
 @section('ribbon')
+<style>
+    .textAreaIinput{
+        width:100%;
+        height:100px;
+    }
+</style>
 <ol class="breadcrumb">
     <!-- <li>Dashboard</li> -->
     <li class="pull-right"><?php echo date('j F, Y'); ?></li>
@@ -121,6 +127,18 @@ function tgl_indo($tanggal)
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label class="col-sm-4 control-label">
+                                                                Jenis Operasi</label>
+                                                            <div class="col-sm-7">
+                                                                <select id="jenis_operasi" name="jenis_operasi" class="form-control js-example-basic-single" required maxlength="200">
+                                                                    <option selected="" disabled="">-- PILIH --</option>
+                                                                    @foreach($master_jo as $mjo)
+                                                                    <option value="{{$mjo->id}}" @if($operasi->id_jenis_operasi==$mjo->id) selected @endif>{{$mjo->jenis_operasi}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label">
                                                                 Provinsi</label>
                                                             <div class="col-sm-7">
                                                                 <select id="prov" name="prov" onchange="getKabupaten()" class="form-control js-example-basic-single" required maxlength="200">
@@ -194,112 +212,55 @@ function tgl_indo($tanggal)
                                                 <div id="myTabContent1" class="tab-content padding-10">
                                                     <div class="tab-pane fade in active" id="s1">
                                                         <div class="row" style="padding: 2% 0 2% 0;">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        Dokumen Perencanaan</label>
-                                                                    <!-- <div class="col-sm-7">
-                                                                            <input type="file" accept=".pdf" class="form-control" id="dok_perencanaan" name="dok_perencanaan">
-                                                                        </div> -->
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <button type="button" id="add_dok_perencanaan" class="btn bg-color-blueLight txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
-                                                            </div>
-                                                            <input type="hidden" name="nodetaidok_rencana" id="nodetaidok_rencana" value="0" />
-
-                                                        </div>
-                                                        <div class="row">
                                                             <div class="col-sm-12">
-                                                                <?php $no = 1; ?>
-                                                                <table id="dt_basic_2" class="table table-striped table-bordered table-hover" width="100%">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>
-                                                                                Nama Dokumen
-                                                                            </th>
-                                                                            <th>
-                                                                                Dokumen
-                                                                            </th>
-                                                                            <th>
-                                                                                Aksi
-                                                                            </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <?php $no = 1; ?>
-                                                                    <tbody id="id_table_dok_perencanaan">
-                                                                        @foreach($dokumenRencana as $d)
-                                                                        <tr>
-                                                                            <td><input type="hidden" value="{{$d->nama_dokumen}}" name="name_dok_perencanaans[]">{{$d->nama_dokumen}}</td>
-                                                                            <td><input type="file" style="display:none;" value="{{$d->dokumen}}" class="form-control" name="dok_perencanaans[]">
-                                                                            <?php
-                                                                                $dokumen = $d->path.$d->dokumen;
-                                                                            ?>
-                                                                            <a target="download" href="<?php echo asset($d->path.$d->dokumen);?>" class="btn btn-default">Dokumen</a></td>
-                                                                            <td><center><button type="button" onclick="delete_detail(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>
-                                                                        </tr>
-                                                                        @endforeach
-                                                                    </tbody>
-                                                                </table>
-
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        No Renops</label>
+                                                                    <div class="col-sm-4">
+                                                                        <input class="form-control" type="text" name="no_renops" id="no_renops" readonly value="{{$perencanaan->no_renops}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Tujuan</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="tujuan" id="tujuan" readonly>{{$perencanaan->tujuan}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Sasaran</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="sasaran" id="sasaran" readonly>{{$perencanaan->sasaran}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Target Operasi</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="target_operasi" id="target_operasi" readonly>{{$perencanaan->target_operasi}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Cara Bertindak</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="cara_tindak" id="cara_tindak" readonly>{{$perencanaan->cara_bertindak}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Dokumen Pendukung</label>
+                                                                    <div class="col-sm-4">
+                                                                        <a href="{{ asset('upload-dokumen/dok_rencana/'.$perencanaan->dokumen) }}"
+                                                                        target="_blank" class="btn btn-default" style="color: orange;background-color:#525252;"> <i class="fa fa-download"></i>&nbspDownload</a>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane fade" id="s2">
-                                                        <div class="row" style="padding: 2% 0 2% 0;">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        Nama Personil</label>
-                                                                    <div class="col-sm-7">
-                                                                        <input class="form-control" type="text" name="nama_personil" id="nama_personil" autocomplete="off">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        NIP</label>
-                                                                    <div class="col-sm-7">
-                                                                        <input class="form-control" type="text" name="nip" id="nip" autocomplete="off">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        Pangkat</label>
-                                                                    <div class="col-sm-7">
-                                                                        <select id="pangkat" name="pangkat" class="form-control" required maxlength="200">
-                                                                            <option selected="" disabled="">-- PILIH --</option>
-                                                                            @foreach($master_pangkat as $mp)
-                                                                            <option value="{{$mp->id}}">{{$mp->nama_pangkat}}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        Satuan</label>
-                                                                    <div class="col-sm-7">
-                                                                        <input class="form-control" type="text" name="nama_satuan" id="nama_satuan" autocomplete="off">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                    </label>
-                                                                    <div class="col-sm-7">
-                                                                        <button type="button" id="add_personil" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        Jumlah Personil</label>
-                                                                    <div class="col-sm-7">
-                                                                        <input class="form-control" readonly="" type="text" name="count_personil" id="count_personil" value="{{count($personil)}}" autocomplete="off">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <br>
                                                         <div class="row">
                                                             <div class="col-sm-12"></div>
                                                             <div class="col-sm-12">
@@ -317,10 +278,13 @@ function tgl_indo($tanggal)
                                                                                 Pangkat
                                                                             </th>
                                                                             <th>
-                                                                                Satuan Asal
+                                                                                Jabatan Struktural
                                                                             </th>
                                                                             <th>
-                                                                                Aksi
+                                                                                Jabatan Fungsional
+                                                                            </th>
+                                                                            <th>
+                                                                                Satuan Asal
                                                                             </th>
                                                                         </tr>
                                                                     </thead>
@@ -330,13 +294,10 @@ function tgl_indo($tanggal)
                                                                             <td><center><input type="text" style="display:none;" name="nama_personil_s[]" value="{{$p->nama_personil}}">{{$p->nama_personil}}</center></td>
                                                                             <td><center><input type="text" style="display:none;" name="nip_s[]" value="{{$p->nip}}">{{$p->nip}}</center></td>
                                                                             <td><center><input type="text" style="display:none;" name="pangkat_s[]" value="{{$p->pangkat}}">{{$p->nama_pangkat}}</center></td>
+                                                                            <td>{{$p->jabatan_struktural}}</td>
+                                                                            <td>{{$p->jabatan_fungsional}}</td>
                                                                             <td><center><input type="text" style="display:none;" name="satuan_s[]" value="{{$p->satuan_asal}}">{{$p->satuan_asal}}</center></td>
-                                                                            <td>
-                                                                                <center>
-                                                                                <button type="button" onclick="delete_personil(this)"
-                                                                                class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button>
-                                                                                </center>
-                                                                            </td>
+                                                                            
                                                                         </tr>
                                                                         @endforeach
                                                                     </tbody>
@@ -346,47 +307,7 @@ function tgl_indo($tanggal)
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane fade" id="s3">
-                                                        <div class="row" style="padding: 2% 0 2% 0;">
-                                                        <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        Nama Peralatan</label>
-                                                                    <div class="col-sm-7">
-                                                                        <input class="form-control" type="text" name="nama_alat" id="nama_alat" autocomplete="off">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        Jenis</label>
-                                                                    <div class="col-sm-7">
-                                                                        <select id="jenis_peralatan" name="jenis_peralatan" class="form-control js-example-basic-single" required maxlength="200">
-                                                                            <option selected="" value="1">Peralatan Pendukung</option>
-                                                                            <option value="2">Peralatan Utama</option>
-                                                                        </select>
-                                                                        <!-- <input class="form-control" type="text" name="jenis_peralatan" id="jenis_peralatan" autocomplete="off"> -->
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        Jumlah</label>
-                                                                    <div class="col-sm-7">
-                                                                        <input class="form-control uang" type="text" name="jumlah_alat" id="jumlah_alat" autocomplete="off">
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                    </label>
-                                                                    <div class="col-sm-7">
-                                                                        <button type="button" id="add_peralatan" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <input type="hidden" name="count_alat" id="count_alat" value="0" />
-
-                                                        </div>
+                                                        <br>
                                                         <div class="row">
                                                             <div class="col-sm-12"></div>
                                                             <div class="col-sm-12">
@@ -403,9 +324,6 @@ function tgl_indo($tanggal)
                                                                             <th>
                                                                                 Jumlah
                                                                             </th>
-                                                                            <th>
-                                                                                Aksi
-                                                                            </th>
                                                                         </tr>
                                                                     </thead>
                                                                     <?php $no = 1; ?>
@@ -415,7 +333,6 @@ function tgl_indo($tanggal)
                                                                             <td><input type="text" style="display:none;" name="nama_peralatan_s[]" value="{{$pe->nama_peralatan}}">{{$pe->nama_peralatan}}</td>
                                                                             <td><input type="text" style="display:none;" name="jenis_alat_array[]" value="{{$pe->jenis}}">{{($pe->jenis==1)?'Peralatan Pendukung':'Peralatan Utama'}}</td>
                                                                             <td><input type="text" style="display:none;" name="jumlah_alat[]" value="{{$pe->jml}}">{{$pe->jml}}</td>
-                                                                            <td><center><button type="button" onclick="delete_peralatan(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>
                                                                         </tr>
                                                                         @endforeach
                                                                     </tbody>
@@ -426,69 +343,41 @@ function tgl_indo($tanggal)
                                                     </div>
                                                     <div class="tab-pane fade" id="s4">
                                                         <div class="row" style="padding: 2% 0 2% 0;">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        Dokumen Pelaporan Operasi</label>
-                                                                    <div class="col-sm-7">
-                                                                        <!-- <input type="file" accept=".pdf" class="form-control" id="dokpelaporan" name="pelaporan"> -->
+                                                            <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Hasil yang Dicapai</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="hasil_akhir" id="hasil_akhir" readonly>{{ $pa->hasil }}</textarea>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <button type="button" id="add_dok_laporan" class="btn bg-color-blueLight txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
-                                                            </div>
-                                                            <input type="hidden" name="nodetaidok_laporan" id="nodetaidok_laporan" value="0" />
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-12"></div>
-                                                            <div class="col-sm-12">
-                                                                <?php $no = 1; ?>
-                                                                <table id="dt_basic_5" class="table table-striped table-bordered table-hover" width="100%">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>
-                                                                                Nama Dokumen
-                                                                            </th>
-                                                                            <th>
-                                                                                Dokumen
-                                                                            </th>
-                                                                            <th>
-                                                                                Aksi
-                                                                            </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <?php $no = 1; ?>
-                                                                    <tbody id="id_table_dok_pelaporan">
-                                                                        @foreach($dokumenPelaporan as $dp)
-                                                                            <tr>
-                                                                                <td>{{$dp->nama_dokumen}}</td>
-                                                                                <td><a href="{{$dp->path}}" class="btn btn-default">Dokumen</td>
-                                                                                <td><center><button type="button" onclick="delete_dok_pelaporan(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>
-                                                                            </tr>
-                                                                        @endforeach
-                                                                    </tbody>
-                                                                </table>
-
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Kendala</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="kendala_akhir" id="kendala_akhir" readonly>{{$pa->kendala}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Analisa dan Evaluasi</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="evaluasi_akhir" id="evaluasi_akhir" readonly>{{$pa->evaluasi}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Dokumen Pendukung</label>
+                                                                    <div class="col-sm-4">
+                                                                        <a href="{{ asset('upload-dokumen/dok_laporan/'.$pa->dokumen) }}"
+                                                                        target="_blank" class="btn btn-default" style="color: orange;background-color:#525252;"> <i class="fa fa-download"></i>&nbspDownload</a>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane fade" id="s5">
-                                                        <div class="row" style="padding: 2% 0 2% 0;">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        Dokumen Pelaporan Anggaran</label>
-                                                                    <div class="col-sm-7">
-                                                                        <!-- <input type="file" accept=".pdf" class="form-control" id="dok_anggaran" name="dok_anggaran"> -->
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <button type="button" id="add_laporan_anggaran" class="btn bg-color-blueLight txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
-                                                            </div>
-                                                            <input type="hidden" name="nodetaidok_anggaran" id="nodetaidok_anggaran" value="0" />
-                                                        </div>
+                                                        <br>
                                                         <div class="row">
                                                             <div class="col-sm-12"></div>
                                                             <div class="col-sm-12">
@@ -502,9 +391,6 @@ function tgl_indo($tanggal)
                                                                             <th>
                                                                                 Dokumen
                                                                             </th>
-                                                                            <th>
-                                                                                Aksi
-                                                                            </th>
                                                                         </tr>
                                                                     </thead>
                                                                     <?php $no = 1; ?>
@@ -513,7 +399,6 @@ function tgl_indo($tanggal)
                                                                             <tr>
                                                                                 <td>{{$da->nama_dokumen}}</td>
                                                                                 <td><a href="{{$da->path}}" class="btn btn-default">Dokumen</td>
-                                                                                <td><center><button type="button" onclick="delete_dok_anggaran(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>
                                                                             </tr>
                                                                         @endforeach
                                                                     </tbody>

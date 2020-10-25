@@ -64,13 +64,33 @@ function tgl_indo($tanggal)
                         @endif
                         <div class="row">
                             <div class="col-md-12">
-                            <div class="panel panel-warning">
-                                <div class="panel-heading" style="background-color:#f78c40;color:white;"><strong>Filter</strong></div>
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <form id="formFilter" method="post" action="{{url('/daftar-sarpas-unras/filter')}}">
+                                <div class="panel panel-warning">
+                                    <div class="panel-heading" style="background-color:#f78c40;color:white;"><strong>Filter</strong></div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <form id="formFilter" method="post" action="{{url('/operasi-inteligen-wilayah/filter')}}">
                                             @csrf
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">
+                                                        Polda</label>
+                                                    <div class="col-sm-6">
+                                                        <select class="form-control js-example-basic-single" name="polda">
+                                                            <option selected="" value="">Semua</option>
+                                                        </select>
+                                                    </div>
+                                                </div><br><br>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">
+                                                        Polres</label>
+                                                    <div class="col-sm-6">
+                                                        <select class="form-control js-example-basic-single" name="polres">
+                                                            <option selected="" value="">Semua</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">
                                                         Status Operasi</label>
@@ -92,15 +112,15 @@ function tgl_indo($tanggal)
                                                     </div>
                                                     <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i>&nbsp;Filter</button>
                                                 </div>
+                                            </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                     <header role="heading">
                                         <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
-                                        <h2>Daftar SARPAS UNPAS</h2>
+                                        <h2>Operasi Inteligen Wilayah</h2>
                                         <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
                                     </header>
                                     <div role="content">
@@ -110,6 +130,12 @@ function tgl_indo($tanggal)
                                                     <tr>
                                                         <th>
                                                             <center>No.</center>
+                                                        </th>
+                                                        <th>
+                                                            <center>Level Operasi</center>
+                                                        </th>
+                                                        <th>
+                                                            <center>Satuan</center>
                                                         </th>
                                                         <th>
                                                             <center>Nama Operasi</center>
@@ -138,6 +164,16 @@ function tgl_indo($tanggal)
                                                         <td>
                                                             <center>{{ $no++ }}</center>
                                                         </td>
+                                                        @if(!empty($users->id_provinsi) && empty($users->id_kab_kota))
+                                                        <td><center>Polda</center></td>
+                                                        @elseif(!empty($users->id_provinsi) && !empty($users->id_kab_kota))
+                                                        <td><center>Polres</center></td>
+                                                        @else
+                                                        <td><center></center></td>
+                                                        @endif
+                                                        <td>
+                                                            <center></center>
+                                                        </td>
                                                         <td>
                                                             <center>{{ $op->nama_operasi }}</center>
                                                         </td>
@@ -161,7 +197,7 @@ function tgl_indo($tanggal)
                                                         @endif
                                                         <td>
                                                             <center>
-                                                                <a href="{{ url('/daftar-sarpas-unras/detail/'.$op->id) }}" class="btn btn-sm btn-warning">Detail</a>
+                                                                <a href="{{ url('/operasi-inteligen-wilayah/detail/'.$op->id) }}" class="btn btn-sm btn-warning">Detail</a>
                                                             </center>
                                                         </td>
                                                     </tr>

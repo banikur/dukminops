@@ -73,9 +73,15 @@ Route::name('user')->middleware('auth:user')->group(function () {
     Route::get('/entry-operasi/edit/{id}', 'PegawaiController@edit_operasi')->name('edit_operasi.user');
     Route::get('/entry-operasi/prov', 'PegawaiController@getProvinsi')->name('getprovinsi.user');
     
-    //Sarpas Unras
+    //Sarpas Unras pusat
     Route::get('/daftar-sarpas-unras','SarpasUnpasController@index');
     Route::get('/daftar-sarpas-unras/detail/{id}', 'SarpasUnpasController@detailSarpasUnpas');
+    Route::post('/daftar-sarpas-unras/filter', 'SarpasUnpasController@filterindexpusat');
+
+    //Sarpas Unras wilayah
+    Route::get('/operasi-inteligen-wilayah','SarpasUnpasController@indexwilayah');
+    Route::get('/operasi-inteligen-wilayah/detail/{id}', 'SarpasUnpasController@detailSarpasUnpas');
+    Route::post('/operasi-inteligen-wilayah/filter', 'SarpasUnpasController@filterindexwilayah');
 
     //Entry Operasi
     Route::get('/entry-operasi','EntryOperasiController@index');

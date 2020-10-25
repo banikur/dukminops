@@ -19,9 +19,12 @@
             <li>
                 <a href="{{url('/dashboard-user')}}" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
-            <!-- <li>
-                <a href="{{url('/daftar-sarpas-unras')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Data SARPAS UNRAS</span></a>
-            </li> -->
+            <li>
+                <a href="{{url('/daftar-sarpas-unras')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Operasi Intelijen Terpusat</span></a>
+            </li>
+            <li>
+                <a href="{{url('/operasi-inteligen-wilayah')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Operasi Intelijen Wilayah</span></a>
+            </li>
             <li>
                 <a href="{{url('/entry-operasi')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Operasi Wilayah</span></a>
             </li>
