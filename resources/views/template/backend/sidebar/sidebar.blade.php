@@ -15,45 +15,66 @@
             @if(Auth::guard('perusahaan')->check())
 
             @elseif(Auth::guard('user')->check())
-            <?php
-            $cek = DB::table('users_detail')->where('id_user', Auth::guard('user')->user()->id)->first();
-            
-            if (!empty($cek)) {
-                $polda =  DB::table('master_provinsi')->where('id', $cek->id_provinsi)->get();
-                if (!empty($polda)) {
-                    $polres =  DB::table('master_kab_kota')->where('id', $cek->id_kab_kota)->get();
-                } else {
-                    $polres = null;
-                }
-            } else {
-                $polda  = null;
-            }
-            ?>
+
             <li>
                 <a href="{{url('/dashboard-user')}}" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
-            @if(empty($cek))
+            @if(Auth::guard('user')->user()->id_polda == null && Auth::guard('user')->user()->id_polres == null)
             <li>
-                <a href="{{url('/daftar-sarpas-unras')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Operasi Intelijen Terpusat</span></a>
+                <a href="#pusat"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Operasi Terpusat</a>
+                <ul>
+                    <li>
+                        <a href="{{url('/daftar-sarpas-unras/ops-intelejen')}}" title="Operasi Intelijen"><span class="menu-item-parent">Operasi Intelijen</span></a>
+                    </li>
+                    <li>
+                        <a href="{{url('/daftar-sarpas-unras/ops-penegakan')}}" title="Operasi Penegakan Hukum"><span class="menu-item-parent">Operasi Penegakan Hukum</span></a>
+                    </li>
+                    <li>
+                        <a href="{{url('/daftar-sarpas-unras/ops-pengamanan')}}" title="Operasi Pengamanan Kegiatan"><span class="menu-item-parent">Operasi Pengamanan Kegiatan</span></a>
+                    </li>
+                    <li>
+                        <a href="{{url('/daftar-sarpas-unras/ops-pemeliharaan')}}" title="Operasi Pemeliharaan Keamanan"><span class="menu-item-parent">Operasi Pemeliharaan Keamanan</span></a>
+                    </li>
+                    <li>
+                        <a href="{{url('/daftar-sarpas-unras/ops-pemulihan')}}" title="Operasi Pemulihan Keamanan"><span class="menu-item-parent">Operasi Pemulihan Keamanan</span></a>
+                    </li>
+                </ul>
             </li>
             @endif
             <li>
-                <a href="{{url('/operasi-inteligen-wilayah')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Operasi Intelijen Wilayah</span></a>
+                <a href="#wilayah"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Operasi Wilayah</a>
+                <ul>
+                    <li>
+                        <a href="{{url('/operasi-inteligen-wilayah/ops-intelejen')}}" title="Operasi Intelijen"><span class="menu-item-parent">Operasi Intelijen</span></a>
+                    </li>
+                    <li>
+                        <a href="{{url('/operasi-inteligen-wilayah/ops-penegakan')}}" title="Operasi Penegakan Hukum"><span class="menu-item-parent">Operasi Penegakan Hukum</span></a>
+                    </li>
+                    <li>
+                        <a href="{{url('/operasi-inteligen-wilayah/ops-pemeliharaan')}}" title="Operasi Pengamanan Kegiatan"><span class="menu-item-parent">Operasi Pengamanan Kegiatan</span></a>
+                    </li>
+                    <li>
+                        <a href="{{url('/operasi-inteligen-wilayah/ops-pemeliharaan')}}" title="Operasi Pemeliharaan Keamanan"><span class="menu-item-parent">Operasi Pemeliharaan Keamanan</span></a>
+                    </li>
+                    <li>
+                        <a href="{{url('/operasi-inteligen-wilayah/ops-pemulihan')}}" title="Operasi Pemulihan Keamanan"><span class="menu-item-parent">Operasi Pemulihan Keamanan</span></a>
+                    </li>
+                </ul>
             </li>
-           
+
             <li>
-                <a href="{{url('/entry-operasi')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Lapor Operasi Wilayah</span></a>
+                <a href="{{url('/entry-operasi')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Lapor Operasi</span></a>
             </li>
+
             @elseif(Auth::guard('hrd')->check())
             <?php
             $data = DB::table('users_detail')->where('id_user', Auth::guard('hrd')->user()->id)->count();
-
             ?>
             <li>
                 <a href="{{url('/dashboard-hrd')}}" title="Dashboard"><i class="fa fa-lg fa-fw fa-tachometer"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
             @if($data == 0)
-            
+
             <li>
                 <a href="{{url('master/provinsi-dashboard')}}" title="Master Provinsi"><i class="fa fa-lg fa-fw fa-database"></i> <span class="menu-item-parent">Master Provinsi</span></a>
             </li>
@@ -69,7 +90,7 @@
             <li>
                 <a href="{{url('/user-management')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">User Management</span></a>
             </li>
-            
+
             @else
             <li>
                 <a href="{{url('/list-operasi-all')}}" title="Sarpas Unras"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Operasi Pusat</span></a>

@@ -72,7 +72,7 @@ function tgl_indo($tanggal)
                                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                     <header role="heading">
                                         <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
-                                        @if(Auth::guard('user')->check())
+                                        @if(Auth::guard('user')->user()->id_polda != null )
                                         <h2>Tambah Operasi Wilayah</h2>
                                         @else
                                         <h2>Tambah Operasi Pusat</h2>
@@ -90,47 +90,83 @@ function tgl_indo($tanggal)
                                             </div>
                                             <br><br><br>
                                             <table id="dt_basic_1" class="table table-hover table-bordered table-striped table-responsive">
-                                                <thead> 
+                                                <thead>
                                                     <tr>
-                                                        <th><center>No.</center></th>
-                                                        <th><center>Nama Operasi</center></th>
-                                                        <th><center>Jenis Operasi</center></th>
-                                                        <th><center>Lokasi</center></th>
-                                                        <th><center>Jumlah Personil</center></th>
-                                                        <th><center>Tgl. Mulai Operasi</center></th>
-                                                        <th><center>Status Operasi</center></th>
-                                                        <th><center>Aksi</center></th>
+                                                        <th>
+                                                            <center>No.</center>
+                                                        </th>
+                                                        <th>
+                                                            <center>Nama Operasi</center>
+                                                        </th>
+                                                        <th>
+                                                            <center>Jenis Operasi</center>
+                                                        </th>
+                                                        <th>
+                                                            <center>Lokasi</center>
+                                                        </th>
+                                                        <th>
+                                                            <center>Jumlah Personil</center>
+                                                        </th>
+                                                        <th>
+                                                            <center>Tgl. Mulai Operasi</center>
+                                                        </th>
+                                                        <th>
+                                                            <center>Status Operasi</center>
+                                                        </th>
+                                                        <th>
+                                                            <center>Aksi</center>
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php $no=1 ?>
+                                                    <?php $no = 1 ?>
                                                     @foreach($operasi as $op)
                                                     <tr>
-                                                        <td><center>{{ $no++ }}</center></td>
-                                                        <td><center>{{ $op->nama_operasi }}</center></td>
-                                                        <td><center>{{ $op->jenis_operasi }}</center></td>
-                                                        <td><center>{{ $op->lokasi }}</center></td>
-                                                        <td><center>{{ $op->jml_personil }}</center></td>
-                                                        <td><center>{{ tgl_indo($op->tgl_mulai) }}</center></td>
+                                                        <td>
+                                                            <center>{{ $no++ }}</center>
+                                                        </td>
+                                                        <td>
+                                                            <center>{{ $op->nama_operasi }}</center>
+                                                        </td>
+                                                        <td>
+                                                            <center>{{ $op->jenis_operasi }}</center>
+                                                        </td>
+                                                        <td>
+                                                            <center>{{ $op->lokasi }}</center>
+                                                        </td>
+                                                        <td>
+                                                            <center>{{ $op->jml_personil }}</center>
+                                                        </td>
+                                                        <td>
+                                                            <center>{{ tgl_indo($op->tgl_mulai) }}</center>
+                                                        </td>
                                                         @if($op->status==1)
-                                                        <td><center>Perencanaan</center></td>
+                                                        <td>
+                                                            <center>Perencanaan</center>
+                                                        </td>
                                                         @elseif($op->status==2)
-                                                        <td><center>Berlangsung</center></td>
+                                                        <td>
+                                                            <center>Berlangsung</center>
+                                                        </td>
                                                         @elseif($op->status==3)
-                                                        <td><center>Selesai</center></td>
+                                                        <td>
+                                                            <center>Selesai</center>
+                                                        </td>
                                                         @elseif($op->status==4)
-                                                        <td><center>Dilanjutkan</center></td>
+                                                        <td>
+                                                            <center>Dilanjutkan</center>
+                                                        </td>
                                                         @endif
                                                         <td>
-                                                        <center>
-                                                        @if(Auth::guard('user')->check())
-                                                           <a href="{{url('/entry-operasi/detail/'.$op->id)}}" class="btn btn-sm btn-warning">Detail</a>
-                                                           <a href="{{url('/entry-operasi/edit/'.$op->id)}}" class="btn btn-sm btn-success">Edit</a>
-                                                        @else
-                                                            <a href="{{url('/list-operasi-all/detail/'.$op->id)}}" class="btn btn-sm btn-warning">Detail</a>
-                                                            <a href="{{url('/list-operasi-all/edit/'.$op->id)}}" class="btn btn-sm btn-success">Edit</a>
-                                                        @endif
-                                                        </center>
+                                                            <center>
+                                                                @if(Auth::guard('user')->check())
+                                                                <a href="{{url('/entry-operasi/detail/'.$op->id)}}" class="btn btn-sm btn-warning">Detail</a>
+                                                                <a href="{{url('/entry-operasi/edit/'.$op->id)}}" class="btn btn-sm btn-success">Edit</a>
+                                                                @else
+                                                                <a href="{{url('/list-operasi-all/detail/'.$op->id)}}" class="btn btn-sm btn-warning">Detail</a>
+                                                                <a href="{{url('/list-operasi-all/edit/'.$op->id)}}" class="btn btn-sm btn-success">Edit</a>
+                                                                @endif
+                                                            </center>
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -148,7 +184,7 @@ function tgl_indo($tanggal)
     </div>
 </div>
 
-  <div class="modal fade" id="tambah-master" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambah-master" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -156,7 +192,7 @@ function tgl_indo($tanggal)
                 <h4 class="modal-title" id="exampleModalLabel">Tambah Master Jenis Peralatan</h4>
             </div>
             <form id="formTambah" action="{{ url('master/jenis-peralatan-dashboard/tambah') }}" method="POST">
-            @csrf
+                @csrf
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="jenis_peralatan" class="col-form-label">Jenis Peralatan</label>
@@ -170,9 +206,9 @@ function tgl_indo($tanggal)
             </form>
         </div>
     </div>
-  </div>
+</div>
 
-  <div class="modal fade" id="edit-master" role="dialog">
+<div class="modal fade" id="edit-master" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -180,7 +216,7 @@ function tgl_indo($tanggal)
                 <h4 class="modal-title">Edit Master Jenis Peralatan</h4>
             </div>
             <form id="formEdit" action="{{url('master/jenis-peralatan-dashboard/edit')}}" method="post">
-            @csrf
+                @csrf
                 <div class="modal-body">
                     <input type="hidden" id="id_edit" name="id_edit">
                     <div class="form-group">
@@ -195,7 +231,7 @@ function tgl_indo($tanggal)
             </form>
         </div>
     </div>
-  </div>
+</div>
 
 @endsection
 @section('js')
@@ -204,35 +240,34 @@ function tgl_indo($tanggal)
         $('#dt_basic_1').DataTable();
     })
 
-    function EditMaster(obj){
+    function EditMaster(obj) {
         var data = $(obj).data('item');
 
         $('#edit-master').modal('show');
         $('#id_edit').val(data.id);
         $('#jenis_peralatan_edit').val(data.jenis_peralatan);
-        
+
     }
 
-    function hapusMaster(id)
-        {
-            Swal.fire({
-              type: 'question',
-              title: 'Ingin Hapus Data?',
-              showCancelButton: true,
-              cancelButtonText: "Batal",
-              confirmButtonText: "Hapus",
-            }).then(function(result) {
-                if(result.value){
-                    window.location.href = "{{ URL::to('master/jenis-peralatan-dashboard/hapus/')}}"+'/'+id;
-                }else{
-                    Swal.fire({
-                        type: 'error',
-                        text: "Batal Hapus",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-            })
-        }
+    function hapusMaster(id) {
+        Swal.fire({
+            type: 'question',
+            title: 'Ingin Hapus Data?',
+            showCancelButton: true,
+            cancelButtonText: "Batal",
+            confirmButtonText: "Hapus",
+        }).then(function(result) {
+            if (result.value) {
+                window.location.href = "{{ URL::to('master/jenis-peralatan-dashboard/hapus/')}}" + '/' + id;
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    text: "Batal Hapus",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+    }
 </script>
 @endsection

@@ -68,23 +68,14 @@ class InputDataController extends Controller
     public function store_data(Request $request)
     {
         //dd($request->all());
-        $status = 0;
+
         /* 
             Status 1 = mabes
             status 2 = provinsi (polda)
             status 3 = polres
         */
         if (!empty(Auth::guard('user')->check())) {
-            $cek_pusat = DB::table('users_detail')->where('id_user', Auth::guard('user')->user()->id)->first();
-            if (count($cek_pusat) != 0) {
-                if (!empty($cek_pusat->id_kab_kota)) {
-                    $status = 3;
-                } else {
-                    $status = 2;
-                }
-            } else {
-                $status = 1;
-            }
+            $status = 1;
         } else {
             $status = 0;
         }
@@ -103,6 +94,9 @@ class InputDataController extends Controller
             'is_wilayah' => $status,
             'kabkota_id' => $request->kabupaten,
             'id_jenis_operasi'  => $request->jenis_operasi,
+            'id_polda' => Auth::guard('user')->user()->id_polda,
+            'id_polres' => Auth::guard('user')->user()->id_polres,
+            'created_by' => Auth::guard('user')->user()->id,
         ];
         DB::table('operasi')->insert($array_master);
 

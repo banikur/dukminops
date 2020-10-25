@@ -64,39 +64,41 @@ function tgl_indo($tanggal)
                         @endif
                         <div class="row">
                             <div class="col-md-12">
-                            <div class="panel panel-warning">
-                                <div class="panel-heading" style="background-color:#f78c40;color:white;"><strong>Filter</strong></div>
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <form id="formFilter" method="post" action="{{url('/daftar-sarpas-unras/filter')}}">
-                                            @csrf
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 control-label">
-                                                        Status Operasi</label>
-                                                    <div class="col-sm-6">
-                                                        <select class="form-control js-example-basic-single" name="lokasi_filter">
-                                                            <option selected="" value="">Semua</option>
-                                                            <option value="1">Perencanaan</option>
-                                                            <option value="2">Berlangsung</option>
-                                                            <option value="3">Selesai</option>
-                                                            <option value="4">Dilanjutkan</option>
-                                                        </select>
+                                <div class="panel panel-warning">
+                                    <div class="panel-heading" style="background-color:#f78c40;color:white;"><strong>Filter</strong></div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <?php $url = url('/daftar-sarpas-unras/filter/' . $param);  ?>
+                                                <form id="formFilter" method="post" action="{{$url}}">
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label">
+                                                            Status Operasi</label>
+                                                        <div class="col-sm-6">
+                                                            <select class="form-control js-example-basic-single" name="lokasi_filter">
+                                                                <option selected="" value="">Semua</option>
+                                                                <option value="1">Perencanaan</option>
+                                                                <option value="2">Berlangsung</option>
+                                                                <option value="3">Selesai</option>
+                                                                <option value="4">Dilanjutkan</option>
+                                                            </select>
+                                                        </div>
+                                                    </div><br><br>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label">
+                                                            Tanggal Operasi</label>
+                                                        <div class="col-sm-6">
+                                                            <input class="form-control" type="text" placeholder="Tanggal Mulai" id="tanggal_filter" name="tanggal_filter">
+                                                            <input class="form-control" type="hidden" id="param" name="param" value="{{$param}}">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i>&nbsp;Filter</button>
                                                     </div>
-                                                </div><br><br>
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 control-label">
-                                                        Tanggal Operasi</label>
-                                                    <div class="col-sm-6">
-                                                        <input class="form-control" type="text" placeholder="Tanggal Mulai" id="tanggal_filter" name="tanggal_filter">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i>&nbsp;Filter</button>
-                                                </div>
-                                            </form>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                     <header role="heading">
                                         <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
@@ -151,13 +153,21 @@ function tgl_indo($tanggal)
                                                             <center>{{ tgl_indo($op->tgl_mulai) }}</center>
                                                         </td>
                                                         @if($op->status==1)
-                                                        <td><center>Perencanaan</center></td>
+                                                        <td>
+                                                            <center>Perencanaan</center>
+                                                        </td>
                                                         @elseif($op->status==2)
-                                                        <td><center>Berlangsung</center></td>
+                                                        <td>
+                                                            <center>Berlangsung</center>
+                                                        </td>
                                                         @elseif($op->status==3)
-                                                        <td><center>Selesai</center></td>
+                                                        <td>
+                                                            <center>Selesai</center>
+                                                        </td>
                                                         @elseif($op->status==4)
-                                                        <td><center>Dilanjutkan</center></td>
+                                                        <td>
+                                                            <center>Dilanjutkan</center>
+                                                        </td>
                                                         @endif
                                                         <td>
                                                             <center>
@@ -234,7 +244,11 @@ function tgl_indo($tanggal)
 <script>
     $(document).ready(function() {
         $('#dt_basic_1').DataTable();
+        $('.js-example-basic-single').select2({
+            width: '100%'
+        });
     })
+
 
     function EditMaster(obj) {
         var data = $(obj).data('item');
