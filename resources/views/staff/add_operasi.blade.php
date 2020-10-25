@@ -3,6 +3,12 @@
 Dashboard E-Report
 @endsection
 @section('ribbon')
+<style>
+    .textAreaIinput{
+        width:100%;
+        height:100px;
+    }
+</style>
 <ol class="breadcrumb">
     <!-- <li>Dashboard</li> -->
     <li class="pull-right"><?php echo date('j F, Y'); ?></li>
@@ -106,6 +112,18 @@ Dashboard E-Report
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label class="col-sm-4 control-label">
+                                                                Jenis Operasi</label>
+                                                            <div class="col-sm-7">
+                                                                <select id="jenis_operasi" name="jenis_operasi" class="form-control js-example-basic-single" required maxlength="200">
+                                                                    <option selected="" disabled="">-- PILIH --</option>
+                                                                    @foreach($master_jo as $mjo)
+                                                                    <option value="{{$mjo->id}}">{{$mjo->jenis_operasi}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label">
                                                                 Provinsi</label>
                                                             <div class="col-sm-7">
                                                                 <select id="prov" name="prov" class="form-control js-example-basic-single" required maxlength="200">
@@ -162,7 +180,7 @@ Dashboard E-Report
                                                         <a href="#s3" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i>Data Peralatan</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#s4" data-toggle="tab"><i class="fa fa-fw fa-lg fa-file"></i>Dokumen Pelaporan Kegiatan Operasi</a>
+                                                        <a href="#s4" data-toggle="tab"><i class="fa fa-fw fa-lg fa-file"></i>Pelaporan Akhir Kegiatan Operasi</a>
                                                     </li>
                                                     <li>
                                                         <a href="#s5" data-toggle="tab"><i class="fa fa-fw fa-lg fa-file"></i>Dokumen Pelaporan Anggaran</a>
@@ -172,44 +190,49 @@ Dashboard E-Report
                                                 <div id="myTabContent1" class="tab-content padding-10">
                                                     <div class="tab-pane fade in active" id="s1">
                                                         <div class="row" style="padding: 2% 0 2% 0;">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="col-sm-4 control-label">
-                                                                        Dokumen Perencanaan</label>
-                                                                    <!-- <div class="col-sm-7">
-                                                                            <input type="file" accept=".pdf" class="form-control" id="dok_perencanaan" name="dok_perencanaan">
-                                                                        </div> -->
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <button type="button" id="add_dok_perencanaan" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
-                                                            </div>
-                                                            <input type="hidden" name="nodetaidok_rencana" id="nodetaidok_rencana" value="0" />
-
-                                                        </div>
-                                                        <div class="row">
                                                             <div class="col-sm-12">
-                                                                <?php $no = 1; ?>
-                                                                <table id="dt_basic_2" class="table table-striped table-bordered table-hover" width="100%">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>
-                                                                                Nama Dokumen
-                                                                            </th>
-                                                                            <th>
-                                                                                Dokumen
-                                                                            </th>
-                                                                            <th>
-                                                                                Aksi
-                                                                            </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <?php $no = 1; ?>
-                                                                    <tbody id="id_table_dok_perencanaan">
-
-                                                                    </tbody>
-                                                                </table>
-
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        No Renops</label>
+                                                                    <div class="col-sm-4">
+                                                                        <input class="form-control" type="text" name="no_renops" id="no_renops" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Tujuan</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="tujuan" id="tujuan" autocomplete="off"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Sasaran</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="sasaran" id="sasaran" autocomplete="off"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Target Operasi</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="target_operasi" id="target_operasi" autocomplete="off"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Cara Bertindak</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="cara_tindak" id="cara_tindak" autocomplete="off"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Dokumen Pendukung</label>
+                                                                    <div class="col-sm-4">
+                                                                        <input class="form-control" type="file" name="dok_perencanaan" id="dok_perencanaan" autocomplete="off">
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -225,7 +248,7 @@ Dashboard E-Report
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-4 control-label">
-                                                                        NIP</label>
+                                                                        NRP</label>
                                                                     <div class="col-sm-7">
                                                                         <input class="form-control" type="text" name="nip" id="nip" autocomplete="off">
                                                                     </div>
@@ -240,6 +263,20 @@ Dashboard E-Report
                                                                             <option value="{{$mp->id}}">{{$mp->nama_pangkat}}</option>
                                                                             @endforeach
                                                                         </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        Jabatan Struktural</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input class="form-control" type="text" name="jab_struk" id="jab_struk" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        Jabatan Fungsional</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input class="form-control" type="text" name="jab_fung" id="jab_fung" autocomplete="off">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
@@ -279,10 +316,16 @@ Dashboard E-Report
                                                                                 Nama Personil
                                                                             </th>
                                                                             <th>
-                                                                                NIP
+                                                                                NRP
                                                                             </th>
                                                                             <th>
                                                                                 Pangkat
+                                                                            </th>
+                                                                            <th>
+                                                                                Jabatan Struktural
+                                                                            </th>
+                                                                            <th>
+                                                                                Jabatan Fungsional
                                                                             </th>
                                                                             <th>
                                                                                 Satuan Asal
@@ -375,43 +418,35 @@ Dashboard E-Report
                                                     </div>
                                                     <div class="tab-pane fade" id="s4">
                                                         <div class="row" style="padding: 2% 0 2% 0;">
-                                                            <div class="col-sm-6">
+                                                            <div class="col-sm-12">
                                                                 <div class="form-group">
-                                                                    <label class="col-sm-5 control-label">
-                                                                        Dokumen Pelaporan Operasi</label>
-                                                                    <div class="col-sm-7">
-                                                                        <!-- <input type="file" accept=".pdf" class="form-control" id="dokpelaporan" name="pelaporan"> -->
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Hasil yang Dicapai</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="hasil_akhir" id="hasil_akhir" autocomplete="off"></textarea>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <button type="button" id="add_dok_laporan" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
-                                                            </div>
-                                                            <input type="hidden" name="nodetaidok_laporan" id="nodetaidok_laporan" value="0" />
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-12"></div>
-                                                            <div class="col-sm-12">
-                                                                <?php $no = 1; ?>
-                                                                <table id="dt_basic_5" class="table table-striped table-bordered table-hover" width="100%">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>
-                                                                                Nama Dokumen
-                                                                            </th>
-                                                                            <th>
-                                                                                Dokumen
-                                                                            </th>
-                                                                            <th>
-                                                                                Aksi
-                                                                            </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <?php $no = 1; ?>
-                                                                    <tbody id="id_table_dok_pelaporan">
-
-                                                                    </tbody>
-                                                                </table>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Kendala</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="kendala_akhir" id="kendala_akhir" autocomplete="off"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Analisa dan Evaluasi</label>
+                                                                    <div class="col-sm-9">
+                                                                        <textarea class="textAreaIinput" type="text" name="evaluasi_akhir" id="evaluasi_akhir" autocomplete="off"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        Dokumen Pendukung</label>
+                                                                    <div class="col-sm-4">
+                                                                        <input class="form-control" type="file" name="dok_akhir" id="dok_akhir" autocomplete="off">
+                                                                    </div>
+                                                                </div>
 
                                                             </div>
                                                         </div>
@@ -597,25 +632,6 @@ Dashboard E-Report
 
     }
 
-    $('#add_dok_perencanaan').on('click', function() {
-        var html = '';
-        var no = 0;
-        //var doc = $('#dok_perencanaan').val();
-        var no = parseFloat($('#nodetaidok_rencana').val()) + 1;
-        $('#nodetaidok_rencana').val(no);
-        $('#halu').css("display", "none");
-
-        html += '<tr id="id_table_dok_perencanaan' + no + '">';
-        // html += '<td><center>' + $('#nodetail').val() + '</center></td>';
-        html += '<td><center><input type="text" class="form-control" name="name_dok_perencanaans[]"></center></td>';
-        html += '<td><center><input type="file" class="form-control" name="dok_perencanaans[]"></center></td>';
-        html += '<td><center><button type="button" onclick="delete_detail(' + no +
-            ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
-
-        html += '</tr>';
-        $('#id_table_dok_perencanaan').append(html);
-    });
-
     function delete_detail(no) {
         var cek = parseInt($('#nodetail').val());
         if (cek != 0) {
@@ -690,6 +706,9 @@ Dashboard E-Report
         var pangkat_name = $('#pangkat :selected').text();
         var satuan = $('#nama_satuan').val();
 
+        var jab_struk = $('#jab_struk').val();
+        var jab_fung = $('#jab_fung').val();
+
         $('#nodetail').val(no + 1);
         $('#halu').css("display", "none");
 
@@ -701,6 +720,10 @@ Dashboard E-Report
             nip + '">' + nip + '</center></td>';
         html += '<td><center><input type="text" style="display:none;" name="pangkat_s[]" value="' +
             pangkat + '">' + pangkat_name + '</td>';
+        html += '<td><center><input type="text" style="display:none;" name="jab_struk[]" value="' +
+            jab_struk + '">' + jab_struk + '</td>';
+        html += '<td><center><input type="text" style="display:none;" name="jab_fung[]" value="' +
+            jab_fung + '">' + jab_fung + '</td>';
         html += '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
             satuan + '">' + satuan + '</td>';
 
@@ -724,6 +747,8 @@ Dashboard E-Report
         var nama_personil = $('#nama_personil').val('');
         var nip = $('#nip').val('');
         var satuan = $('#nama_satuan').val('');
+        var jab_struk = $('#jab_struk').val('');
+        var jab_fung = $('#jab_fung').val('');
     }
 
     $('#add_peralatan').on('click', function() {
@@ -732,6 +757,7 @@ Dashboard E-Report
         //var doc = $('#dok_perencanaan').val();
         var nama_personil = $('#nama_alat').val();
         var nip = $('#jenis_peralatan').val();
+        var nip_text = $('#jenis_peralatan').text();
         var pangkat = $('#jumlah_alat').val();
         var count_alat = parseFloat($('#count_alat').val()) + 1;
         $('#count_alat').val(count_alat);
@@ -743,7 +769,7 @@ Dashboard E-Report
         html += '<td><center><input type="text" style="display:none;" name="nama_peralatan_s[]" value="' +
             nama_personil + '">' + nama_personil + '</center></td>';
         html += '<td><center><input type="text" style="display:none;" name="jenis_alat_array[]" value="' +
-            nip + '">' + nip + '</center></td>';
+            nip + '">' + nip_text + '</center></td>';
         html += '<td><center><input type="text" style="display:none;" name="jumlah_alat[]" value="' +
             pangkat + '">' + pangkat + '</td>';
         html += '<td><center><button type="button" onclick="delete_peralatan(' + $('#count_alat').val() +

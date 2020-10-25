@@ -34,5 +34,44 @@ class SarpasUnpasController extends Controller
         return view('detail_sarpasunpas', $data);
     }
 
+    public function filterindexpusat(Request $req){
+        $status = $req->lokasi_filter;
+        $tgl = $req->tanggal_filter;
+        $operasi = DB::table('operasi')
+        ->when($status, function($q, $status){
+            $q->where('status', $status);
+        })
+        ->when($tgl, function($q, $tgl){
+            $q->where('tgl_mulai', $tgl);
+        })
+        ->get();
+
+        return view('daftar_sarpasunpas', compact('operasi'));
+    }
+
+    public function indexwilayah(){
+        $operasi = DB::table('operasi')->get();
+
+        return view('inteligen_wilayah', compact('operasi'));
+    }
+
+    public function filterindexwilayah(Request $req){
+        $polda  = $req->polda;
+        $polres = $req->polres;
+        $status = $req->lokasi_filter;
+        $tgl = $req->tanggal_filter;
+
+        $operasi = DB::table('operasi')
+        ->when($status, function($q, $status){
+            $q->where('status', $status);
+        })
+        ->when($tgl, function($q, $tgl){
+            $q->where('tgl_mulai', $tgl);
+        })
+        ->get();
+
+        return view('inteligen_wilayah', compact('operasi'));
+    }
+
     
 }
