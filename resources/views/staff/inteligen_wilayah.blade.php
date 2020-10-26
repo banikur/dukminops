@@ -68,8 +68,10 @@ function tgl_indo($tanggal)
                                     <div class="panel-heading" style="background-color:#f78c40;color:white;"><strong>Filter</strong></div>
                                     <div class="panel-body">
                                         <div class="row">
-                                            <form id="formFilter" method="post" action="{{url('/operasi-inteligen-wilayah/filter')}}">
+                                            <?php $url = url('/operasi-inteligen-wilayah/filter/' . $param); ?>
+                                            <form id="formFilter" method="post" action="{{$url}}">
                                                 @csrf
+                                                <input class="form-control" type="hidden" id="param" name="param" value="{{$param}}">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="col-sm-3 control-label">
@@ -77,6 +79,9 @@ function tgl_indo($tanggal)
                                                         <div class="col-sm-6">
                                                             <select class="form-control js-example-basic-single" name="polda">
                                                                 <option selected="" value="">Semua</option>
+                                                                @foreach($data_polda as $pda)
+                                                                <option value="{{$pda->id_polda}}">{{$pda->name}}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div><br><br>
@@ -86,6 +91,9 @@ function tgl_indo($tanggal)
                                                         <div class="col-sm-6">
                                                             <select class="form-control js-example-basic-single" name="polres">
                                                                 <option selected="" value="">Semua</option>
+                                                                @foreach($data_polres as $res)
+                                                                <option value="{{$res->id_polres}}">{{$res->name}}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
@@ -165,27 +173,23 @@ function tgl_indo($tanggal)
                                                             <center>{{ $no++ }}</center>
                                                         </td>
                                                         <td>
-                                                            @if($op->is_wilayah == 1)
-                                                            <center>Mabes Polri</center>
-                                                            @elseif($op->is_wilayah == 2)
-                                                            <?php $prov = DB::table('master_provinsi')->where('id', $op->prov_id)->first(); ?>
+                                                            @if(!empty($op->id_polda))
                                                             <center>Polda</center>
-                                                            @elseif($op->is_wilayah == 3)
-                                                            <?php $polres = DB::table('master_kab_kota')->where('id', $op->kabkota_id)->first(); ?>
+                                                            @elseif(!empty($op->id_polda) && !empty($op->id_polres))
                                                             <center>Polres</center>
                                                             @else
+                                                            <center>Mabes Polri</center>
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            @if($op->is_wilayah == 1)
-                                                            <center>Mabes Polri</center>
-                                                            @elseif($op->is_wilayah == 2)
-                                                            <?php $prov = DB::table('master_provinsi')->where('id', $op->prov_id)->first(); ?>
-                                                            <center>Polda {{$prov->nama_prov}}</center>
-                                                            @elseif($op->is_wilayah == 3)
-                                                            <?php $polres = DB::table('master_kab_kota')->where('id', $op->kabkota_id)->first(); ?>
-                                                            <center>Polres {{$polres->kab_kota}}</center>
+                                                            @if(!empty($op->id_polda))
+                                                            <?php $data = DB::table('users')->where('id_polda', $op->id_polda)->get(); ?>
+                                                            <center>{{$data[0]->name}}</center>
+                                                            @elseif(!empty($op->id_polda) && !empty($op->id_polres))
+                                                            <?php $data = DB::table('users')->where('id_polres', $op->id_polda)->get(); ?>
+                                                            <center>{{$data[0]->name}}</center>
                                                             @else
+                                                            <center>Mabes Polri</center>
                                                             @endif
                                                         </td>
                                                         <td>
@@ -292,6 +296,9 @@ function tgl_indo($tanggal)
 <script>
     $(document).ready(function() {
         $('#dt_basic_1').DataTable();
+        $('.js-example-basic-single').select2({
+            width: '100%'
+        });
     })
 
     function EditMaster(obj) {

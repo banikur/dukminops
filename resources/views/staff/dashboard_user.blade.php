@@ -15,6 +15,17 @@ Dashboard E-Report
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-sm-12">
+                    <div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-warning fade in">
+                                    <button class="close" data-dismiss="alert">
+                                        ×
+                                    </button>
+                                    <i class="fa-fw fa fa-warning"></i>
+                                    <strong>Selamat Datang,</strong> {{Auth::guard('user')->user()->name}}
+                                </div>
+                            </div>
+                        </div>
                         @if($errors->any())
                         <div class="row">
                             <div class="col-sm-12">

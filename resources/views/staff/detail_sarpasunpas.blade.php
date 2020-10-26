@@ -65,7 +65,12 @@ function tgl_indo($tanggal)
                         <div class="row">
                             <div class="col-md-12">
                                 <div style="position: absolute; top: 0;right:15px;">
-                                    <a href="{{url('/daftar-sarpas-unras')}}" class="btn btn-info">Kembali</a>
+                                    @if(Auth::guard('user')->user()->id_polda == null && Auth::guard('user')->user()->id_polres == null)
+                                    @php $url = url('/daftar-sarpas-unras/' . $jenis_ops);@endphp
+                                    @else
+                                    @php $url = url('/operasi-inteligen-wilayah/' . $jenis_ops);@endphp
+                                    @endif
+                                    <a href="{{$url}}" class="btn btn-info">Kembali</a>
                                 </div>
                                 <br><br><br>
                                 <form id="detail_operasi" class="form-horizontal">
