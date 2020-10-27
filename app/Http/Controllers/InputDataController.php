@@ -41,6 +41,7 @@ class InputDataController extends Controller
             'operasi.status'
         )
             ->leftjoin('master_jenis_operasi as m', 'm.id', '=', 'operasi.id_jenis_operasi')
+            ->where('created_by',Auth::user()->id)
             ->get();
 
         return view('staff.entry_operasi', compact('operasi'));
