@@ -263,121 +263,121 @@ class InputDataController extends Controller
         DB::table('operasi')->where('id', $id_operasi)->update($array_master);
 
         //Edit Table Personil
-        $del_personil = DB::table('personil')->where('operasi_id', $id_operasi)->delete();
-        $nama_personil = count($request->nama_personil_s);
-        for ($i = 0; $i < $nama_personil; $i++) {
-            $array_personil = [
-                'operasi_id' => $id_operasi,
-                'nama_personil' => $request->nama_personil_s[$i],
-                'nip' => $request->nip_s[$i],
-                'pangkat' => $request->pangkat_s[$i],
-                'satuan_asal' => $request->satuan_s[$i],
-                'status' => 1,
-                'updated_at' => date('Y-m-d h:i:s')
-            ];
-            DB::table('personil')->insert($array_personil);
-        }
+        // $del_personil = DB::table('personil')->where('operasi_id', $id_operasi)->delete();
+        // $nama_personil = count($request->nama_personil_s);
+        // for ($i = 0; $i < $nama_personil; $i++) {
+        //     $array_personil = [
+        //         'operasi_id' => $id_operasi,
+        //         'nama_personil' => $request->nama_personil_s[$i],
+        //         'nip' => $request->nip_s[$i],
+        //         'pangkat' => $request->pangkat_s[$i],
+        //         'satuan_asal' => $request->satuan_s[$i],
+        //         'status' => 1,
+        //         'updated_at' => date('Y-m-d h:i:s')
+        //     ];
+        //     DB::table('personil')->insert($array_personil);
+        // }
 
         //Edit Table Pelaralat
-        $del_peralatan = DB::table('peralatan')->where('operasi_id', $id_operasi)->delete();
-        $nama_peralatan = count($request->nama_peralatan_s);
-        for ($j = 0; $j < $nama_peralatan; $j++) {
-            $array_peralatan = [
-                'operasi_id' => $id_operasi,
-                'nama_peralatan' => $request->nama_peralatan_s[$j],
-                'jenis' => $request->jenis_alat_array[$j],
-                'jml' => $request->jumlah_alat[$j],
-                'updated_at' => date('Y-m-d h:i:s')
-            ];
-            DB::table('peralatan')->insert($array_peralatan);
-        }
+        // $del_peralatan = DB::table('peralatan')->where('operasi_id', $id_operasi)->delete();
+        // $nama_peralatan = count($request->nama_peralatan_s);
+        // for ($j = 0; $j < $nama_peralatan; $j++) {
+        //     $array_peralatan = [
+        //         'operasi_id' => $id_operasi,
+        //         'nama_peralatan' => $request->nama_peralatan_s[$j],
+        //         'jenis' => $request->jenis_alat_array[$j],
+        //         'jml' => $request->jumlah_alat[$j],
+        //         'updated_at' => date('Y-m-d h:i:s')
+        //     ];
+        //     DB::table('peralatan')->insert($array_peralatan);
+        // }
 
         //EDit Table Dokumen Perencanaan
-        $del_dok_rencana = DB::table('dokumen_operasi')->where('id_operasi', $id_operasi)->delete();
-        $name_dok_perencanaans = count($request->name_dok_perencanaans);
-        for ($dok_rencana = 0; $dok_rencana < $name_dok_perencanaans; $dok_rencana++) {
-            if ($request->hasFile('dok_perencanaans')) {
-                $bukti_bayar = $request->file('dok_perencanaans')[$dok_rencana];
-                $destination = public_path() . '/upload-dokumen/dok_rencana\\';
-                $nama_file2 = 'dok_rencana-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
-                $bukti_bayar->move($destination, $nama_file2);
-                $dok_rencana_array = [
-                    'id_operasi' => $id_operasi,
-                    'path' => 'upload-dokumen/dok_rencana/',
-                    'nama_dokumen' => $request->name_dok_perencanaans[$dok_rencana],
-                    'created_at' => date('Y-m-d h:i:s'),
-                    'kategori_dokumen' => 1,
-                    'dokumen' => $nama_file2,
-                ];
-                DB::table('dokumen_operasi')->insert($dok_rencana_array);
-            } else {
-                $dok_rencana_array = [
-                    'id_operasi' => $id_operasi,
-                    'nama_dokumen' => $request->name_dok_perencanaans[$dok_rencana],
-                    'created_at' => date('Y-m-d h:i:s'),
-                    'kategori_dokumen' => 1,
-                ];
-                DB::table('dokumen_operasi')->insert($dok_rencana_array);
-            }
-        }
+        // $del_dok_rencana = DB::table('dokumen_operasi')->where('id_operasi', $id_operasi)->delete();
+        // $name_dok_perencanaans = count($request->name_dok_perencanaans);
+        // for ($dok_rencana = 0; $dok_rencana < $name_dok_perencanaans; $dok_rencana++) {
+        //     if ($request->hasFile('dok_perencanaans')) {
+        //         $bukti_bayar = $request->file('dok_perencanaans')[$dok_rencana];
+        //         $destination = public_path() . '/upload-dokumen/dok_rencana\\';
+        //         $nama_file2 = 'dok_rencana-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
+        //         $bukti_bayar->move($destination, $nama_file2);
+        //         $dok_rencana_array = [
+        //             'id_operasi' => $id_operasi,
+        //             'path' => 'upload-dokumen/dok_rencana/',
+        //             'nama_dokumen' => $request->name_dok_perencanaans[$dok_rencana],
+        //             'created_at' => date('Y-m-d h:i:s'),
+        //             'kategori_dokumen' => 1,
+        //             'dokumen' => $nama_file2,
+        //         ];
+        //         DB::table('dokumen_operasi')->insert($dok_rencana_array);
+        //     } else {
+        //         $dok_rencana_array = [
+        //             'id_operasi' => $id_operasi,
+        //             'nama_dokumen' => $request->name_dok_perencanaans[$dok_rencana],
+        //             'created_at' => date('Y-m-d h:i:s'),
+        //             'kategori_dokumen' => 1,
+        //         ];
+        //         DB::table('dokumen_operasi')->insert($dok_rencana_array);
+        //     }
+        // }
 
         //Edit Table Documen Pelaporan
-        $name_dok_pelaporan = count($request->name_dok_pelaporan);
-        for ($dok_laporan = 0; $dok_laporan < $name_dok_pelaporan; $dok_laporan++) {
-            if ($request->hasFile('dok_pelaporan')) {
-                $bukti_bayar = $request->file('dok_pelaporan')[$dok_laporan];
-                $destination = public_path() . '/upload-dokumen/dok_laporan\\';
-                $nama_file2 = 'dok_laporan-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
-                $bukti_bayar->move($destination, $nama_file2);
+        // $name_dok_pelaporan = count($request->name_dok_pelaporan);
+        // for ($dok_laporan = 0; $dok_laporan < $name_dok_pelaporan; $dok_laporan++) {
+        //     if ($request->hasFile('dok_pelaporan')) {
+        //         $bukti_bayar = $request->file('dok_pelaporan')[$dok_laporan];
+        //         $destination = public_path() . '/upload-dokumen/dok_laporan\\';
+        //         $nama_file2 = 'dok_laporan-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
+        //         $bukti_bayar->move($destination, $nama_file2);
 
-                $dok_laporan_array = [
-                    'id_operasi' => $id_operasi,
-                    'path' => 'upload-dokumen/dok_laporan/',
-                    'nama_dokumen' => $request->name_dok_pelaporan[$dok_laporan],
-                    'created_at' => date('Y-m-d h:i:s'),
-                    'kategori_dokumen' => 2,
-                    'dokumen' => $nama_file2,
-                ];
-                DB::table('dokumen_operasi')->insert($dok_laporan_array);
-            } else {
-                $dok_laporan_array = [
-                    'id_operasi' => $id_operasi,
-                    'nama_dokumen' => $request->name_dok_pelaporan[$dok_laporan],
-                    'created_at' => date('Y-m-d h:i:s'),
-                    'kategori_dokumen' => 2,
-                ];
-                DB::table('dokumen_operasi')->insert($dok_laporan_array);
-            }
-        }
+        //         $dok_laporan_array = [
+        //             'id_operasi' => $id_operasi,
+        //             'path' => 'upload-dokumen/dok_laporan/',
+        //             'nama_dokumen' => $request->name_dok_pelaporan[$dok_laporan],
+        //             'created_at' => date('Y-m-d h:i:s'),
+        //             'kategori_dokumen' => 2,
+        //             'dokumen' => $nama_file2,
+        //         ];
+        //         DB::table('dokumen_operasi')->insert($dok_laporan_array);
+        //     } else {
+        //         $dok_laporan_array = [
+        //             'id_operasi' => $id_operasi,
+        //             'nama_dokumen' => $request->name_dok_pelaporan[$dok_laporan],
+        //             'created_at' => date('Y-m-d h:i:s'),
+        //             'kategori_dokumen' => 2,
+        //         ];
+        //         DB::table('dokumen_operasi')->insert($dok_laporan_array);
+        //     }
+        // }
 
         //Edit Table Dokumen Anggaran
-        $name_dok_anggaran = count($request->name_dok_anggaran);
-        for ($dok_anggaran = 0; $dok_anggaran < $name_dok_anggaran; $dok_anggaran++) {
-            if ($request->hasFile('dok_anggaran')) {
-                $bukti_bayar = $request->file('dok_anggaran')[$dok_anggaran];
-                $destination = public_path() . '/upload-dokumen/dok_anggaran\\';
-                $nama_file2 = 'dok_anggaran-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
-                $bukti_bayar->move($destination, $nama_file2);
+        // $name_dok_anggaran = count($request->name_dok_anggaran);
+        // for ($dok_anggaran = 0; $dok_anggaran < $name_dok_anggaran; $dok_anggaran++) {
+        //     if ($request->hasFile('dok_anggaran')) {
+        //         $bukti_bayar = $request->file('dok_anggaran')[$dok_anggaran];
+        //         $destination = public_path() . '/upload-dokumen/dok_anggaran\\';
+        //         $nama_file2 = 'dok_anggaran-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
+        //         $bukti_bayar->move($destination, $nama_file2);
 
-                $dok_anggaran_array = [
-                    'id_operasi' => $id_operasi,
-                    'path' => 'upload-dokumen/dok_anggaran/',
-                    'nama_dokumen' => $request->name_dok_anggaran[$dok_anggaran],
-                    'created_at' => date('Y-m-d h:i:s'),
-                    'kategori_dokumen' => 3,
-                    'dokumen' => $nama_file2,
-                ];
-                DB::table('dokumen_operasi')->insert($dok_anggaran_array);
-            } else {
-                $dok_anggaran_array = [
-                    'id_operasi' => $id_operasi,
-                    'nama_dokumen' => $request->name_dok_anggaran[$dok_anggaran],
-                    'created_at' => date('Y-m-d h:i:s'),
-                    'kategori_dokumen' => 3,
-                ];
-                DB::table('dokumen_operasi')->insert($dok_anggaran_array);
-            }
-        }
+        //         $dok_anggaran_array = [
+        //             'id_operasi' => $id_operasi,
+        //             'path' => 'upload-dokumen/dok_anggaran/',
+        //             'nama_dokumen' => $request->name_dok_anggaran[$dok_anggaran],
+        //             'created_at' => date('Y-m-d h:i:s'),
+        //             'kategori_dokumen' => 3,
+        //             'dokumen' => $nama_file2,
+        //         ];
+        //         DB::table('dokumen_operasi')->insert($dok_anggaran_array);
+        //     } else {
+        //         $dok_anggaran_array = [
+        //             'id_operasi' => $id_operasi,
+        //             'nama_dokumen' => $request->name_dok_anggaran[$dok_anggaran],
+        //             'created_at' => date('Y-m-d h:i:s'),
+        //             'kategori_dokumen' => 3,
+        //         ];
+        //         DB::table('dokumen_operasi')->insert($dok_anggaran_array);
+        //     }
+        // }
         return redirect()->back()->with(['success' => 'Data Update']);
     }
 
