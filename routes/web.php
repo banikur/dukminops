@@ -81,7 +81,8 @@ Route::name('user')->middleware('auth:user')->group(function () {
 
     //Sarpas Unras pusat
     Route::get('/daftar-sarpas-unras/{param}', 'SarpasUnpasController@index');
-    Route::get('/daftar-sarpas-unras/detail/{id}', 'SarpasUnpasController@detailSarpasUnpas');
+    // Route::get('/daftar-sarpas-unras/detail/{id}', 'SarpasUnpasController@detailSarpasUnpas');
+    Route::get('/daftar-sarpas-unras/detail/{id}', 'InputDataController@detail_operasi');
     Route::post('/daftar-sarpas-unras/filter/ops-intelejen', 'SarpasUnpasController@filterindexpusat');
     Route::post('/daftar-sarpas-unras/filter/ops-penegakan', 'SarpasUnpasController@filterindexpusat');
     Route::post('/daftar-sarpas-unras/filter/ops-pengamanan', 'SarpasUnpasController@filterindexpusat');
@@ -90,7 +91,8 @@ Route::name('user')->middleware('auth:user')->group(function () {
 
     //Sarpas Unras wilayah
     Route::get('/operasi-inteligen-wilayah/{param}', 'SarpasUnpasController@indexwilayah');
-    Route::get('/operasi-inteligen-wilayah/detail/{id}', 'SarpasUnpasController@detailSarpasUnpas');
+    // Route::get('/operasi-inteligen-wilayah/detail/{id}', 'SarpasUnpasController@detailSarpasUnpas');
+    Route::get('/operasi-inteligen-wilayah/detail/{id}', 'InputDataController@detail_operasi');
     Route::post('/operasi-inteligen-wilayah/filter', 'SarpasUnpasController@filterindexwilayah');
     Route::post('/operasi-inteligen-wilayah/filter/ops-intelejen', 'SarpasUnpasController@filterindexwilayah');
     Route::post('/operasi-inteligen-wilayah/filter/ops-penegakan', 'SarpasUnpasController@filterindexwilayah');
