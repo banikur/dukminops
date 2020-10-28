@@ -57,7 +57,7 @@
             <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
                 @csrf
                     <span class="login100-form-title p-b-33">
-                        <img src="assets/logo.png" />
+                        <img width="100px" src="assets/logo.png" />
                     </span>
 
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
