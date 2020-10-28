@@ -47,7 +47,7 @@ Header
                 <li class="active"><a href="#intro">Beranda</a></li>
                 <li class="nav-item lain dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Tentang Dukminops
+                    Sidukops
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" id="dok-manual" href="#organisasi" target="_blank">Struktur Organisasi</a>
@@ -55,9 +55,7 @@ Header
                       <a class="dropdown-item" id="dok-lsp" href="#callcenter" target="_blank">Call Center</a>
                     </div>
                   </li>
-                <li><a href="#layanan">Layanan Dukminops</a></li>
-                <li><a href="#clients">Internal Dukminops</a></li>
-                <li><a href="#contact">Kontak Kami</a></li>
+                <li><a href="#layanan">Layanan Sidukops</a></li>
                  <!--<li><a href="{{route('login')}}">Masuk</a></li>-->
             </ul>
         </nav><!-- .main-nav -->
@@ -75,7 +73,7 @@ Header
         </div>
 
         <div class="intro-info">
-            <h1 style="color:#000000;"><b>SELAMAT DATANG DI APLIKASI E-DATADUKMINOPS<br>SOPS MABES POLRI</b></h1>
+            <h1 style="color:#000000;"><b>SELAMAT DATANG DI APLIKASI DUKUNGAN OPERASI (SIDUKOPS)<br>SOPS MABES POLRI</b></h1>
             <!-- <a href="{{url('/Costumer/costumer-table')}}" class="btn btn-lg btn-outline-dark">Pesan Sekarang &nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i/></a> -->
             <a href="{{route('login')}}" class="btn btn-lg btn-outline-dark">Masuk<i class="fa fa-arrow-right"></i/></a>
         </div>
