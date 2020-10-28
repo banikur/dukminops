@@ -61,6 +61,7 @@ Route::name('hrd')->middleware('auth:hrd')->group(function () {
     Route::get('/list-operasi-all', 'InputDataController@data_entry')->name('admin.list-operasi');
     Route::get('/list-operasi-all/detail/{id}', 'InputDataController@detail_operasi')->name('admin.detail_operasi');
     Route::get('/list-operasi-all/edit/{id}', 'InputDataController@edit_operasi')->name('admin.edit_operasi');
+    Route::get('/list-operasi-all/hapus/{id}', 'InputDataController@hapus_operasi')->name('admin.hapus_operasi');
 
     //user management
     Route::get('/user-management', 'UserManagementController@index');
@@ -77,6 +78,7 @@ Route::name('user')->middleware('auth:user')->group(function () {
     Route::get('/tambah-operasi', 'InputDataController@add_operasi_index')->name('add_operasi_index.user');
     Route::get('/entry-operasi/detail/{id}', 'InputDataController@detail_operasi')->name('detail_operasi.user');
     Route::get('/entry-operasi/edit/{id}', 'InputDataController@edit_operasi')->name('edit_operasi.user');
+    Route::get('/entry-operasi/hapus/{id}', 'InputDataController@hapus_operasi')->name('hapus_operasi.user');
     Route::get('/entry-operasi/prov', 'InputDataController@getProvinsi')->name('getprovinsi.user');
 
     //Sarpas Unras pusat

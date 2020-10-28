@@ -60,6 +60,7 @@ class InputDataController extends Controller
         $data['provinsi'] = DB::table('master_provinsi')->get();
         $data['master_pangkat'] = DB::table('master_pangkat')->get();
         $data['master_jo'] = DB::table('master_jenis_operasi')->get();
+        $data['master_jp'] = DB::table('master_jenis_peralatan')->get();
         // $data['employee'] = DB::table('employee')->where('id_empl', Auth::user()->id_pegawai)->get();
         //dd($data);
         return view('staff.add_operasi', $data);
@@ -388,5 +389,16 @@ class InputDataController extends Controller
         $master_kab = DB::table('master_kab_kota')->where('id_provinsi', $id_prov)->get();
 
         return $master_kab;
+    }
+
+    public function hapus_operasi($id){
+        $operasi = DB::table('operasi')->where('id',$id)->delete();
+        $perencanaan = DB::table('perencanaan')->where('operasi_id',$id)->delete();
+        $personil = DB::table('personil')->where('operasi_id',$id)->delete();
+        $peralatan = DB::table('peralatan')->where('operasi_id',$id)->delete();
+        $pelaporan_akhir = DB::table('pelaporan_akhir')->where('operasi_id',$id)->delete();
+        $dokumen_operasi = DB::table('dokumen_operasi')->where('kategori_dokumen',3)->where('id_operasi',$id)->delete();
+
+        return redirect()->back()->with(['success'=>'Data Delete']);
     }
 }

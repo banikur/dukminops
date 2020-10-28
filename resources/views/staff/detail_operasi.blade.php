@@ -467,6 +467,8 @@ function tgl_indo($tanggal)
 @section('js')
 <script>
     $(document).ready(function() {
+        $('#dt_basic_3').DataTable();
+        $('#dt_basic_4').DataTable();
         setMask();
         getKabupaten();
         $('#pangkat').select2({
