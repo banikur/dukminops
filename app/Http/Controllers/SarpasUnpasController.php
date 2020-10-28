@@ -97,6 +97,8 @@ class SarpasUnpasController extends Controller
         }
         // dd($operasi);
         $operasi = DB::table('operasi')->where('id_jenis_operasi', $jenis)
+            ->where('id_polda', '!=', null)
+            ->where('id_polres', '!=', null)
             ->when($status, function ($q, $status) {
                 $q->where('status', $status);
             })
@@ -216,20 +218,43 @@ class SarpasUnpasController extends Controller
         } elseif ($param == 'ops-pemulihan') {
             $jenis = 5;
         }
-        $operasi = DB::table('operasi')->where('id_jenis_operasi', $jenis)
-            ->when($status, function ($q, $status) {
-                $q->where('status', $status);
-            })
-            ->when($polda, function ($q, $polda) {
-                $q->where('id_polda', $polda);
-            })
-            ->when($polres, function ($q, $polres) {
-                $q->where('id_polres', $polres);
-            })
-            ->when($tgl, function ($q, $tgl) {
-                $q->where('tgl_mulai', $tgl);
-            })
-            ->get();
+        $auth_polda = Auth::guard('user')->user()->id_polda;
+        $auth_polres = Auth::guard('user')->user()->id_polres;
+        if (!empty($id_polda) || !empty($id_polres)) {
+            $operasi = DB::table('operasi')->where('id_jenis_operasi', $jenis)
+                ->where('id_polda', '!=', null)
+                ->where('id_polres', '!=', null)
+                ->when($status, function ($q, $status) {
+                    $q->where('status', $status);
+                })
+                ->when($polda, function ($q, $polda) {
+                    $q->where('id_polda', $polda);
+                })
+                ->when($polres, function ($q, $polres) {
+                    $q->where('id_polres', $polres);
+                })
+                ->when($tgl, function ($q, $tgl) {
+                    $q->where('tgl_mulai', $tgl);
+                })
+                ->get();
+        } else {
+            $operasi = DB::table('operasi')->where('id_jenis_operasi', $jenis)
+                ->where('id_polda', '!=', null)
+                ->where('id_polres', '!=', null)
+                ->when($status, function ($q, $status) {
+                    $q->where('status', $status);
+                })
+                ->when($polda, function ($q, $polda) {
+                    $q->where('id_polda', $polda);
+                })
+                ->when($polres, function ($q, $polres) {
+                    $q->where('id_polres', $polres);
+                })
+                ->when($tgl, function ($q, $tgl) {
+                    $q->where('tgl_mulai', $tgl);
+                })
+                ->get();
+        }
 
         return view('staff.inteligen_wilayah', compact('operasi', 'param', 'data_polda', 'data_polres'));
     }
