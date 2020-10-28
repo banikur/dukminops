@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
     @include('template.backend.header.header_script') {{-- CSS --}}
-    <body class="desktop-detected pace-done smart-style-3 fixed-page-footer">
+    <body class="desktop-detected pace-done smart-style-1 fixed-page-footer">
         @include('template.backend.header.header') {{-- Header --}}
         @include('template.backend.sidebar.sidebar') {{-- Sidebar --}}
         <div id="main" role="main">

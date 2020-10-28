@@ -4,9 +4,9 @@ Dashboard E-Report
 @endsection
 @section('ribbon')
 <style>
-    .textAreaIinput{
-        width:100%;
-        height:100px;
+    .textAreaIinput {
+        width: 100%;
+        height: 100px;
     }
 </style>
 <ol class="breadcrumb">
@@ -358,10 +358,9 @@ Dashboard E-Report
                                                                     <label class="col-sm-4 control-label">
                                                                         Jenis</label>
                                                                     <div class="col-sm-7">
-                                                                        <select id="jenis_peralatan" name="jenis_peralatan" class="form-control" required maxlength="200">
-                                                                            <option selected="" disabled="">--Pilih Peralatan--</option>
-                                                                            @foreach($master_jp as $jenis)
-                                                                            <option value="{{$jenis->id}}">{{$jenis->jenis_peralatan}}</option>
+                                                                        <select id="jenis_peralatan" name="jenis_peralatan" class="form-control js-example-basic-single" required maxlength="200">
+                                                                            @foreach($master_jenis_peralatan as $mjp)
+                                                                            <option value="{{$mjp->id}}">{{$mjp->jenis_peralatan}}</option>
                                                                             @endforeach
                                                                         </select>
                                                                         <!-- <input class="form-control" type="text" name="jenis_peralatan" id="jenis_peralatan" autocomplete="off"> -->

@@ -41,6 +41,7 @@ class InputDataController extends Controller
             'operasi.status'
         )
             ->leftjoin('master_jenis_operasi as m', 'm.id', '=', 'operasi.id_jenis_operasi')
+            ->where('created_by', Auth::user()->id)
             ->get();
 
         return view('staff.entry_operasi', compact('operasi'));
@@ -60,7 +61,7 @@ class InputDataController extends Controller
         $data['provinsi'] = DB::table('master_provinsi')->get();
         $data['master_pangkat'] = DB::table('master_pangkat')->get();
         $data['master_jo'] = DB::table('master_jenis_operasi')->get();
-        $data['master_jp'] = DB::table('master_jenis_peralatan')->get();
+        $data['master_jenis_peralatan'] = DB::table('master_jenis_peralatan')->where('status', 1)->get();
         // $data['employee'] = DB::table('employee')->where('id_empl', Auth::user()->id_pegawai)->get();
         //dd($data);
         return view('staff.add_operasi', $data);
