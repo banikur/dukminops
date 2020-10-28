@@ -4,9 +4,9 @@ Dashboard E-Report
 @endsection
 @section('ribbon')
 <style>
-    .textAreaIinput{
-        width:100%;
-        height:100px;
+    .textAreaIinput {
+        width: 100%;
+        height: 100px;
     }
 </style>
 <ol class="breadcrumb">
@@ -359,8 +359,9 @@ Dashboard E-Report
                                                                         Jenis</label>
                                                                     <div class="col-sm-7">
                                                                         <select id="jenis_peralatan" name="jenis_peralatan" class="form-control js-example-basic-single" required maxlength="200">
-                                                                            <option selected="" value="1">Peralatan Pendukung</option>
-                                                                            <option value="2">Peralatan Utama</option>
+                                                                            @foreach($master_jenis_peralatan as $mjp)
+                                                                            <option value="{{$mjp->id}}">{{$mjp->jenis_peralatan}}</option>
+                                                                            @endforeach
                                                                         </select>
                                                                         <!-- <input class="form-control" type="text" name="jenis_peralatan" id="jenis_peralatan" autocomplete="off"> -->
                                                                     </div>
