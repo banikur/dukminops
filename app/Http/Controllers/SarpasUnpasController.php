@@ -19,22 +19,32 @@ class SarpasUnpasController extends Controller
         if ($param == 'ops-intelejen') {
             $operasi = DB::table('operasi')
                 ->where('id_jenis_operasi', 0)
+                ->where('id_polda', null)
+                ->where('id_polres', null)
                 ->get();
         } elseif ($param == 'ops-penegakan') {
             $operasi = DB::table('operasi')
                 ->where('id_jenis_operasi', 2)
+                ->where('id_polda', null)
+                ->where('id_polres', null)
                 ->get();
         } elseif ($param == 'ops-pengamanan') {
             $operasi = DB::table('operasi')
                 ->where('id_jenis_operasi', 3)
+                ->where('id_polda', null)
+                ->where('id_polres', null)
                 ->get();
         } elseif ($param == 'ops-pemeliharaan') {
             $operasi = DB::table('operasi')
                 ->where('id_jenis_operasi', 4)
+                ->where('id_polda', null)
+                ->where('id_polres', null)
                 ->get();
         } elseif ($param == 'ops-pemulihan') {
             $operasi = DB::table('operasi')
                 ->where('id_jenis_operasi', 5)
+                ->where('id_polda', null)
+                ->where('id_polres', null)
                 ->get();
         } else {
             $operasi = DB::table('operasi')->get();

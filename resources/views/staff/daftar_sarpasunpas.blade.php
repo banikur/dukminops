@@ -102,7 +102,7 @@ function tgl_indo($tanggal)
                                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-x" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false" role="widget">
                                     <header role="heading">
                                         <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
-                                        <h2>Daftar SARPAS UNPAS</h2>
+                                        <h2>Daftar Operasi Terpusat</h2>
                                         <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
                                     </header>
                                     <div role="content">
