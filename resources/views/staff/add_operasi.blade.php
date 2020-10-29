@@ -549,6 +549,8 @@ Dashboard E-Report
 @section('js')
 <script>
     $(document).ready(function() {
+        $('#dt_basic_3').DataTable();
+        $('#dt_basic_4').DataTable();
         setMask();
         $('#pangkat').select2({
             width: '100%'
@@ -740,6 +742,8 @@ Dashboard E-Report
         $('#nodetail').val(no + 1);
         $('#halu').css("display", "none");
 
+        var table = $('#dt_basic_3').DataTable();
+
         html += '<tr id="id_table_personil' + $('#count_personil').val() + '">';
         // html += '<td><center>' + $('#nodetail').val() + '</center></td>';
         html += '<td><center><input type="text" style="display:none;" name="nama_personil_s[]" value="' +
@@ -759,16 +763,41 @@ Dashboard E-Report
             ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
 
         html += '</tr>';
-        $('#id_table_personil').append(html);
+        // $('#id_table_personil').append(html);
+        var nama_data = '<td><center><input type="text" style="display:none;" name="nama_personil_s[]" value="' +
+            nama_personil + '">' + nama_personil + '</center></td>';
+        var nip_data = '<td><center><input type="text" style="display:none;" name="nip_s[]" value="' +
+            nip + '">' + nip + '</center></td>';
+        var pangkat_data = '<td><center><input type="text" style="display:none;" name="pangkat_s[]" value="' +
+            pangkat + '">' + pangkat_name + '</td>';
+        var jab_struk_data =  '<td><center><input type="text" style="display:none;" name="jab_struk[]" value="' +
+            jab_struk + '">' + jab_struk + '</td>';
+        var jab_fung_data = '<td><center><input type="text" style="display:none;" name="jab_fung[]" value="' +
+            jab_fung + '">' + jab_fung + '</td>';
+        var satuan_data = '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
+            satuan + '">' + satuan + '</td>';
+        var hapus_data = '<center><button type="button" onclick="delete_personil(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center>';
+        table.row.add([
+            nama_data,
+            nip_data,
+            pangkat_data,
+            jab_struk_data,
+            jab_fung_data,
+            satuan_data,
+            hapus_data
+        ]).draw(false);
         clear_personil();
     });
 
-    function delete_personil(no) {
-        var cek = parseInt($('#nodetail').val());
-        if (cek != 0) {
-            $('#nodetail').val(cek - 1);
-        }
-        $('#id_table_personil' + no).remove();
+    function delete_personil(obj) {
+        $(obj).closest("tr").remove();
+        var count_personil = parseFloat($('#count_personil').val()) - 1;
+        $('#count_personil').val(count_personil);
+        // var cek = parseInt($('#nodetail').val());
+        // if (cek != 0) {
+        //     $('#nodetail').val(cek - 1);
+        // }
+        // $('#id_table_personil' + no).remove();
     }
 
     function clear_personil() {
@@ -792,6 +821,8 @@ Dashboard E-Report
 
         $('#halu').css("display", "none");
 
+        var table = $('#dt_basic_4').DataTable();
+
         html += '<tr id="id_table_peralatan' + $('#count_alat').val() + '">';
         // html += '<td><center>' + $('#nodetail').val() + '</center></td>';
         html += '<td><center><input type="text" style="display:none;" name="nama_peralatan_s[]" value="' +
@@ -804,16 +835,26 @@ Dashboard E-Report
             ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
 
         html += '</tr>';
-        $('#id_table_peralatan').append(html);
+        console.log(nip_text);
+        // $('#id_table_peralatan').append(html);
+        var nama_data = '<td><center><input type="text" style="display:none;" name="nama_peralatan_s[]" value="' +
+            nama_personil + '">' + nama_personil + '</center></td>';
+        var nip_data = '<td><center><input type="text" style="display:none;" name="jenis_alat_array[]" value="' +
+            nip + '">' + nip_text + '</center></td>';
+        var pangkat_data = '<td><center><input type="text" style="display:none;" name="jumlah_alat[]" value="' +
+            pangkat + '">' + pangkat + '</td>';
+        var hapus_data = '<td><center><button type="button" onclick="delete_peralatan(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
+        table.row.add([
+            nama_data,
+            nip_data,
+            pangkat_data,
+            hapus_data
+        ]).draw(false);
         clear_peralatan();
     });
 
-    function delete_peralatan(no) {
-        var cek = parseInt($('#nodetail').val());
-        if (cek != 0) {
-            $('#nodetail').val(cek - 1);
-        }
-        $('#id_table_peralatan' + no).remove();
+    function delete_peralatan(obj) {
+        $(obj).closest("tr").remove();
     }
 
     function clear_peralatan() {

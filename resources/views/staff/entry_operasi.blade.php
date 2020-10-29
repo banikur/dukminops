@@ -162,9 +162,11 @@ function tgl_indo($tanggal)
                                                                 @if(Auth::guard('user')->check())
                                                                 <a href="{{url('/entry-operasi/detail/'.$op->id)}}" class="btn btn-sm btn-warning">Detail</a>
                                                                 <a href="{{url('/entry-operasi/edit/'.$op->id)}}" class="btn btn-sm btn-success">Edit</a>
+                                                                <button type="button" onclick="hapusMaster('{{ $op->id }}')" class="btn btn-sm btn-danger">Hapus</button>
                                                                 @else
                                                                 <a href="{{url('/list-operasi-all/detail/'.$op->id)}}" class="btn btn-sm btn-warning">Detail</a>
                                                                 <a href="{{url('/list-operasi-all/edit/'.$op->id)}}" class="btn btn-sm btn-success">Edit</a>
+                                                                <button type="button" onclick="hapusMaster('{{ $op->id }}')" class="btn btn-sm btn-danger">Hapus</button>
                                                                 @endif
                                                             </center>
                                                         </td>
@@ -258,7 +260,11 @@ function tgl_indo($tanggal)
             confirmButtonText: "Hapus",
         }).then(function(result) {
             if (result.value) {
-                window.location.href = "{{ URL::to('master/jenis-peralatan-dashboard/hapus/')}}" + '/' + id;
+                @if(Auth::guard('user')->check())
+                window.location.href = "{{ URL::to('/entry-operasi/hapus/')}}" + '/' + id;
+                @else
+                window.location.href = "{{ URL::to('/list-operasi-all/hapus/')}}" + '/' + id;
+                @endif
             } else {
                 Swal.fire({
                     type: 'error',

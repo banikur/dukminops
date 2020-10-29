@@ -392,4 +392,15 @@ class InputDataController extends Controller
 
         return $master_kab;
     }
+
+    public function hapus_operasi($id){
+        $operasi = DB::table('operasi')->where('id',$id)->delete();
+        $perencanaan = DB::table('perencanaan')->where('operasi_id',$id)->delete();
+        $personil = DB::table('personil')->where('operasi_id',$id)->delete();
+        $peralatan = DB::table('peralatan')->where('operasi_id',$id)->delete();
+        $pelaporan_akhir = DB::table('pelaporan_akhir')->where('operasi_id',$id)->delete();
+        $dokumen_operasi = DB::table('dokumen_operasi')->where('kategori_dokumen',3)->where('id_operasi',$id)->delete();
+
+        return redirect()->back()->with(['success'=>'Data Delete']);
+    }
 }
