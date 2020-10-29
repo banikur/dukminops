@@ -76,10 +76,10 @@ class InputDataController extends Controller
             status 2 = provinsi (polda)
             status 3 = polres
         */
-        if (!empty(Auth::guard('user')->check())) {
-            $status = 1;
-        } else {
+        if (!empty(Auth::guard('user')->user()->id_polda)) {
             $status = 0;
+        } else {
+            $status = 1;
         }
 
         $array_master = [
@@ -123,6 +123,7 @@ class InputDataController extends Controller
 
         //peralatan
         $count_alat = $request->count_alat;
+        // dd($count_alat);
         for ($j = 0; $j < $count_alat; $j++) {
             $array_peralatan = [
                 'operasi_id' => $id,

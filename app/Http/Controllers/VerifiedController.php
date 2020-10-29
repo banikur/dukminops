@@ -58,4 +58,25 @@ class VerifiedController extends Controller
         return json_encode($data, true);
     }
 
+    public function get_masterpangkat_id($id)
+    {
+        // $id = $request->id;
+        $data = DB::table('master_pangkat')->where('id', $id)->first();
+        if (!empty($data)) {
+            return $x = json_encode($data);
+        } else {
+            return $x = $id;
+        }
+    }
+
+    public function get_masterpangkat(Request $request)
+    {
+        $id = $request->id;
+        $data = DB::table('master_pangkat')->where('id', $id)->first();
+        if (!empty($data)) {
+            return $data->nama_pangkat;
+        } else {
+            return $id;
+        }
+    }
 }

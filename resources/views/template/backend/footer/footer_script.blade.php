@@ -80,6 +80,7 @@
 
 <!--  Plugin for Sweet Alert -->
 <script src="{{url('assets/js/plugins/jquery.inputmask.js')}}"></script>
+<script src="{{url('assets/js/xlsx.full.min.js')}}"></script>
 <script src="{{url('backend_layout/js/plugin/ckeditor/ckeditor.js')}}"></script>
 <script src="{{url('backend_layout/js/plugin/flatpickr/flatpickr.js')}}"></script>
 <script src="{{url('backend_layout/js/plugin/flatpickr/index.js')}}"></script>

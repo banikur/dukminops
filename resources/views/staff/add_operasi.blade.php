@@ -238,6 +238,18 @@ Dashboard E-Report
                                                     </div>
                                                     <div class="tab-pane fade" id="s2">
                                                         <div class="row" style="padding: 2% 0 2% 0;">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-3 control-label">
+                                                                        Export Data</label>
+                                                                    <div class="col-sm-8">
+                                                                        <input class="form-control" type="file" name="personil" id="personil" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr />
+                                                            <br />
+                                                            <hr />
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
                                                                     <label class="col-sm-4 control-label">
@@ -346,6 +358,18 @@ Dashboard E-Report
                                                     </div>
                                                     <div class="tab-pane fade" id="s3">
                                                         <div class="row" style="padding: 2% 0 2% 0;">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-3 control-label">
+                                                                        Export Data</label>
+                                                                    <div class="col-sm-8">
+                                                                        <input class="form-control" type="file" name="peralatan" id="peralatan" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr />
+                                                            <br />
+                                                            <hr />
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
                                                                     <label class="col-sm-4 control-label">
@@ -388,7 +412,6 @@ Dashboard E-Report
 
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-sm-12"></div>
                                                             <div class="col-sm-12">
                                                                 <?php $no = 1; ?>
                                                                 <table id="dt_basic_4" class="table table-striped table-bordered table-hover" width="100%">
@@ -570,7 +593,7 @@ Dashboard E-Report
     $('#prov').on('change', function() {
         var provinsi = $('#prov').val();
         var token = $('meta[name="csrf-token"]').attr('content');
-        @if(Auth::guard('user')->check())
+        // if({{Auth::guard('user')->check()}}){
         $.get('{{URL::to("/entry-operasi/prov")}}', {
             provinsi: provinsi,
             _token: token
@@ -583,20 +606,24 @@ Dashboard E-Report
 
             $('#kabupaten').append(html);
         })
-        @else
-        $.get('{{URL::to("/pusat/entry-operasi/prov")}}', {
-            provinsi: provinsi,
-            _token: token
-        }, function(data) {
-            var html = '';
+        // }
 
-            $.each(data, function(index, value) {
-                html += '<option value="' + value.id + '">' + value.kab_kota + '</option>';
-            });
+        // else{
+        //     $.get('{{URL::to("/pusat/entry-operasi/prov")}}', {
+        //     provinsi: provinsi,
+        //     _token: token
+        // }, function(data) {
+        //     var html = '';
 
-            $('#kabupaten').append(html);
-        })
-        @endif
+        //     $.each(data, function(index, value) {
+        //         html += '<option value="' + value.id + '">' + value.kab_kota + '</option>';
+        //     });
+
+        //     $('#kabupaten').append(html);
+        // })
+        // }
+
+
     });
 
     function refresh() {
@@ -758,7 +785,7 @@ Dashboard E-Report
         //var doc = $('#dok_perencanaan').val();
         var nama_personil = $('#nama_alat').val();
         var nip = $('#jenis_peralatan').val();
-        var nip_text = $('#jenis_peralatan').text();
+        var nip_text = $('#jenis_peralatan :selected').text();
         var pangkat = $('#jumlah_alat').val();
         var count_alat = parseFloat($('#count_alat').val()) + 1;
         $('#count_alat').val(count_alat);
@@ -793,6 +820,283 @@ Dashboard E-Report
         var nama_personil = $('#nama_alat').val('');
         var nip = $('#jenis_peralatan').val('');
         var pangkat = $('#jumlah_alat').val('');
+    }
+</script>
+<script>
+    var files = false;
+    var type_files = false;
+    $('#personil').change(function() {
+        files = this.files[0];
+        type_files = this.files[0].type;
+
+        importFile();
+    })
+
+    function importFile() {
+        if (!$('#personil').val()) {
+            files = false;
+        }
+        if (files) {
+            $('.bgSpinner').show();
+            var type = 3;
+            var color = '#3388FF';
+            var promise = false;
+            var json = '';
+            var arr = [];
+            var arr2 = [];
+            var html = '';
+            var no = 0;
+            var nama_pangkat;
+            var x, result_pangkat;
+            var token = $('meta[name="csrf-token"]').attr('content');
+            promise = ObjectControl.excelToJSON(files);
+            if (promise) {
+                promise.then(function(data) {
+                    if (data.length > 0) {
+                        $.each(data, function(az, value) {
+                            $('#nodetail').val(no + 1);
+                            $('#count_personil').val(az + 1)
+                            $('#halu').css("display", "none");
+                            var param = '';
+                            let product = data[az]['pangkat'];
+                            if (product == 1) {
+                                param = 'Jenderal Polisi (Jend. Pol.)';
+                            } else if (product == 2) {
+                                param = 'Komisaris Jenderal (Komjen Pol.)';
+                            } else if (product == 3) {
+                                param = 'Inspektur Jenderal (Irjen Pol.)';
+                            } else if (product == 4) {
+                                param = 'Brigadir Jenderal (Brigjen Pol.)';
+                            } else if (product == 5) {
+                                param = 'Komisaris Besar (Kombes Pol.)';
+                            } else if (product == 6) {
+                                param = 'Ajun Komisaris Besar (AKBP)';
+                            } else if (product == 7) {
+                                param = 'Komisaris Polisi (Kompol)';
+                            } else if (product == 8) {
+                                param = 'Ajun Komisaris Polisi (AKP)';
+                            } else if (product == 9) {
+                                param = 'Inspektur Satu (Iptu)';
+                            } else if (product == 10) {
+                                param = 'Inspektur Dua (Ipda)';
+                            } else if (product == 11) {
+                                param = 'Ajun Inspektur Polisi Satu (AIPTU)';
+                            } else if (product == 12) {
+                                param = 'Ajun Inspektur Polisi Dua (AIPDA)';
+                            } else if (product == 13) {
+                                param = 'Brigadir Kepala (Bripka)';
+                            } else if (product == 14) {
+                                param = 'Brigadir Polisi (Brigpol)';
+                            } else if (product == 15) {
+                                param = 'Brigadir Satu (Briptu)';
+                            } else if (product == 16) {
+                                param = 'Brigadir Dua (Bripda)';
+                            } else if (product == 17) {
+                                param = 'Ajun Brigadir Polisi (Abrip)';
+                            } else if (product == 18) {
+                                param = 'Ajun Brigadir Satu (Abriptu)';
+                            } else if (product == 19) {
+                                param = 'Ajun Brigadir Dua (Abripda)';
+                            } else if (product == 20) {
+                                param = 'Bhayangkara Kepala (Bharaka)';
+                            } else if (product == 21) {
+                                param = 'Bhayangkara Satu (Bharatu)';
+                            } else if (product == 22) {
+                                param = 'Bhayangkara Dua (Bharada)';
+                            }
+                            html += '<tr id="id_table_personil' + az + '">';
+                            html += '<td><center><input type="text" style="display:none;" name="nama_personil_s[]" value="' +
+                                data[az]['nama'] + '">' + data[az]['nama'] + '</center></td>';
+                            html += '<td><center><input type="text" style="display:none;" name="nip_s[]" value="' +
+                                data[az]['nrp'] + '">' + data[az]['nrp'] + '</center></td>';
+                            html += '<td><center><input type="text" style="display:none;" name="pangkat_s[]" value="' +
+                                data[az]['pangkat'] + '">' + param + '</td>';
+                            html += '<td><center><input type="text" style="display:none;" name="jab_struk[]" value="' +
+                                data[az]['jabatan_struktural'] + '">' + data[az]['jabatan_struktural'] + '</td>';
+                            html += '<td><center><input type="text" style="display:none;" name="jab_fung[]" value="' +
+                                data[az]['jabatan_fungsional'] + '">' + data[az]['jabatan_fungsional'] + '</td>';
+                            html += '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
+                                data[az]['satuan_asal'] + '">' + data[az]['satuan_asal'] + '</td>';
+
+                            html += '<td><center><button type="button" onclick="delete_personil(' + az +
+                                ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
+
+                            html += '</tr>';
+                        });
+
+                        $('#id_table_personil').append(html);
+                        clear_personil();
+
+                    }
+                })
+            }
+
+        }
+    }
+
+    function getname(params) {
+        var arr2;
+        var url = "{{route('get_masterpangkat_id', '')}}" + "/" + params;
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'text/html',
+            success: function(data) {
+                return (data);
+            },
+            error: function() {
+                return "Hello";
+            }
+        });
+
+    }
+</script>
+<script>
+    var files = false;
+    var type_files2 = false;
+    $('#peralatan').change(function() {
+        files = this.files[0];
+        type_files2 = this.files[0].type;
+
+        importFile2();
+    })
+
+    function importFile2() {
+        if (!$('#peralatan').val()) {
+            files = false;
+        }
+        if (files) {
+            $('.bgSpinner').show();
+            var type = 3;
+            var color = '#3388FF';
+            var promise = false;
+            var json = '';
+            var arr = [];
+            var arr2 = [];
+            var html = '';
+            var no = 0;
+            var nama_pangkat;
+            var x, result_pangkat;
+            var token = $('meta[name="csrf-token"]').attr('content');
+            promise = ObjectControl.excelToJSON(files);
+            if (promise) {
+                promise.then(function(data) {
+                    if (data.length > 0) {
+                        $.each(data, function(az, value) {
+                            $('#nodetail').val(no + 1);
+                            var count_alat = $('#count_alat').val();
+                            $('#count_alat').val(az + 1);
+                                                        
+                            $('#halu').css("display", "none");
+                            var param = '';
+
+                            html += '<tr id="id_table_peralatan' + az + '">';
+                            // html += '<td><center>' + $('#nodetail').val() + '</center></td>';
+                            html += '<td><center><input type="text" style="display:none;" name="nama_peralatan_s[]" value="' +
+                                data[az]['nama_alat'] + '">' + data[az]['nama_alat'] + '</center></td>';
+                            html += '<td><center><input type="text" style="display:none;" name="jenis_alat_array[]" value="' +
+                                data[az]['jenis'] + '">-</center></td>';
+                            html += '<td><center><input type="text" style="display:none;" name="jumlah_alat[]" value="' +
+                                data[az]['jumlah'] + '">' + data[az]['jumlah'] + '</td>';
+                            html += '<td><center><button type="button" onclick="delete_peralatan(' + az +
+                                ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
+
+                            html += '</tr>';
+                        });
+
+                        $('#id_table_peralatan').append(html);
+                        clear_peralatan();
+
+                    }
+                })
+            }
+
+        }
+    }
+
+    function getname(params) {
+        var arr2;
+        var url = "{{route('get_masterpangkat_id', '')}}" + "/" + params;
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'text/html',
+            success: function(data) {
+                return (data);
+            },
+            error: function() {
+                return "Hello";
+            }
+        });
+
+    }
+</script>
+<script>
+    var ObjectControl = {
+        excelToJSON: function(file) {
+            if (!window.FileReader || !window.File) {
+                return Promise.reject('Does not support File API');
+            }
+            if (!(file instanceof File)) {
+                return Promise.reject('Not a file');
+            }
+
+            return new Promise(function(resolve, reject) {
+                var reader = new FileReader();
+
+                reader.onerror = function(err) {
+                    reject(err);
+                };
+
+                // Closure to capture the file information.
+                reader.onload = function() {
+                    let data = event.target.result;
+                    let workbook = XLSX.read(data, {
+                        type: "binary"
+                    });
+                    let rowObject = [];
+                    let json_object = [];
+                    workbook.SheetNames.forEach(sheet => {
+                        rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
+                        json_object = JSON.stringify(rowObject);
+                    });
+                    resolve(rowObject);
+                };
+
+                // Read in the image file as a data URL.
+                reader.readAsBinaryString(file);
+            });
+        },
+        toGeoJSON: function(layer) {
+            var j = "";
+            // if(layer instanceof L.Ellipse){
+            // 	var lnglat = layer.getLatLng();
+            // 	j = {
+            // 		"type" : "Feature",
+            // 		"geometry" : {
+            // 			"coordinates" : [lnglat.lng,lnglat.lat],
+            // 			"type" : "Point"
+            // 		},
+            // 		"properties" : layer.options
+            // 	}
+            // 	j.properties.mRadiusX = layer._mRadiusX;
+            // 	j.properties.mRadiusY = layer._mRadiusY;
+            // }else{
+            j = layer.toGeoJSON();
+            // }
+            var feature = "";
+            j.properties = layer.options;
+            j.uniqueID = layer._leaflet_id;
+            feature += JSON.stringify(j)
+            return JSON.parse(feature);
+        }
+
     }
 </script>
 @endsection

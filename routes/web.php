@@ -18,7 +18,8 @@ Route::get('/', function () {
 // Route::get('/absence-input/{data}/{date}', 'VerifiedController@postdata')->name('logout');
 Route::get('/data_map', 'VerifiedController@get_map')->name('get_map');
 Route::get('/dashboard_box', 'VerifiedController@dashboard_box')->name('dashboard_box');
-
+Route::get('/get_master_pangkat/{id}', 'VerifiedController@get_masterpangkat_id')->name('get_masterpangkat_id');
+Route::get('/master_pangkat', 'VerifiedController@get_masterpangkat')->name('get_masterpangkat');
 
 Auth::routes();
 Route::namespace('Auth')->group(function () {
