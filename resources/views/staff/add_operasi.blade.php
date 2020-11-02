@@ -549,8 +549,8 @@ Dashboard E-Report
 @section('js')
 <script>
     $(document).ready(function() {
-        $('#dt_basic_3').DataTable();
-        $('#dt_basic_4').DataTable();
+        // $('#dt_basic_3').DataTable();
+        // $('#dt_basic_4').DataTable();
         setMask();
         $('#pangkat').select2({
             width: '100%'
@@ -770,7 +770,7 @@ Dashboard E-Report
             nip + '">' + nip + '</center></td>';
         var pangkat_data = '<td><center><input type="text" style="display:none;" name="pangkat_s[]" value="' +
             pangkat + '">' + pangkat_name + '</td>';
-        var jab_struk_data =  '<td><center><input type="text" style="display:none;" name="jab_struk[]" value="' +
+        var jab_struk_data = '<td><center><input type="text" style="display:none;" name="jab_struk[]" value="' +
             jab_struk + '">' + jab_struk + '</td>';
         var jab_fung_data = '<td><center><input type="text" style="display:none;" name="jab_fung[]" value="' +
             jab_fung + '">' + jab_fung + '</td>';
@@ -1030,16 +1030,29 @@ Dashboard E-Report
                             $('#nodetail').val(no + 1);
                             var count_alat = $('#count_alat').val();
                             $('#count_alat').val(az + 1);
-                                                        
+
                             $('#halu').css("display", "none");
                             var param = '';
-
+                            var product = data[az]['jenis'];
+                            if (product == 1) {
+                                param = 'Kendaraan R2';
+                            } else if (product == 2) {
+                                param = 'Kendaraan R4';
+                            } else if (product == 3) {
+                                param = 'Kendaraan R6';
+                            } else if (product == 4) {
+                                param = 'Senjata Laras Panjang';
+                            } else if (product == 5) {
+                                param = 'Senjata Laras Pendek';
+                            } else {
+                                param = 'Lain-Lain';
+                            }
                             html += '<tr id="id_table_peralatan' + az + '">';
                             // html += '<td><center>' + $('#nodetail').val() + '</center></td>';
                             html += '<td><center><input type="text" style="display:none;" name="nama_peralatan_s[]" value="' +
                                 data[az]['nama_alat'] + '">' + data[az]['nama_alat'] + '</center></td>';
                             html += '<td><center><input type="text" style="display:none;" name="jenis_alat_array[]" value="' +
-                                data[az]['jenis'] + '">-</center></td>';
+                                data[az]['jenis'] + '">' + param + '</center></td>';
                             html += '<td><center><input type="text" style="display:none;" name="jumlah_alat[]" value="' +
                                 data[az]['jumlah'] + '">' + data[az]['jumlah'] + '</td>';
                             html += '<td><center><button type="button" onclick="delete_peralatan(' + az +
