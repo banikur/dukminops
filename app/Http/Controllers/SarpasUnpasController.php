@@ -228,8 +228,8 @@ class SarpasUnpasController extends Controller
         $auth_polres = Auth::guard('user')->user()->id_polres;
         if (!empty($id_polda) || !empty($id_polres)) {
             $operasi = DB::table('operasi')->where('id_jenis_operasi', $jenis)
-                ->where('id_polda', '!=', null)
-                ->where('id_polres', '!=', null)
+                // ->where('id_polda', '!=', null)
+                // ->where('id_polres', '!=', null)
                 ->when($status, function ($q, $status) {
                     $q->where('status', $status);
                 })
@@ -245,8 +245,8 @@ class SarpasUnpasController extends Controller
                 ->get();
         } else {
             $operasi = DB::table('operasi')->where('id_jenis_operasi', $jenis)
-                ->where('id_polda', '!=', null)
-                ->where('id_polres', '!=', null)
+                // ->where('id_polda', '!=', null)
+                // ->where('id_polres', '!=', null)
                 ->when($status, function ($q, $status) {
                     $q->where('status', $status);
                 })
