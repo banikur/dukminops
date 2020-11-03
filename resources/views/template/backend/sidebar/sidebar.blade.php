@@ -1,7 +1,7 @@
 <!-- #NAVIGATION -->
 <!-- Left panel : Navigation area -->
 <!-- Note: This width of the aside area can be adjusted through LESS variables -->
-<aside id="left-panel">
+<aside id="left-panel" >
     <nav>
         <!--
         NOTE: Notice the gaps after each icon usage <i></i>..
