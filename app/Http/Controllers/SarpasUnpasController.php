@@ -203,8 +203,7 @@ class SarpasUnpasController extends Controller
 
     public function filterindexwilayah(Request $req)
     {
-        $polda  = $req->polda;
-        $polres = $req->polres;
+        
         $status = $req->lokasi_filter;
         $tgl = $req->tanggal_filter;
         $param = $req->param;
@@ -224,20 +223,27 @@ class SarpasUnpasController extends Controller
         } elseif ($param == 'ops-pemulihan') {
             $jenis = 5;
         }
+
+        
         $auth_polda = Auth::guard('user')->user()->id_polda;
         $auth_polres = Auth::guard('user')->user()->id_polres;
-        if (!empty($id_polda) || !empty($id_polres)) {
+        if($req->polda!=null){
+            $polda  = $req->polda;
+        }else{
+            $polda = $auth_polda;
+        }
+        if($req->polres!=null){
+            $polres = $req->polres;
+        }else{
+            $polres=$auth_polres;
+        }
+        // dd([$polda,$polres,$jenis]);
+        if (!empty($polda) || !empty($polres)) {
             $operasi = DB::table('operasi')->where('id_jenis_operasi', $jenis)
-                // ->where('id_polda', '!=', null)
-                // ->where('id_polres', '!=', null)
+                ->where('id_polda', $polda)
+                ->where('id_polres', $polres)
                 ->when($status, function ($q, $status) {
                     $q->where('status', $status);
-                })
-                ->when($polda, function ($q, $polda) {
-                    $q->where('id_polda', $polda);
-                })
-                ->when($polres, function ($q, $polres) {
-                    $q->where('id_polres', $polres);
                 })
                 ->when($tgl, function ($q, $tgl) {
                     $q->where('tgl_mulai', $tgl);
@@ -245,16 +251,10 @@ class SarpasUnpasController extends Controller
                 ->get();
         } else {
             $operasi = DB::table('operasi')->where('id_jenis_operasi', $jenis)
-                // ->where('id_polda', '!=', null)
-                // ->where('id_polres', '!=', null)
+                // ->where('id_polda','!=', $polda)
+                // ->where('id_polres','!=', $polres)
                 ->when($status, function ($q, $status) {
                     $q->where('status', $status);
-                })
-                ->when($polda, function ($q, $polda) {
-                    $q->where('id_polda', $polda);
-                })
-                ->when($polres, function ($q, $polres) {
-                    $q->where('id_polres', $polres);
                 })
                 ->when($tgl, function ($q, $tgl) {
                     $q->where('tgl_mulai', $tgl);

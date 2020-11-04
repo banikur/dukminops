@@ -217,40 +217,43 @@ function tgl_indo($tanggal)
                                                                     <label class="col-sm-2 control-label">
                                                                         No Renops</label>
                                                                     <div class="col-sm-4">
-                                                                        <input class="form-control" type="text" name="no_renops" id="no_renops" readonly value="{{$perencanaan->no_renops}}">
+                                                                        <input class="form-control" type="text" name="no_renops" id="no_renops" value="{{$perencanaan->no_renops}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Tujuan</label>
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="textAreaIinput" type="text" name="tujuan" id="tujuan" readonly>{{$perencanaan->tujuan}}</textarea>
+                                                                        <textarea class="textAreaIinput" type="text" name="tujuan" id="tujuan">{{$perencanaan->tujuan}}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Sasaran</label>
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="textAreaIinput" type="text" name="sasaran" id="sasaran" readonly>{{$perencanaan->sasaran}}</textarea>
+                                                                        <textarea class="textAreaIinput" type="text" name="sasaran" id="sasaran">{{$perencanaan->sasaran}}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Target Operasi</label>
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="textAreaIinput" type="text" name="target_operasi" id="target_operasi" readonly>{{$perencanaan->target_operasi}}</textarea>
+                                                                        <textarea class="textAreaIinput" type="text" name="target_operasi" id="target_operasi">{{$perencanaan->target_operasi}}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Cara Bertindak</label>
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="textAreaIinput" type="text" name="cara_tindak" id="cara_tindak" readonly>{{$perencanaan->cara_bertindak}}</textarea>
+                                                                        <textarea class="textAreaIinput" type="text" name="cara_tindak" id="cara_tindak">{{$perencanaan->cara_bertindak}}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Dokumen Pendukung</label>
+                                                                    <div class="col-sm-4">
+                                                                        <input class="form-control" type="file" name="dok_perencanaan" id="dok_perencanaan" autocomplete="off">
+                                                                    </div>
                                                                     <div class="col-sm-4">
                                                                         <a href="{{ asset('upload-dokumen/dok_rencana/'.$perencanaan->dokumen) }}"
                                                                         target="_blank" class="btn btn-default" style="color: orange;background-color:#525252;"> <i class="fa fa-download"></i>&nbspDownload</a>
@@ -260,6 +263,74 @@ function tgl_indo($tanggal)
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane fade" id="s2">
+                                                        <div class="row" style="padding: 2% 0 2% 0;">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        Nama Personil</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input class="form-control" type="text" name="nama_personil" id="nama_personil" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        NRP</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input class="form-control" type="text" name="nip" id="nip" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        Pangkat</label>
+                                                                    <div class="col-sm-7">
+                                                                        <select id="pangkat" name="pangkat" class="form-control" required maxlength="200">
+                                                                            <option selected="" disabled="">-- PILIH --</option>
+                                                                            @foreach($master_pangkat as $mp)
+                                                                            <option value="{{$mp->id}}">{{$mp->nama_pangkat}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        Jabatan Struktural</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input class="form-control" type="text" name="jab_struk" id="jab_struk" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        Jabatan Fungsional</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input class="form-control" type="text" name="jab_fung" id="jab_fung" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        Satuan</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input class="form-control" type="text" name="nama_satuan" id="nama_satuan" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                    </label>
+                                                                    <div class="col-sm-7">
+                                                                        <button type="button" id="add_personil" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        Jumlah Personil</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input class="form-control" readonly="" value="{{count($personil)}}" type="text" name="count_personil" id="count_personil" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     <br>
                                                         <div class="row">
                                                             <div class="col-sm-12"></div>
@@ -286,6 +357,7 @@ function tgl_indo($tanggal)
                                                                             <th>
                                                                                 Satuan Asal
                                                                             </th>
+                                                                            <th>Aksi</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody id="id_table_personil">
@@ -294,10 +366,10 @@ function tgl_indo($tanggal)
                                                                             <td><center><input type="text" style="display:none;" name="nama_personil_s[]" value="{{$p->nama_personil}}">{{$p->nama_personil}}</center></td>
                                                                             <td><center><input type="text" style="display:none;" name="nip_s[]" value="{{$p->nip}}">{{$p->nip}}</center></td>
                                                                             <td><center><input type="text" style="display:none;" name="pangkat_s[]" value="{{$p->pangkat}}">{{$p->nama_pangkat}}</center></td>
-                                                                            <td>{{$p->jabatan_struktural}}</td>
-                                                                            <td>{{$p->jabatan_fungsional}}</td>
+                                                                            <td><center><input type="text" style="display:none;" name="jab_struk[]" value="{{$p->jabatan_struktural}}">{{$p->jabatan_struktural}}</center></td>
+                                                                            <td><center><input type="text" style="display:none;" name="jab_fung[]" value="{{$p->jabatan_fungsional}}">{{$p->jabatan_fungsional}}</center></td>
                                                                             <td><center><input type="text" style="display:none;" name="satuan_s[]" value="{{$p->satuan_asal}}">{{$p->satuan_asal}}</center></td>
-                                                                            
+                                                                            <td><center><button type="button" onclick="delete_personil(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>
                                                                         </tr>
                                                                         @endforeach
                                                                     </tbody>
@@ -307,6 +379,48 @@ function tgl_indo($tanggal)
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane fade" id="s3">
+                                                        <div class="row" style="padding: 2% 0 2% 0;">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        Nama Peralatan</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input class="form-control" type="text" name="nama_alat" id="nama_alat" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        Jenis</label>
+                                                                    <div class="col-sm-7">
+                                                                        <select id="jenis_peralatan" name="jenis_peralatan" class="form-control js-example-basic-single" required maxlength="200">
+                                                                            @foreach($master_jenis_peralatan as $mjp)
+                                                                            <option value="{{$mjp->id}}">{{$mjp->jenis_peralatan}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        <!-- <input class="form-control" type="text" name="jenis_peralatan" id="jenis_peralatan" autocomplete="off"> -->
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                        Jumlah</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input class="form-control uang" type="text" name="jumlah_alat" id="jumlah_alat" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-4 control-label">
+                                                                    </label>
+                                                                    <div class="col-sm-7">
+                                                                        <button type="button" id="add_peralatan" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" name="count_alat" id="count_alat" value="0" />
+
+                                                        </div>
                                                         <br>
                                                         <div class="row">
                                                             <div class="col-sm-12"></div>
@@ -324,15 +438,17 @@ function tgl_indo($tanggal)
                                                                             <th>
                                                                                 Jumlah
                                                                             </th>
+                                                                            <th>Aksi</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <?php $no = 1; ?>
                                                                     <tbody id="id_table_peralatan">
                                                                         @foreach($peralatan as $pe)
                                                                         <tr>
-                                                                            <td><input type="text" style="display:none;" name="nama_peralatan_s[]" value="{{$pe->nama_peralatan}}">{{$pe->nama_peralatan}}</td>
-                                                                            <td><input type="text" style="display:none;" name="jenis_alat_array[]" value="{{$pe->jenis}}">{{($pe->jenis==1)?'Peralatan Pendukung':'Peralatan Utama'}}</td>
-                                                                            <td><input type="text" style="display:none;" name="jumlah_alat[]" value="{{$pe->jml}}">{{$pe->jml}}</td>
+                                                                            <td><center><input type="text" style="display:none;" name="nama_peralatan_s[]" value="{{$pe->nama_peralatan}}">{{$pe->nama_peralatan}}</center></td>
+                                                                            <td><center><input type="text" style="display:none;" name="jenis_alat_array[]" value="{{$pe->jenis}}">{{($pe->jenis==1)?'Peralatan Pendukung':'Peralatan Utama'}}</center></td>
+                                                                            <td><center><input type="text" style="display:none;" name="jumlah_alat[]" value="{{$pe->jml}}">{{$pe->jml}}</center></td>
+                                                                            <td><center><button type="button" onclick="delete_peralatan(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>
                                                                         </tr>
                                                                         @endforeach
                                                                     </tbody>
@@ -348,26 +464,29 @@ function tgl_indo($tanggal)
                                                                     <label class="col-sm-2 control-label">
                                                                         Hasil yang Dicapai</label>
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="textAreaIinput" type="text" name="hasil_akhir" id="hasil_akhir" readonly>{{ $pa->hasil }}</textarea>
+                                                                        <textarea class="textAreaIinput" type="text" name="hasil_akhir" id="hasil_akhir">{{ $pa->hasil }}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Kendala</label>
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="textAreaIinput" type="text" name="kendala_akhir" id="kendala_akhir" readonly>{{$pa->kendala}}</textarea>
+                                                                        <textarea class="textAreaIinput" type="text" name="kendala_akhir" id="kendala_akhir">{{$pa->kendala}}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Analisa dan Evaluasi</label>
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="textAreaIinput" type="text" name="evaluasi_akhir" id="evaluasi_akhir" readonly>{{$pa->evaluasi}}</textarea>
+                                                                        <textarea class="textAreaIinput" type="text" name="evaluasi_akhir" id="evaluasi_akhir">{{$pa->evaluasi}}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Dokumen Pendukung</label>
+                                                                    <div class="col-sm-4">
+                                                                        <input class="form-control" type="file" name="dok_akhir" id="dok_akhir" autocomplete="off">
+                                                                    </div>
                                                                     <div class="col-sm-4">
                                                                         <a href="{{ asset('upload-dokumen/dok_laporan/'.$pa->dokumen) }}"
                                                                         target="_blank" class="btn btn-default" style="color: orange;background-color:#525252;"> <i class="fa fa-download"></i>&nbspDownload</a>
@@ -377,7 +496,21 @@ function tgl_indo($tanggal)
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane fade" id="s5">
-                                                        <br>
+                                                        <div class="row" style="padding: 2% 0 2% 0;">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-5 control-label">
+                                                                        Dokumen Pelaporan Anggaran</label>
+                                                                    <div class="col-sm-7">
+                                                                        <!-- <input type="file" accept=".pdf" class="form-control" id="dok_anggaran" name="dok_anggaran"> -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <button type="button" id="add_laporan_anggaran" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
+                                                            </div>
+                                                            <input type="hidden" name="nodetaidok_anggaran" id="nodetaidok_anggaran" value="{{count($dokumenAnggaran)}}" />
+                                                        </div>
                                                         <div class="row">
                                                             <div class="col-sm-12"></div>
                                                             <div class="col-sm-12">
@@ -391,14 +524,18 @@ function tgl_indo($tanggal)
                                                                             <th>
                                                                                 Dokumen
                                                                             </th>
+                                                                            <th>
+                                                                                Aksi
+                                                                            </th>
                                                                         </tr>
                                                                     </thead>
                                                                     <?php $no = 1; ?>
                                                                     <tbody id="id_table_dok_anggaran">
                                                                         @foreach($dokumenAnggaran as $da)
                                                                             <tr>
-                                                                                <td>{{$da->nama_dokumen}}</td>
-                                                                                <td><a href="{{$da->path}}" class="btn btn-default">Dokumen</td>
+                                                                                <td><center><input type="text" style="display:none;" class="form-control" name="name_dok_anggaran[]" value="{{$da->nama_dokumen}}">{{$da->nama_dokumen}}</center></td>
+                                                                                <td><center><input type="file" style="display:none;" class="form-control" name="dok_anggaran[]" value="{{$da->path}}{{$da->dokumen}}"><a href="{{$da->path}}" class="btn btn-default">Dokumen</center></td>
+                                                                                <td><center><button type="button" onclick="delete_dok_anggaran(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>
                                                                             </tr>
                                                                         @endforeach
                                                                     </tbody>
@@ -610,8 +747,10 @@ function tgl_indo($tanggal)
         $('#id_table_dok_anggaran').append(html);
     });
 
-    function delete_dok_anggaran(no) {
+    function delete_dok_anggaran(obj) {
         $(obj).closest("tr").remove();
+        var no = parseFloat($('#nodetaidok_anggaran').val()) -1;
+        $('#nodetaidok_anggaran').val(no);
     }
 
     $('#add_personil').on('click', function() {
@@ -626,8 +765,13 @@ function tgl_indo($tanggal)
         var pangkat_name = $('#pangkat :selected').text();
         var satuan = $('#nama_satuan').val();
 
+        var jab_struk = $('#jab_struk').val();
+        var jab_fung = $('#jab_fung').val();
+
         $('#nodetail').val(no + 1);
         $('#halu').css("display", "none");
+
+        var table = $('#dt_basic_3').DataTable();
 
         html += '<tr id="id_table_personil' + $('#count_personil').val() + '">';
         // html += '<td><center>' + $('#nodetail').val() + '</center></td>';
@@ -637,13 +781,39 @@ function tgl_indo($tanggal)
             nip + '">' + nip + '</center></td>';
         html += '<td><center><input type="text" style="display:none;" name="pangkat_s[]" value="' +
             pangkat + '">' + pangkat_name + '</td>';
+        html += '<td><center><input type="text" style="display:none;" name="jab_struk[]" value="' +
+            jab_struk + '">' + jab_struk + '</td>';
+        html += '<td><center><input type="text" style="display:none;" name="jab_fung[]" value="' +
+            jab_fung + '">' + jab_fung + '</td>';
         html += '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
             satuan + '">' + satuan + '</td>';
 
         html += '<td><center><button type="button" onclick="delete_personil(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
 
         html += '</tr>';
-        $('#id_table_personil').append(html);
+        // $('#id_table_personil').append(html);
+        var nama_data = '<td><center><input type="text" style="display:none;" name="nama_personil_s[]" value="' +
+            nama_personil + '">' + nama_personil + '</center></td>';
+        var nip_data = '<td><center><input type="text" style="display:none;" name="nip_s[]" value="' +
+            nip + '">' + nip + '</center></td>';
+        var pangkat_data = '<td><center><input type="text" style="display:none;" name="pangkat_s[]" value="' +
+            pangkat + '">' + pangkat_name + '</td>';
+        var jab_struk_data = '<td><center><input type="text" style="display:none;" name="jab_struk[]" value="' +
+            jab_struk + '">' + jab_struk + '</td>';
+        var jab_fung_data = '<td><center><input type="text" style="display:none;" name="jab_fung[]" value="' +
+            jab_fung + '">' + jab_fung + '</td>';
+        var satuan_data = '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
+            satuan + '">' + satuan + '</td>';
+        var hapus_data = '<center><button type="button" onclick="delete_personil(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center>';
+        table.row.add([
+            nama_data,
+            nip_data,
+            pangkat_data,
+            jab_struk_data,
+            jab_fung_data,
+            satuan_data,
+            hapus_data
+        ]).draw(false);
         clear_personil();
     });
 
@@ -671,6 +841,7 @@ function tgl_indo($tanggal)
         $('#count_alat').val(count_alat);
 
         $('#halu').css("display", "none");
+        var table = $('#dt_basic_4').DataTable();
 
         html += '<tr id="id_table_peralatan' + $('#count_alat').val() + '">';
         // html += '<td><center>' + $('#nodetail').val() + '</center></td>';
@@ -683,7 +854,21 @@ function tgl_indo($tanggal)
         html += '<td><center><button type="button" onclick="delete_peralatan(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
 
         html += '</tr>';
-        $('#id_table_peralatan').append(html);
+        // $('#id_table_peralatan').append(html);
+        var nama_data = '<td><center><input type="text" style="display:none;" name="nama_peralatan_s[]" value="' +
+            nama_personil + '">' + nama_personil + '</center></td>';
+        var nip_data = '<td><center><input type="text" style="display:none;" name="jenis_alat_array[]" value="' +
+            nip + '">' + nip_name + '</center></td>';
+        var pangkat_data = '<td><center><input type="text" style="display:none;" name="jumlah_alat[]" value="' +
+            pangkat + '">' + pangkat + '</td>';
+        var hapus_data = '<td><center><button type="button" onclick="delete_peralatan(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
+        table.row.add([
+            nama_data,
+            nip_data,
+            pangkat_data,
+            hapus_data
+        ]).draw(false);
+        clear_peralatan();
         clear_peralatan();
     });
 
