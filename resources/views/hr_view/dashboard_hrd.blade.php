@@ -147,7 +147,7 @@ function tgl_indo($tanggal)
                     map: 'countries/id/id-all'
                 },
                 title: {
-                    text: 'Sebaran Operasi yang Sedang Berlansung'
+                    text: 'Sebaran Operasi yang Sedang Berlangsung'
                 },
 
                 subtitle: {
