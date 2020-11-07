@@ -335,24 +335,24 @@ class InputDataController extends Controller
 
 
         //Edit Table Dokumen Anggaran
-        // $del_anggaran = DB::table('dokumen_operasi')->where('id_operasi',$id_operasi)->where('kategori_dokumen',3)->delete();
-        // $nodetaidok_anggaran = $request->nodetaidok_anggaran;
-        // for ($dok_anggaran = 0; $dok_anggaran < $nodetaidok_anggaran; $dok_anggaran++) {
-        //     $bukti_bayar = $request->file('dok_anggaran')[$dok_anggaran];
-        //     $destination = public_path() . '/upload-dokumen/dok_anggaran\\';
-        //     $nama_file2 = 'dok_anggaran-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
-        //     $bukti_bayar->move($destination, $nama_file2);
+        $del_anggaran = DB::table('dokumen_operasi')->where('id_operasi',$id_operasi)->where('kategori_dokumen',3)->delete();
+        $nodetaidok_anggaran = $request->nodetaidok_anggaran;
+        for ($dok_anggaran = 0; $dok_anggaran < $nodetaidok_anggaran; $dok_anggaran++) {
+            $bukti_bayar = $request->file('dok_anggaran')[$dok_anggaran];
+            $destination = public_path() . '/upload-dokumen/dok_anggaran\\';
+            $nama_file2 = 'dok_anggaran-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
+            $bukti_bayar->move($destination, $nama_file2);
 
-        //     $dok_anggaran_array = [
-        //         'id_operasi' => $id_operasi,
-        //         'path' => 'upload-dokumen/dok_anggaran/',
-        //         'nama_dokumen' => $request->name_dok_anggaran[$dok_anggaran],
-        //         'created_at' => date('Y-m-d h:i:s'),
-        //         'kategori_dokumen' => 3,
-        //         'dokumen' => $nama_file2,
-        //     ];
-        //     DB::table('dokumen_operasi')->insert($dok_anggaran_array);
-        // }
+            $dok_anggaran_array = [
+                'id_operasi' => $id_operasi,
+                'path' => 'upload-dokumen/dok_anggaran/',
+                'nama_dokumen' => $request->name_dok_anggaran[$dok_anggaran],
+                'created_at' => date('Y-m-d h:i:s'),
+                'kategori_dokumen' => 3,
+                'dokumen' => $nama_file2,
+            ];
+            DB::table('dokumen_operasi')->insert($dok_anggaran_array);
+        }
         
         return redirect()->back()->with(['success' => 'Data Update']);
     }

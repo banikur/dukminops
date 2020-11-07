@@ -97,8 +97,8 @@ class SarpasUnpasController extends Controller
         }
         // dd($operasi);
         $operasi = DB::table('operasi')->where('id_jenis_operasi', $jenis)
-            ->where('id_polda', '!=', null)
-            ->where('id_polres', '!=', null)
+            ->where('id_polda', '=', null)
+            ->where('id_polres', '=', null)
             ->when($status, function ($q, $status) {
                 $q->where('status', $status);
             })
@@ -251,6 +251,7 @@ class SarpasUnpasController extends Controller
                 ->get();
         } else {
             $operasi = DB::table('operasi')->where('id_jenis_operasi', $jenis)
+                ->where('created_by', '!=', Auth::guard('user')->user()->id)
                 // ->where('id_polda','!=', $polda)
                 // ->where('id_polres','!=', $polres)
                 ->when($status, function ($q, $status) {

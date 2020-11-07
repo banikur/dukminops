@@ -104,6 +104,7 @@ Header
         <div class="row">
             <div class="col-md-12 text-center" style="margin-left: 55px;">
                 <img src="front_layout/img/judul_organisasi.png" alt="Struktur Organisasi" class="img-fluid">
+                <img src="front_layout/img/struktur.jpg" alt="Struktur Organisasi" style="margin-left:-80px;" class="img-fluid">
             </div>
         </div>
     </div>
