@@ -203,7 +203,7 @@ class SarpasUnpasController extends Controller
 
     public function filterindexwilayah(Request $req)
     {
-        
+
         $status = $req->lokasi_filter;
         $tgl = $req->tanggal_filter;
         $param = $req->param;
@@ -224,18 +224,18 @@ class SarpasUnpasController extends Controller
             $jenis = 5;
         }
 
-        
+
         $auth_polda = Auth::guard('user')->user()->id_polda;
         $auth_polres = Auth::guard('user')->user()->id_polres;
-        if($req->polda!=null){
+        if ($req->polda != null) {
             $polda  = $req->polda;
-        }else{
+        } else {
             $polda = $auth_polda;
         }
-        if($req->polres!=null){
+        if ($req->polres != null) {
             $polres = $req->polres;
-        }else{
-            $polres=$auth_polres;
+        } else {
+            $polres = $auth_polres;
         }
         // dd([$polda,$polres,$jenis]);
         if (!empty($polda) || !empty($polres)) {

@@ -10,7 +10,7 @@
 --------------------------------------------------------------*/
 
 body {
-  background: #fff;
+  background: rgba(224, 223, 250, 0.94);
   color: #444;
   font-family: "Open Sans", sans-serif;
 }
@@ -152,14 +152,14 @@ h6 {
 
 #header .logo h1 a,
 #header .logo h1 a:hover {
-  color: #00366f;
+  color: #ffffff;
   text-decoration: none;
 }
 
 #header .logo img {
   padding: 0;
-  margin: 7px 0;
-  max-height: 26px;
+  margin: 0px 0;
+  max-height: 45px;
 }
 
 .main-pages {
@@ -171,16 +171,20 @@ h6 {
 --------------------------------------------------------------*/
 
 #intro {
-  width: 100%;
+ 
   position: relative;
-  background: url("../img/home-polisi.png") no-repeat;
-  background-size: cover;
-  padding: 300px 0 120px 0;
+  /*  */
+  
 }
 
 #intro .intro-img {
-  width: 50%;
-  float: right;
+  width: 100%;
+  height: 100%;
+  background: url("../img/pol.jpeg") no-repeat;
+  background-size: cover;
+  padding: 380px 0 120px 0;
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
 }
 
 #intro .intro-info {
@@ -265,9 +269,9 @@ h6 {
 }
 
 .message{
-  background-color:#fcd5ce;
-  border:1px solid;
-  border-color: #f99409;
+  background-color:#bcbcf77b;
+  /* border:1px solid; */
+  /* border-color: #f99409; */
   border-radius: 5px;
   padding: 20px 10px 60px 10px;
 }

@@ -165,6 +165,7 @@ function tgl_indo($tanggal)
                     min: 0
                 },
 
+                
                 series: [{
                     data: json.kode,
                     name: 'Jumlah Operasi',

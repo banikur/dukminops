@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>SIDUKOPS</title>
@@ -26,161 +27,213 @@
 
     <!-- Main Stylesheet File -->
     <link href="{{url('front_layout/css/style.css')}}" rel="stylesheet">
+    <style>
+        .bg-image {
+            width: 100%;
+            height: 100%;
+            padding: 580px 0 120px 0;
+            /* The image used */
+            background-image: url('{{url('front_layout/img/pol.jpeg')}}');
 
+            /* Add the blur effect */
+            filter: blur(3px);
+            -webkit-filter: blur(3px);
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Position text in the middle of the page/image */
+        .bg-text {
+            /* background-color: rgb(0, 0, 0); */
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            /* Black w/opacity/see-through */
+            color: white;
+            font-weight: 100;
+            /* border: 3px solid #f1f1f1; */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 80%;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
 
-<!--==========================
+    <!--==========================
 Header
 ============================-->
-<header id="header" class="fixed-top">
-    <div class="container">
+    <header id="header" class="fixed-top">
+        <div class="container">
 
-        <div class="logo float-left">
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <h1 class="text-light"><a href="#header"><span>NewBiz</span></a></h1> -->
-            <a href="{{route('login')}}" class="scrollto"><img src="{{url('front_layout/img/minerba/logo-o.png')}}" alt="" class="img-fluid"></a>
+            <div class="logo float-left">
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <h1 class="text-light"><a href="#header"><span>NewBiz</span></a></h1> -->
+                <a href="{{route('login')}}" class="scrollto"><img src="{{url('front_layout/img/minerba/logo-o.png')}}" style="background-size: cover;" alt="" class="img-fluid"></a>
+            </div>
+            <nav class="main-nav float-right d-none d-lg-block">
+                <ul>
+                    <li class="active"><a href="#intro">Beranda</a></li>
+                    <li><a href="#layanan">Layanan Sidukops</a></li>
+                    <li class="nav-item lain dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sidukops
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" id="dok-manual" href="#organisasi" target="_blank">Struktur Organisasi</a>
+                            <a class="dropdown-item" id="dok-lsp" href="#jobdesk" target="_blank">Job Desk</a>
+                            <a class="dropdown-item" id="dok-lsp" href="#callcenter" target="_blank">Call Center</a>
+                        </div>
+                    </li>
+
+                    <!--<li><a href="{{route('login')}}">Masuk</a></li>-->
+                </ul>
+            </nav><!-- .main-nav -->
+
         </div>
-        <nav class="main-nav float-right d-none d-lg-block">
-            <ul>
-                <li class="active"><a href="#intro">Beranda</a></li>
-                <li class="nav-item lain dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sidukops
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" id="dok-manual" href="#organisasi" target="_blank">Struktur Organisasi</a>
-                      <a class="dropdown-item" id="dok-lsp" href="#jobdesk" target="_blank">Job Desk</a>
-                      <a class="dropdown-item" id="dok-lsp" href="#callcenter" target="_blank">Call Center</a>
-                    </div>
-                  </li>
-                <li><a href="#layanan">Layanan Sidukops</a></li>
-                 <!--<li><a href="{{route('login')}}">Masuk</a></li>-->
-            </ul>
-        </nav><!-- .main-nav -->
+    </header><!-- #header -->
 
-    </div>
-</header><!-- #header -->
-
-<!--==========================
+    <!--==========================
   Intro Section
 ============================-->
-<section id="intro" class="clearfix">
-    <div class="container">
-        <div class="intro-img">
-            <!-- <img src="front_layout/img/intro-img.svg" alt="" class="img-fluid"> -->
+    <section id="intro" class="clearfix">
+        <!-- <div class="intro-img">
+            <img src="{{url('front_layout/img/pol.jpeg')}}" alt="" class="img-fluid">
         </div>
-
-        <div class="intro-info">
-            <h1 style="color:#000000;"><b>SELAMAT DATANG DI APLIKASI DUKUNGAN OPERASI (SIDUKOPS)<br>SOPS MABES POLRI</b></h1>
-            <!-- <a href="{{url('/Costumer/costumer-table')}}" class="btn btn-lg btn-outline-dark">Pesan Sekarang &nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i/></a> -->
-            <a href="{{route('login')}}" class="btn btn-lg btn-outline-dark">Masuk<i class="fa fa-arrow-right"></i/></a>
-        </div>
-
-    </div>
-</section>
-<section id="layanan">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <img src="front_layout/img/judul_layanan.png" alt="SARPAS UNRAS" class="img-fluid">
-            </div>
-            <div class="col-md-4">
-                <img src="front_layout/img/layanan1.png" alt="SARPAS UNRAS" class="img-fluid">
-            </div>
-            <div class="col-md-4">
-                <img src="front_layout/img/layanan2.png" alt="SARPAS KONTIJENSI" class="img-fluid">
-            </div>
-            <div class="col-md-4">
-                <img src="front_layout/img/layanan3.png" alt="SARPAS BENCANA" class="img-fluid">
-            </div>
-        </div>
-    </div>
-</section>
-<hr>
-<section id="organisasi">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center" style="margin-left: 55px;">
-                <img src="front_layout/img/judul_organisasi.png" alt="Struktur Organisasi" class="img-fluid">
-            </div>
-        </div>
-    </div>
-</section>
-<hr>
-<section id="jobdesk">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <img src="front_layout/img/judul_jobdesk.png" alt="Job Desk" class="img-fluid">
-                <div class="message">
-                    <ol>
-                        <li>memelihara keamanan dan ketertiban masyarakat;</li>
-                        <li>menegakkan hukum; dan</li>
-                        <li>memberikan perlindungan, pengayoman, dan pelayanan kepada masyarakat.</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<hr>
-<section id="callcenter">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <img src="front_layout/img/judul_callcenter.png" alt="Call Center" class="img-fluid">
+        <div class="container">
+            <div class="intro-info">
+                <h2><b>SELAMAT DATANG DI APLIKASI DUKUNGAN OPERASI (SIDUKOPS)<br>SOPS MABES POLRI</b></h2>
                 
-				<div class="message">
-                    <h3><b>Call Center Polri 110</b></h3>
-                    <p>
-                    Dalam rangka lebih cepat memberikan pelayanan kepada masyarakat,
-                    Polri telah bekerjasama dengan PT Telekomunikasi Indonesia (Telkom) untuk melaksanakan Layanan Contact Center 110.
-                    <br><br>
-                    Kehadiran Layanan Contact Center 110 POLRI ditujukan untuk memenuhi harapan dan kebutuhan masyarakat terhadap terselenggaranya layanan keamanan publik.
-                    Dalam penyelenggaraan layanan contact center, telah disiapkan sebuah sistem aplikasi yang dapat memungkinkan pencatatan /perekaman setiap interaksi Polri & masyarakat,
-                    sehingga dimungkinkan pengendalian response kebutuhan masyarakat terhadap Polri.
-                    <br><br>
-                    Sistem tersebut direncanakan akan membuka saluran via : telepon, sms, email, fax dan media sosial yang didukung oleh jaringan Telkom Group di Indonesia.
-                    <br><br>
-                    Masyarakat yang nantinya melakukan panggilan ke nomor akses 110 akan langsung terhubung ke agen yang akan memberikan layanan berupa informasi, pelaporan (kecelakaan, bencana, kerusuhan, dll) dan pengaduan (penghinaan, ancaman, tindak kekerasan dll).
-                    <br><br>
-                    Masyarakat bisa menggunakan layanan Contact Center 110 secara gratis. Namun demikian, Polri menghimbau agar layanan 110 ini tidak dibuat main-main, karena jika nantinya terjadi seperti itu, pihak Polri tentu akan melacak masyarakat yang membuat laporan bohong.
-                    </p>
+            </div>
+        </div> -->
+        <div class="bg-image"></div>
+
+        <div class="bg-text">
+            <h1>SELAMAT DATANG DI APLIKASI DUKUNGAN OPERASI (SIDUKOPS)<br>SOPS MABES POLRI</h1>
+            <!-- <p>And I'm a Photographer</p> -->
+            <a href="{{route('login')}}" class="btn btn-lg btn-outline-light">Masuk &nbsp;&nbsp;<i class="fa fa-arrow-right"></i /></a>
+        </div>
+    </section>
+    <section id="layanan">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <img src="front_layout/img/judul_layanan.png" alt="SARPAS UNRAS" class="img-fluid">
+                </div>
+                <div class="col-md-4">
+                    <img src="front_layout/img/layanan1.png" alt="SARPAS UNRAS" class="img-fluid">
+                </div>
+                <div class="col-md-4">
+                    <img src="front_layout/img/layanan2.png" alt="SARPAS KONTIJENSI" class="img-fluid">
+                </div>
+                <div class="col-md-4">
+                    <img src="front_layout/img/layanan3.png" alt="SARPAS BENCANA" class="img-fluid">
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    <hr>
+    <section id="organisasi">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center" style="margin-left: 55px;">
+                    <img src="front_layout/img/judul_organisasi.png" alt="Struktur Organisasi" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section id="jobdesk">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <img src="front_layout/img/judul_jobdesk.png" alt="Job Desk" class="img-fluid">
+                    <div class="message">
+                        <div class="container">
+                            <div class="col-md-12">
+                                Memelihara Keamanan dan Ketertiban Masyarakat
+                            </div>
+                            <div class="col-md-12">
+                                Menegakkan Hukum, dan
+                            </div>
+                            <div class="col-md-12">
+                                Memberikan Perlindungan, Pengayoman, dan Pelayanan Kepada Masyarakat.
+                            </div>
+                        </div>
 
-<!-- #intro -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section id="callcenter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <img src="front_layout/img/judul_callcenter.png" alt="Call Center" class="img-fluid">
 
-<main id="main" style="display:none">
+                    <div class="message">
+                        <div class="container">
+                            <h3><b>Call Center Polri 110</b></h3>
+                            <p style="text-align: justify;">
+                                Dalam rangka lebih cepat memberikan pelayanan kepada masyarakat,
+                                Polri telah bekerjasama dengan PT Telekomunikasi Indonesia (Telkom) untuk melaksanakan Layanan Contact Center 110.
+                                <br><br>
+                                Kehadiran Layanan Contact Center 110 POLRI ditujukan untuk memenuhi harapan dan kebutuhan masyarakat terhadap terselenggaranya layanan keamanan publik.
+                                Dalam penyelenggaraan layanan contact center, telah disiapkan sebuah sistem aplikasi yang dapat memungkinkan pencatatan /perekaman setiap interaksi Polri & masyarakat,
+                                sehingga dimungkinkan pengendalian response kebutuhan masyarakat terhadap Polri.
+                                <br><br>
+                                Sistem tersebut direncanakan akan membuka saluran via : telepon, sms, email, fax dan media sosial yang didukung oleh jaringan Telkom Group di Indonesia.
+                                <br><br>
+                                Masyarakat yang nantinya melakukan panggilan ke nomor akses 110 akan langsung terhubung ke agen yang akan memberikan layanan berupa informasi, pelaporan (kecelakaan, bencana, kerusuhan, dll) dan pengaduan (penghinaan, ancaman, tindak kekerasan dll).
+                                <br><br>
+                                Masyarakat bisa menggunakan layanan Contact Center 110 secara gratis. Namun demikian, Polri menghimbau agar layanan 110 ini tidak dibuat main-main, karena jika nantinya terjadi seperti itu, pihak Polri tentu akan melacak masyarakat yang membuat laporan bohong.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
 
-    <!--==========================
+    <!-- #intro -->
+
+    <main id="main" style="display:none">
+
+        <!--==========================
       About Us Section
     ============================-->
-  
-    <!--==========================
+
+        <!--==========================
       Services Section
     ============================-->
-  
-    <!--==========================
+
+        <!--==========================
       Why Us Section
     ============================-->
-    
-    <!--==========================
+
+        <!--==========================
       Contact Section
     ============================-->
-    
-</main>
 
-<!--==========================
+    </main>
+
+    <!--==========================
   Footer
 ============================-->
-<footer id="footer">
-    <!-- <div class="footer-top">
+    <footer id="footer">
+        <!-- <div class="footer-top">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 footer-info">
@@ -221,35 +274,35 @@ Header
         </div>
     </div> -->
 
-    <div class="container">
-        <div class="copyright">
-            &copy; Copyright <strong>SOPS MABES POLRI</strong>. All Rights Reserved
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong>SOPS MABES POLRI</strong>. All Rights Reserved
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
-<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-<!-- Uncomment below i you want to use a preloader -->
-<!-- <div id="preloader"></div> -->
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <!-- Uncomment below i you want to use a preloader -->
+    <!-- <div id="preloader"></div> -->
 
-<!-- JavaScript Libraries -->
-<script src="{{url('front_layout/lib/jquery/jquery.min.js')}}"></script>
-<script src="{{url('front_layout/lib/jquery/jquery-migrate.min.js')}}"></script>
-<script src="{{url('front_layout/lib/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{url('front_layout/lib/easing/easing.min.js')}}"></script>
-<script src="{{url('front_layout/lib/mobile-nav/mobile-nav.js')}}"></script>
-<script src="{{url('front_layout/lib/wow/wow.min.js')}}"></script>
-<script src="{{url('front_layout/lib/waypoints/waypoints.min.js')}}"></script>
-<script src="{{url('front_layout/lib/counterup/counterup.min.js')}}"></script>
-<script src="{{url('front_layout/lib/owlcarousel/owl.carousel.min.js')}}"></script>
-<script src="{{url('front_layout/lib/isotope/isotope.pkgd.min.js')}}"></script>
-<script src="{{url('front_layout/lib/lightbox/js/lightbox.min.js')}}"></script>
-<!-- Contact Form JavaScript File -->
-<script src="{{url('front_layout/contactform/contactform.js')}}"></script>
+    <!-- JavaScript Libraries -->
+    <script src="{{url('front_layout/lib/jquery/jquery.min.js')}}"></script>
+    <script src="{{url('front_layout/lib/jquery/jquery-migrate.min.js')}}"></script>
+    <script src="{{url('front_layout/lib/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url('front_layout/lib/easing/easing.min.js')}}"></script>
+    <script src="{{url('front_layout/lib/mobile-nav/mobile-nav.js')}}"></script>
+    <script src="{{url('front_layout/lib/wow/wow.min.js')}}"></script>
+    <script src="{{url('front_layout/lib/waypoints/waypoints.min.js')}}"></script>
+    <script src="{{url('front_layout/lib/counterup/counterup.min.js')}}"></script>
+    <script src="{{url('front_layout/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+    <script src="{{url('front_layout/lib/isotope/isotope.pkgd.min.js')}}"></script>
+    <script src="{{url('front_layout/lib/lightbox/js/lightbox.min.js')}}"></script>
+    <!-- Contact Form JavaScript File -->
+    <script src="{{url('front_layout/contactform/contactform.js')}}"></script>
 
-<!-- Template Main Javascript File -->
-<script src="{{url('front_layout/js/main.js')}}"></script>
+    <!-- Template Main Javascript File -->
+    <script src="{{url('front_layout/js/main.js')}}"></script>
 
 </body>
-</html>
 
+</html>

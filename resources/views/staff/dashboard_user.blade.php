@@ -15,7 +15,7 @@ Dashboard E-Report
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-sm-12">
-                    <div class="row">
+                        <div class="row">
                             <div class="col-sm-12">
                                 <div class="alert alert-warning fade in">
                                     <button class="close" data-dismiss="alert">
@@ -204,7 +204,7 @@ Dashboard E-Report
     $(document).ready(function() {
         $.get("{{route('get_map')}}", function(data) {
             json = JSON.parse(data);
-            console.log(json);
+            // console.log(json);
             // var data = [
             //     [json.kode_provinsi, json.count],
             // ];
@@ -231,6 +231,41 @@ Dashboard E-Report
                     min: 0
                 },
 
+                plotOptions: {
+                    series: {
+                        point: {
+                            events: {
+                                click: function() {
+                                    // alert();
+                                    var id_prov = this.properties['hc-key']
+                                    Swal.fire({
+                                        title:'Jumlah Operasi di '+ this.name + ' Adalah Sebanyak : ' + this.value,
+                                        type: 'info',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#5cb85c',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Lihat Detail',
+                                        cancelButtonText: 'Tutup',
+                                        allowOutsideClick: false,
+                                    }).then((result) => {
+                                        if (result.value) {
+                                            // form.submit();
+
+                                        } else {
+                                            Swal.fire({
+                                                title: "Terimakasih",
+                                                type: "success",
+                                                allowOutsideClick: false,
+                                            })
+                                        }
+                                    })
+                                }
+                            }
+                        }
+                    }
+                },
+
+
                 series: [{
                     data: json.kode,
                     name: 'Jumlah Operasi',
@@ -248,7 +283,7 @@ Dashboard E-Report
         })
         $.get("{{route('dashboard_box')}}", function(data) {
             json = JSON.parse(data);
-            console.log(json);
+            // console.log(json);
             $('#jumlah_personil').text(json.personil);
             $('#jumlah_ops_now').text(json.berlangsung);
             $('#jumlah_ops').text(json.alldata);
