@@ -534,7 +534,7 @@ function tgl_indo($tanggal)
                                                                         @foreach($dokumenAnggaran as $da)
                                                                             <tr>
                                                                                 <td><center><input type="text" style="display:none;" class="form-control" name="name_dok_anggaran[]" value="{{$da->nama_dokumen}}">{{$da->nama_dokumen}}</center></td>
-                                                                                <td><center><input type="file" style="display:none;" class="form-control" name="dok_anggaran[]" value="{{$da->path}}{{$da->dokumen}}"><a href="{{$da->path}}" class="btn btn-default">Dokumen</center></td>
+                                                                                <td><center><input type="file" class="form-control" name="dok_anggaran[]"><a href="{{$da->path}}{{$da->dokumen}}" class="btn btn-default">Dokumen</a></center></td>
                                                                                 <td><center><button type="button" onclick="delete_dok_anggaran(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>
                                                                             </tr>
                                                                         @endforeach
@@ -552,7 +552,7 @@ function tgl_indo($tanggal)
                                                 <label class="col-sm-5 control-label">
                                                 </label>
                                                 <div class="col-sm-7">
-                                                    <button type="submit" onclick="konfirmasi()" class="btn btn-lg btn-success btn-sm pull-right"><i class="fa fa-save" aria-hidden="true"></i>&nbsp;&nbsp;Simpan
+                                                    <button type="button" onclick="konfirmasi()" class="btn btn-lg btn-success btn-sm pull-right"><i class="fa fa-save" aria-hidden="true"></i>&nbsp;&nbsp;Simpan
                                                     </button>
                                                 </div>
                                             </div>
@@ -658,31 +658,44 @@ function tgl_indo($tanggal)
     }
 
     function konfirmasi() {
-        event.preventDefault(); // prevent form submit
-        var form = event.target.form; // storing the form
+        $('#employee_form input[name="dok_anggaran[]"]').each(function () {
+            if ($(this).val()) {
+                event.preventDefault(); // prevent form submit
+                var form = event.target.form; // storing the form
 
-        Swal.fire({
-            title: 'Apakah Data yang di Masukan Sudah Benar ?',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#5cb85c',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Batal',
-            allowOutsideClick: false,
-        }).then((result) => {
-            if (result.value) {
-                form.submit();
+                Swal.fire({
+                    title: 'Apakah Data yang di Masukan Sudah Benar ?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#5cb85c',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Batal',
+                    allowOutsideClick: false,
+                }).then((result) => {
+                    if (result.value) {
+                        form.submit();
 
+                    } else {
+                        Swal.fire({
+                            title: "Batal memverifikasi",
+                            type: "error",
+                            allowOutsideClick: false,
+                        })
+                    }
+                })
             } else {
                 Swal.fire({
-                    title: "Batal memverifikasi",
-                    type: "error",
-                    allowOutsideClick: false,
-                })
-            }
-        })
+                    position: 'center',
+                    type: 'error',
+                    title: 'Silahkan upload file anggaran terlebih dahulu',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
 
+                
+            }
+        });
     }
 
     $('#add_dok_perencanaan').on('click', function() {
