@@ -126,7 +126,25 @@ Dashboard E-Report
     </div>
 </div>
 
+<div class="modal fade" id="modal-tambah" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="width: 80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTitleModal">Detail Operasi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal_body">
 
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger font-weight-bold" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('js')
 <script>
@@ -237,9 +255,10 @@ Dashboard E-Report
                             events: {
                                 click: function() {
                                     // alert();
-                                    var id_prov = this.properties['hc-key']
+                                    var id_prov = this.properties['hc-key'];
+
                                     Swal.fire({
-                                        title:'Jumlah Operasi di '+ this.name + ' Adalah Sebanyak : ' + this.value,
+                                        title: 'Jumlah Operasi di ' + this.name + ' Adalah Sebanyak : ' + this.value,
                                         type: 'info',
                                         showCancelButton: true,
                                         confirmButtonColor: '#5cb85c',
@@ -250,7 +269,23 @@ Dashboard E-Report
                                     }).then((result) => {
                                         if (result.value) {
                                             // form.submit();
-
+                                            $.ajax({
+                                                url: "{{route('get_detail_maps')}}",
+                                                type: "post",
+                                                data: {
+                                                    id_prov: id_prov,
+                                                    _token: "{{ csrf_token() }}"
+                                                },
+                                                beforeSend: function() {
+                                                    $('#loader').show();
+                                                },
+                                                success: function(data) {
+                                                    $('#loader').hide();
+                                                    $('#modal-tambah').modal('show');
+                                                    $('#modal_body').append('<div id="body" class="col-md-12"></div>')
+                                                    $('#body').html(data);
+                                                }
+                                            });
                                         } else {
                                             Swal.fire({
                                                 title: "Terimakasih",

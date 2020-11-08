@@ -265,4 +265,6 @@ class SarpasUnpasController extends Controller
 
         return view('staff.inteligen_wilayah', compact('operasi', 'param', 'data_polda', 'data_polres'));
     }
+
+    
 }
