@@ -818,15 +818,30 @@ function tgl_indo($tanggal)
         var satuan_data = '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
             satuan + '">' + satuan + '</td>';
         var hapus_data = '<center><button type="button" onclick="delete_personil(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center>';
-        table.row.add([
-            nama_data,
-            nip_data,
-            pangkat_data,
-            jab_struk_data,
-            jab_fung_data,
-            satuan_data,
-            hapus_data
-        ]).draw(false);
+        
+        $.post('{{URL::to("/entry-operasi/cek-personil")}}',{
+                _token:"{{csrf_token()}}",
+                nip:nip}, function (data) {
+                if(data.length > 0){
+                    Swal.fire({
+                        type: 'error',
+                        text: 'Personil dengan NRP '+nip+' Sudah Dalam Operasi Lain',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }else{
+                    table.row.add([
+                        nama_data,
+                        nip_data,
+                        pangkat_data,
+                        jab_struk_data,
+                        jab_fung_data,
+                        satuan_data,
+                        hapus_data
+                    ]).draw(false);
+                }
+
+        });
         clear_personil();
     });
 

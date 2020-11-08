@@ -376,4 +376,16 @@ class InputDataController extends Controller
 
         return redirect()->back()->with(['success'=>'Data Delete']);
     }
+
+    public function cekPersonil(Request $req)
+    {
+        $nrp = $req->nip;
+
+        $cek = DB::table('operasi')->leftjoin('personil','personil.operasi_id','operasi.id')
+                ->where('operasi.status','!=','3')
+                ->where('personil.nip',$nrp)
+                ->get();
+
+        return $cek;
+    }
 }

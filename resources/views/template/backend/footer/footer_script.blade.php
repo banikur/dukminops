@@ -96,6 +96,11 @@
 
 <!-- current -->
 <script src="{{url('current/format/simple.money.format.js')}}"></script>
+
+<!-- filter column -->
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+
+
 <script type="text/javascript">
 $(document).ready(function() {
     $('.review').change(function() {

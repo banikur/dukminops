@@ -82,6 +82,7 @@ Route::name('user')->middleware('auth:user')->group(function () {
     Route::get('/entry-operasi/edit/{id}', 'InputDataController@edit_operasi')->name('edit_operasi.user');
     Route::get('/entry-operasi/hapus/{id}', 'InputDataController@hapus_operasi')->name('hapus_operasi.user');
     Route::get('/entry-operasi/prov', 'InputDataController@getProvinsi')->name('getprovinsi.user');
+    Route::post('/entry-operasi/cek-personil', 'InputDataController@cekPersonil')->name('cekPersonil.user');
 
     //Sarpas Unras pusat
     Route::get('/daftar-sarpas-unras/{param}', 'SarpasUnpasController@index');

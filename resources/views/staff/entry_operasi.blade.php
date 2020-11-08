@@ -3,6 +3,11 @@
 SIDUKOPS
 @endsection
 @section('ribbon')
+<style>
+thead input {
+        width: 100%;
+    }
+</style>
 <ol class="breadcrumb">
     <!-- <li>Dashboard</li> -->
     <li class="pull-right"><?php echo date('j F, Y'); ?></li>
