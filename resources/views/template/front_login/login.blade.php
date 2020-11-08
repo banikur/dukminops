@@ -58,8 +58,10 @@
                 @csrf
                     <span class="login100-form-title p-b-33">
                         <img width="100px" src="assets/logo.png" />
+						<h4>Aplikasi Dukungan Operasi</h4>
+						<h4>SIDUKOPS</h4>
                     </span>
-
+					
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
                     <input required class="input100" type="text" name="email" placeholder="Email" style="height: 40px">
                     <span class="focus-input100-1"></span>
