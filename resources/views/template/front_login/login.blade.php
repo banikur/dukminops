@@ -53,7 +53,7 @@
 
 <div class="bg">
     <div class="limiter">
-        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50" style="float: right; margin: 8%">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-45 p-b-30" style="float: right; margin: 8%">
             <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
                 @csrf
                     <span class="login100-form-title p-b-33">

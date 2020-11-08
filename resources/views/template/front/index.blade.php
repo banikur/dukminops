@@ -35,10 +35,6 @@
             /* The image used */
             background-image: url('{{url('front_layout/img/pol.jpeg')}}');
 
-            /* Add the blur effect */
-            filter: blur(3px);
-            -webkit-filter: blur(3px);
-
             /* Center and scale the image nicely */
             background-position: center;
             background-repeat: no-repeat;
