@@ -35,10 +35,6 @@
             /* The image used */
             background-image: url('{{url('front_layout/img/pol.jpeg')}}');
 
-            /* Add the blur effect */
-            filter: blur(3px);
-            -webkit-filter: blur(3px);
-
             /* Center and scale the image nicely */
             background-position: center;
             background-repeat: no-repeat;
@@ -57,12 +53,12 @@
             /* border: 3px solid #f1f1f1; */
             position: absolute;
             top: 50%;
-            left: 50%;
+            left: 40%;
             transform: translate(-50%, -50%);
             z-index: 2;
-            width: 80%;
-            padding: 20px;
-            text-align: center;
+            width: 70%;
+            padding: 10px;
+            text-align: left;
         }
     </style>
 </head>
@@ -118,7 +114,7 @@ Header
         <div class="bg-image"></div>
 
         <div class="bg-text">
-            <h1>SELAMAT DATANG DI APLIKASI DUKUNGAN OPERASI (SIDUKOPS)<br>SOPS MABES POLRI</h1>
+            <h2>SELAMAT DATANG DI APLIKASI DUKUNGAN OPERASI</h2> <h1>(SIDUKOPS)<br>SOPS MABES POLRI</h1>
             <!-- <p>And I'm a Photographer</p> -->
             <a href="{{route('login')}}" class="btn btn-lg btn-outline-light">Masuk &nbsp;&nbsp;<i class="fa fa-arrow-right"></i /></a>
         </div>
