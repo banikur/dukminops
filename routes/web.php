@@ -20,6 +20,7 @@ Route::get('/data_map', 'VerifiedController@get_map')->name('get_map');
 Route::get('/dashboard_box', 'VerifiedController@dashboard_box')->name('dashboard_box');
 Route::get('/get_master_pangkat/{id}', 'VerifiedController@get_masterpangkat_id')->name('get_masterpangkat_id');
 Route::get('/master_pangkat', 'VerifiedController@get_masterpangkat')->name('get_masterpangkat');
+Route::post('/detail_maps', 'VerifiedController@index_detail_maps')->name('get_detail_maps');
 
 Auth::routes();
 Route::namespace('Auth')->group(function () {
@@ -109,4 +110,5 @@ Route::name('user')->middleware('auth:user')->group(function () {
 
     Route::post('/store_data', 'InputDataController@store_data');
     Route::post('/update_data', 'InputDataController@update_data');
+
 });

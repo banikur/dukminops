@@ -79,4 +79,20 @@ class VerifiedController extends Controller
             return $id;
         }
     }
+
+    public function index_detail_maps(Request $request)
+    {
+        // dd($request->all());
+        // $id_polda = Auth::guard('user')->user()->id_polda;
+        // $id_polres = Auth::guard('user')->user()->id_polres;
+        $data = DB::table('master_provinsi')->where('kode_provinsi', $request->id_prov)->get();
+        // dd($data,$request->all());
+
+        $wil = $data[0]->nama_prov;
+        $operasi = DB::table('operasi')
+            ->where('prov_id', $data[0]->id)
+            ->get();
+        // dd($operasi);
+        return view('staff.page_detail_dashboard', compact('operasi', 'wil'));
+    }
 }
