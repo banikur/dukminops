@@ -246,7 +246,9 @@ Dashboard E-Report
                 },
 
                 colorAxis: {
-                    min: 0
+                    min: 0,
+					maxColor: '#ff0000',
+					minColor:  '#fff3f3'
                 },
 
                 plotOptions: {
