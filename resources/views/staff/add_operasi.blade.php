@@ -243,7 +243,8 @@ Dashboard E-Report
                                                                     <label class="col-sm-3 control-label">
                                                                         Export Data</label>
                                                                     <div class="col-sm-8">
-                                                                        <input class="form-control" type="file" name="personil" id="personil" autocomplete="off">
+                                                                        <input class="form-control" type="file" name="personil" id="personil" autocomplete="off">&nbsp;
+                                                                        <label>Contoh Dokumen :</label><a href="{{ asset('upload-dokumen/dok_contoh/data_personil.xlsx') }}" target="_blank"> Download</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -363,7 +364,8 @@ Dashboard E-Report
                                                                     <label class="col-sm-3 control-label">
                                                                         Export Data</label>
                                                                     <div class="col-sm-8">
-                                                                        <input class="form-control" type="file" name="peralatan" id="peralatan" autocomplete="off">
+                                                                        <input class="form-control" type="file" name="peralatan" id="peralatan" autocomplete="off">&nbsp;
+                                                                        <label>Contoh Dokumen :</label><a href="{{ asset('upload-dokumen/dok_contoh/data_peralatan.xlsx') }}" target="_blank"> Download</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -915,6 +917,7 @@ Dashboard E-Report
                             $('#count_personil').val(az + 1)
                             $('#halu').css("display", "none");
                             var param = '';
+                            var nip = data[az]['nrp'];
                             let product = data[az]['pangkat'];
                             if (product == 1) {
                                 param = 'Jenderal Polisi (Jend. Pol.)';
@@ -979,32 +982,46 @@ Dashboard E-Report
                                 ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
 
                             html += '</tr>';
-                        });
-                        
-                        var table = $('#dt_basic_3').DataTable();
-                        $.post('{{URL::to("/entry-operasi/cek-personil")}}',{
-                                _token:"{{csrf_token()}}",
-                                nip:nip}, function (data) {
-                                if(data.length > 0){
-                                    Swal.fire({
-                                        type: 'error',
-                                        text: 'Personil dengan NRP '+nip+' Sudah Dalam Operasi Lain',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    });
-                                }else{
-                                    table.row.add([
-                                        nama_data,
-                                        nip_data,
-                                        pangkat_data,
-                                        jab_struk_data,
-                                        jab_fung_data,
-                                        satuan_data,
-                                        hapus_data
-                                    ]).draw(false);
-                                // $('#id_table_personil').append(html);
-                                }
+                                
+                            var table = $('#dt_basic_3').DataTable();
 
+                            var nama_data = '<td><center><input type="text" style="display:none;" name="nama_personil_s[]" value="' +
+                                data[az]['nama'] + '">' + data[az]['nama'] + '</center></td>';
+                            var nip_data = '<td><center><input type="text" style="display:none;" name="nip_s[]" value="' +
+                                data[az]['nrp'] + '">' + data[az]['nrp'] + '</center></td>';
+                            var pangkat_data = '<td><center><input type="text" style="display:none;" name="pangkat_s[]" value="' +
+                                data[az]['pangkat'] + '">' + param + '</td>';
+                            var jab_struk_data = '<td><center><input type="text" style="display:none;" name="jab_struk[]" value="' +
+                                data[az]['jabatan_struktural'] + '">' + data[az]['jabatan_struktural'] + '</td>';
+                            var jab_fung_data = '<td><center><input type="text" style="display:none;" name="jab_fung[]" value="' +
+                                data[az]['jabatan_fungsional'] + '">' + data[az]['jabatan_fungsional'] + '</td>';
+                            var satuan_data= '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
+                                data[az]['satuan_asal'] + '">' + data[az]['satuan_asal'] + '</td>';
+
+                            var hapus_data = '<td><center><button type="button" onclick="delete_personil(' + az +
+                                ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
+
+                            var textPesan = 'Personil dengan NRP '+nip+' Sudah Dalam Operasi Lain';
+                            $.post('{{URL::to("/entry-operasi/cek-personil")}}',{
+                                    _token:"{{csrf_token()}}",
+                                    nip:nip}, function (data) {
+                                    if(data.length > 0){
+                                        // alert(textPesan);
+                                        console.log(textPesan);
+                                    }else{
+                                        table.row.add([
+                                            nama_data,
+                                            nip_data,
+                                            pangkat_data,
+                                            jab_struk_data,
+                                            jab_fung_data,
+                                            satuan_data,
+                                            hapus_data
+                                        ]).draw(false);
+                                    // $('#id_table_personil').append(html);
+                                    }
+
+                            });
                         });
                         clear_personil();
 
