@@ -36,7 +36,7 @@
                         <a href="{{url('/daftar-sarpas-unras/ops-pemeliharaan')}}" title="Operasi Pemeliharaan Keamanan"><span class="menu-item-parent">Operasi Pemeliharaan Keamanan</span></a>
                     </li>
                     <li>
-                        <a href="{{url('/daftar-sarpas-unras/ops-pemulihan')}}" title="Operasi Pemulihan Keamanan"><span class="menu-item-parent">Operasi Pemulihan Keamanan</span></a>
+                        <a href="{{url('/daftar-sarpas-unras/ops-pemulihan')}}" title="Operasi Kontijensi Keamanan"><span class="menu-item-parent">Operasi Kontijensi Keamanan</span></a>
                     </li>
                 </ul>
             </li>
@@ -57,7 +57,7 @@
                         <a href="{{url('/operasi-inteligen-wilayah/ops-pemeliharaan')}}" title="Operasi Pemeliharaan Keamanan"><span class="menu-item-parent">Operasi Pemeliharaan Keamanan</span></a>
                     </li>
                     <li>
-                        <a href="{{url('/operasi-inteligen-wilayah/ops-pemulihan')}}" title="Operasi Pemulihan Keamanan"><span class="menu-item-parent">Operasi Pemulihan Keamanan</span></a>
+                        <a href="{{url('/operasi-inteligen-wilayah/ops-pemulihan')}}" title="Operasi Kontijensi Keamanan"><span class="menu-item-parent">Operasi Kontijensi Keamanan</span></a>
                     </li>
                 </ul>
             </li>

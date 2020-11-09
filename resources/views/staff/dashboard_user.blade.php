@@ -58,21 +58,51 @@ Dashboard E-Report
                                     <header role="heading">
                                         <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
                                         <h2>Data Dukungan Operasi Kepolisian</h2>
-
                                         <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
                                     </header>
                                     <div role="content">
                                         <div class="jarviswidget-editbox">
                                         </div>
                                         <div class="widget-body">
-                                            <br />
-                                            <br />
-                                            <!-- <center>
-                                                <a href="{{url('/tambah-operasi')}}" class="btn btn-lg btn-warning">
-                                                    <strong>Tambah Operasi</strong>
-                                                </a>
-                                            </center>
-                                            <br/><br/> -->
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="panel panel-greenDark pricing-big">
+                                                        <div class="panel-heading">
+                                                            <h3 class="panel-title">Jumlah Operasi</h3>
+                                                        </div>
+                                                        <div class="panel-body no-padding text-align-center">
+                                                            <div class="the-price">
+                                                                <h1 id="jumlah_ops"><strong>0</strong></h1>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="panel panel-teal pricing-big">
+                                                        <div class="panel-heading">
+                                                            <h3 class="panel-title">Jumlah Operasi Berlangsung</h3>
+                                                        </div>
+                                                        <div class="panel-body no-padding text-align-center">
+                                                            <div class="the-price">
+                                                                <h1 id="jumlah_ops_now"><strong>0</strong></h1>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="panel panel-orange pricing-big">
+                                                        <div class="panel-heading">
+                                                            <h3 class="panel-title">Jumlah Personil di Lapangan</h3>
+                                                        </div>
+                                                        <div class="panel-body no-padding text-align-center">
+                                                            <div class="the-price">
+                                                                <h1 id="jumlah_personil"><strong>0</strong></h1>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
                                             <div class="row">
                                                 <div class="col-md-10 col-md-offset-1">
                                                     <div id="maps"></div>
@@ -81,38 +111,7 @@ Dashboard E-Report
 
                                         </div>
                                         <hr class="simple">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="card bg-warning">
-                                                    <div class="card-header">
-                                                        <h5 class="card-title" style="text-align: center; font-weight: 1000;">Jumlah Operasi</h5>
-                                                    </div>
-                                                    <div class="card-body" style="text-align: center;">
-                                                        <h5 id="jumlah_ops">0</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="card bg-info">
-                                                    <div class="card-header">
-                                                        <h5 class="card-title" style="text-align: center; font-weight: 1000;">Jumlah Operasi Berlangsung</h5>
-                                                    </div>
-                                                    <div class="card-body" style="text-align: center;">
-                                                        <h5 id="jumlah_ops_now">0</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="card bg-danger">
-                                                    <div class="card-header">
-                                                        <h5 class="card-title" style="text-align: center; font-weight: 1000;">Jumlah Personil di Lapangan</h5>
-                                                    </div>
-                                                    <div class="card-body" style="text-align: center;">
-                                                        <h5 id="jumlah_personil">0</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -247,8 +246,8 @@ Dashboard E-Report
 
                 colorAxis: {
                     min: 0,
-					maxColor: '#ff0000',
-					minColor:  '#fff3f3'
+                    maxColor: '#ff0000',
+                    minColor: '#fff3f3'
                 },
 
                 plotOptions: {
@@ -289,11 +288,11 @@ Dashboard E-Report
                                                 }
                                             });
                                         } else {
-                                            Swal.fire({
-                                                title: "Terimakasih",
-                                                type: "success",
-                                                allowOutsideClick: false,
-                                            })
+                                            // Swal.fire({
+                                            //     title: "Terimakasih",
+                                            //     type: "success",
+                                            //     allowOutsideClick: false,
+                                            // })
                                         }
                                     })
                                 }
