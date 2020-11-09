@@ -128,7 +128,7 @@ function tgl_indo($tanggal)
                             @elseif($op->id_jenis_operasi == 4)
                             Operasi Pemeliharaan Keamanan
                             @elseif($op->id_jenis_operasi == 5)
-                            Operasi Pemulihan Keamanan
+                            Operasi Kontijensi Keamanan
                             @else
                             -
                             @endif

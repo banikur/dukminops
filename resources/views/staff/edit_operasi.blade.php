@@ -534,7 +534,7 @@ function tgl_indo($tanggal)
                                                                         @foreach($dokumenAnggaran as $da)
                                                                             <tr>
                                                                                 <td><center><input type="text" style="display:none;" class="form-control" name="name_dok_anggaran[]" value="{{$da->nama_dokumen}}">{{$da->nama_dokumen}}</center></td>
-                                                                                <td><center><input type="file" class="form-control" name="dok_anggaran[]"><a href="{{$da->path}}{{$da->dokumen}}" class="btn btn-default">Dokumen</a></center></td>
+                                                                                <td><center><input type="file" class="form-control" name="dok_anggaran[]"><br/><a target="_blank" href="{{asset($da->path.$da->dokumen)}}" class="btn btn-primary"> <i class="fa fa-download"></i>&nbspDownload</a></center></td>
                                                                                 <td><center><button type="button" onclick="delete_dok_anggaran(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>
                                                                             </tr>
                                                                         @endforeach
