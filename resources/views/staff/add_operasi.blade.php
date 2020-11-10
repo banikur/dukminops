@@ -778,8 +778,8 @@ Dashboard E-Report
             jab_fung + '">' + jab_fung + '</td>';
         var satuan_data = '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
             satuan + '">' + satuan + '</td>';
-        var hapus_data = '<center><button type="button" onclick="delete_personil(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center>';
-        
+        var hapus_data = '<td><center><button type="button" onclick="delete_personil(' + $('#count_personil').val() +
+            ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
 
         $.post('{{URL::to("/entry-operasi/cek-personil")}}',{
                 _token:"{{csrf_token()}}",
@@ -807,15 +807,16 @@ Dashboard E-Report
         clear_personil();
     });
 
-    function delete_personil(obj) {
-        $(obj).closest("tr").remove();
+    function delete_personil(no) {
+        console.log(no);
+        var cek = parseInt($('#nodetail').val());
+        if (cek != 0) {
+            $('#nodetail').val(cek - 1);
+        }
+        $('#id_table_personil' + no).remove();
+        $('#dt_basic_3').DataTable().row($('#id_table_personil' + no).closest('tr').remove());
         var count_personil = parseFloat($('#count_personil').val()) - 1;
         $('#count_personil').val(count_personil);
-        // var cek = parseInt($('#nodetail').val());
-        // if (cek != 0) {
-        //     $('#nodetail').val(cek - 1);
-        // }
-        // $('#id_table_personil' + no).remove();
     }
 
     function clear_personil() {
@@ -914,7 +915,6 @@ Dashboard E-Report
                     if (data.length > 0) {
                         $.each(data, function(az, value) {
                             $('#nodetail').val(no + 1);
-                            $('#count_personil').val(az + 1)
                             $('#halu').css("display", "none");
                             var param = '';
                             var nip = data[az]['nrp'];
@@ -1009,6 +1009,7 @@ Dashboard E-Report
                                         // alert(textPesan);
                                         console.log(textPesan);
                                     }else{
+                                        $('#count_personil').val(textPesan.length);
                                         table.row.add([
                                             nama_data,
                                             nip_data,
