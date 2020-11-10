@@ -726,7 +726,7 @@ Dashboard E-Report
         $('#id_table_dok_anggaran' + no).remove();
     }
 
-        $('#add_personil').on('click', function() {
+    $('#add_personil').on('click', function() {
         var html = '';
         var no = 0;
         //var doc = $('#dok_perencanaan').val();
@@ -779,43 +779,48 @@ Dashboard E-Report
         var satuan_data = '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
             satuan + '">' + satuan + '</td>';
         var hapus_data = '<center><button type="button" onclick="delete_personil(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center>';
-        
 
-        $.post('{{URL::to("/entry-operasi/cek-personil")}}',{
-                _token:"{{csrf_token()}}",
-                nip:nip}, function (data) {
-                if(data.length > 0){
-                    Swal.fire({
-                        type: 'error',
-                        text: 'Personil dengan NRP '+nip+' Sudah Dalam Operasi Lain',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }else{
-                    table.row.add([
-                        nama_data,
-                        nip_data,
-                        pangkat_data,
-                        jab_struk_data,
-                        jab_fung_data,
-                        satuan_data,
-                        hapus_data
-                    ]).draw(false);
-                }
+
+        $.post('{{URL::to("/entry-operasi/cek-personil")}}', {
+            _token: "{{csrf_token()}}",
+            nip: nip
+        }, function(data) {
+            if (data.length > 0) {
+                Swal.fire({
+                    type: 'error',
+                    text: 'Personil dengan NRP ' + nip + ' Sudah Dalam Operasi Lain',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                table.row.add([
+                    nama_data,
+                    nip_data,
+                    pangkat_data,
+                    jab_struk_data,
+                    jab_fung_data,
+                    satuan_data,
+                    hapus_data
+                ]).draw(false);
+            }
 
         });
         clear_personil();
     });
 
     function delete_personil(obj) {
-        $(obj).closest("tr").remove();
+        
+        $(obj).closest("tr").row().remove();
+        // var no = parseFloat($('#count_personil').val());
         var count_personil = parseFloat($('#count_personil').val()) - 1;
         $('#count_personil').val(count_personil);
         // var cek = parseInt($('#nodetail').val());
         // if (cek != 0) {
         //     $('#nodetail').val(cek - 1);
         // }
-        // $('#id_table_personil' + no).remove();
+        
+        console.log(obj);
+        $('#id_table_personil' + obj).remove();
     }
 
     function clear_personil() {
@@ -872,7 +877,15 @@ Dashboard E-Report
     });
 
     function delete_peralatan(obj) {
-        $(obj).closest("tr").remove();
+        // $(obj).closest("tr").remove();
+        var count_alat = parseFloat($('#count_alat').val()) - 1;
+        $('#count_alat').val(count_alat);
+        var cek = parseInt($('#count_alat').val());
+        if (cek != 0) {
+            $('#count_alat').val(cek - 1);
+        }
+        $('#id_table_peralatan' + obj).remove();
+
     }
 
     function clear_peralatan() {
@@ -982,7 +995,7 @@ Dashboard E-Report
                                 ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
 
                             html += '</tr>';
-                                
+
                             var table = $('#dt_basic_3').DataTable();
 
                             var nama_data = '<td><center><input type="text" style="display:none;" name="nama_personil_s[]" value="' +
@@ -995,31 +1008,31 @@ Dashboard E-Report
                                 data[az]['jabatan_struktural'] + '">' + data[az]['jabatan_struktural'] + '</td>';
                             var jab_fung_data = '<td><center><input type="text" style="display:none;" name="jab_fung[]" value="' +
                                 data[az]['jabatan_fungsional'] + '">' + data[az]['jabatan_fungsional'] + '</td>';
-                            var satuan_data= '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
+                            var satuan_data = '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
                                 data[az]['satuan_asal'] + '">' + data[az]['satuan_asal'] + '</td>';
 
-                            var hapus_data = '<td><center><button type="button" onclick="delete_personil(' + az +
-                                ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
+                            var hapus_data = '<td><center><button type="button" onclick="delete_personil(' + az + ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
 
-                            var textPesan = 'Personil dengan NRP '+nip+' Sudah Dalam Operasi Lain';
-                            $.post('{{URL::to("/entry-operasi/cek-personil")}}',{
-                                    _token:"{{csrf_token()}}",
-                                    nip:nip}, function (data) {
-                                    if(data.length > 0){
-                                        // alert(textPesan);
-                                        console.log(textPesan);
-                                    }else{
-                                        table.row.add([
-                                            nama_data,
-                                            nip_data,
-                                            pangkat_data,
-                                            jab_struk_data,
-                                            jab_fung_data,
-                                            satuan_data,
-                                            hapus_data
-                                        ]).draw(false);
+                            var textPesan = 'Personil dengan NRP ' + nip + ' Sudah Dalam Operasi Lain';
+                            $.post('{{URL::to("/entry-operasi/cek-personil")}}', {
+                                _token: "{{csrf_token()}}",
+                                nip: nip
+                            }, function(data) {
+                                if (data.length > 0) {
+                                    // alert(textPesan);
+                                    console.log(textPesan);
+                                } else {
+                                    table.row.add([
+                                        nama_data,
+                                        nip_data,
+                                        pangkat_data,
+                                        jab_struk_data,
+                                        jab_fung_data,
+                                        satuan_data,
+                                        hapus_data
+                                    ]).draw(false);
                                     // $('#id_table_personil').append(html);
-                                    }
+                                }
 
                             });
                         });
