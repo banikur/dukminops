@@ -800,7 +800,7 @@ Dashboard E-Report
                     jab_struk_data,
                     jab_fung_data,
                     satuan_data,
-                    hapus_data
+                    hapus_data,
                 ]).draw(false);
             }
 
@@ -808,7 +808,6 @@ Dashboard E-Report
         clear_personil();
     });
 
-<<<<<<< HEAD
     function delete_personil(no) {
         console.log(no);
         var cek = parseInt($('#nodetail').val());
@@ -816,24 +815,8 @@ Dashboard E-Report
             $('#nodetail').val(cek - 1);
         }
         $('#id_table_personil' + no).remove();
-        $('#dt_basic_3').DataTable().row($('#id_table_personil' + no).closest('tr').remove());
         var count_personil = parseFloat($('#count_personil').val()) - 1;
         $('#count_personil').val(count_personil);
-=======
-    function delete_personil(obj) {
-        
-        $(obj).closest("tr").row().remove();
-        // var no = parseFloat($('#count_personil').val());
-        var count_personil = parseFloat($('#count_personil').val()) - 1;
-        $('#count_personil').val(count_personil);
-        // var cek = parseInt($('#nodetail').val());
-        // if (cek != 0) {
-        //     $('#nodetail').val(cek - 1);
-        // }
-        
-        console.log(obj);
-        $('#id_table_personil' + obj).remove();
->>>>>>> 94bb892b69fe32ca30922390f365bfe881da8026
     }
 
     function clear_personil() {
