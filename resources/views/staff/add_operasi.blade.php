@@ -778,13 +778,8 @@ Dashboard E-Report
             jab_fung + '">' + jab_fung + '</td>';
         var satuan_data = '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
             satuan + '">' + satuan + '</td>';
-<<<<<<< HEAD
         var hapus_data = '<td><center><button type="button" onclick="delete_personil(' + $('#count_personil').val() +
             ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
-=======
-        var hapus_data = '<center><button type="button" onclick="delete_personil(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center>';
->>>>>>> 94bb892b69fe32ca30922390f365bfe881da8026
-
 
         $.post('{{URL::to("/entry-operasi/cek-personil")}}', {
             _token: "{{csrf_token()}}",
@@ -1038,7 +1033,7 @@ Dashboard E-Report
                                         // alert(textPesan);
                                         console.log(textPesan);
                                     }else{
-                                        $('#count_personil').val(textPesan.length);
+                                        $('#count_personil').val(data.length);
                                         table.row.add([
                                             nama_data,
                                             nip_data,
