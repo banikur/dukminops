@@ -730,8 +730,6 @@ Dashboard E-Report
         var html = '';
         var no = 0;
         //var doc = $('#dok_perencanaan').val();
-        var count_personil = parseFloat($('#count_personil').val()) + 1;
-        $('#count_personil').val(count_personil);
         var nama_personil = $('#nama_personil').val();
         var nip = $('#nip').val();
         var pangkat = $('#pangkat').val();
@@ -792,6 +790,8 @@ Dashboard E-Report
                     timer: 1500
                 });
             } else {
+                var count_personil = parseFloat($('#count_personil').val()) + 1;
+                $('#count_personil').val(count_personil);
                 table.row.add([
                     nama_data,
                     nip_data,
@@ -808,13 +808,12 @@ Dashboard E-Report
     });
 
     function delete_personil(obj) {
-        console.log(obj);
-        var table = $('#dt_basic_3').DataTable();
         // var cek = parseInt($('#nodetail').val());
         // if (cek != 0) {
         //     $('#nodetail').val(cek - 1);
         // }
         // $('#id_table_personil' + no).remove();
+        var table = $('#dt_basic_3').DataTable();
         table.$(obj).closest("tr").empty();
         var count_personil = parseFloat($('#count_personil').val()) - 1;
         $('#count_personil').val(count_personil);
@@ -874,14 +873,15 @@ Dashboard E-Report
     });
 
     function delete_peralatan(obj) {
-        // $(obj).closest("tr").remove();
+        var table = $('#dt_basic_4').DataTable();
+        table.$(obj).closest("tr").empty();
         var count_alat = parseFloat($('#count_alat').val()) - 1;
         $('#count_alat').val(count_alat);
-        var cek = parseInt($('#count_alat').val());
-        if (cek != 0) {
-            $('#count_alat').val(cek - 1);
-        }
-        $('#id_table_peralatan' + obj).remove();
+        // var cek = parseInt($('#count_alat').val());
+        // if (cek != 0) {
+        //     $('#count_alat').val(cek - 1);
+        // }
+        // $('#id_table_peralatan' + obj).remove();
 
     }
 
@@ -1012,12 +1012,12 @@ Dashboard E-Report
                             var textPesan = 'Personil dengan NRP '+nip+' Sudah Dalam Operasi Lain';
                             $.post('{{URL::to("/entry-operasi/cek-personil")}}',{
                                     _token:"{{csrf_token()}}",
-                                    nip:nip}, function (data) {
-                                    $('#count_personil').val(data.length);
-                                    if(data.length > 0){
-                                        // alert(textPesan);
+                                    nip:nip}, function (datas) {
+                                    if(datas.length > 0){
                                         console.log(textPesan);
                                     }else{
+                                        var count_personil = parseFloat($('#count_personil').val()) + 1;
+                                        $('#count_personil').val(count_personil);
                                         table.row.add([
                                             nama_data,
                                             nip_data,
@@ -1121,8 +1121,7 @@ Dashboard E-Report
                                 data[az]['jenis'] + '">' + param + '</center></td>';
                             html += '<td><center><input type="text" style="display:none;" name="jumlah_alat[]" value="' +
                                 data[az]['jumlah'] + '">' + data[az]['jumlah'] + '</td>';
-                            html += '<td><center><button type="button" onclick="delete_peralatan(' + az +
-                                ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
+                            html += '<td><center><button type="button" onclick="delete_peralatan(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
 
                             html += '</tr>';
                         });

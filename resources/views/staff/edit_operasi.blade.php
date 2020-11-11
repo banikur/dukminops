@@ -848,7 +848,8 @@ function tgl_indo($tanggal)
     function delete_personil(obj) {
         var count_personil = parseFloat($('#count_personil').val()) - 1;
         $('#count_personil').val(count_personil);
-        $(obj).closest("tr").remove();
+        var table = $('#dt_basic_3').DataTable();
+        table.$(obj).closest("tr").empty();
     }
 
     function clear_personil() {
@@ -901,7 +902,10 @@ function tgl_indo($tanggal)
     });
 
     function delete_peralatan(obj) {
-        $(obj).closest("tr").remove();
+        var table = $('#dt_basic_4').DataTable();
+        table.$(obj).closest("tr").empty();
+        var count_alat = parseFloat($('#count_alat').val()) - 1;
+        $('#count_alat').val(count_alat);
     }
 
     function clear_peralatan() {
