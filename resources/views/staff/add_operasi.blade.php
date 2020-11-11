@@ -766,7 +766,7 @@ Dashboard E-Report
 
         html += '</tr>';
         // $('#id_table_personil').append(html);
-        var nama_data = '<td><center><input type="text" style="display:none;" name="nama_personil_s[]" value="' +
+        var nama_data = '<tr id="id_table_personil' + $('#count_personil').val() + '"><td><center><input type="text" style="display:none;" name="nama_personil_s[]" value="' +
             nama_personil + '">' + nama_personil + '</center></td>';
         var nip_data = '<td><center><input type="text" style="display:none;" name="nip_s[]" value="' +
             nip + '">' + nip + '</center></td>';
@@ -778,8 +778,7 @@ Dashboard E-Report
             jab_fung + '">' + jab_fung + '</td>';
         var satuan_data = '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
             satuan + '">' + satuan + '</td>';
-        var hapus_data = '<td><center><button type="button" onclick="delete_personil(' + $('#count_personil').val() +
-            ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
+        var hapus_data = '<td><center><button type="button" onclick="delete_personil(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td></tr>';
 
         $.post('{{URL::to("/entry-operasi/cek-personil")}}', {
             _token: "{{csrf_token()}}",
@@ -800,7 +799,7 @@ Dashboard E-Report
                     jab_struk_data,
                     jab_fung_data,
                     satuan_data,
-                    hapus_data,
+                    hapus_data
                 ]).draw(false);
             }
 
@@ -808,13 +807,15 @@ Dashboard E-Report
         clear_personil();
     });
 
-    function delete_personil(no) {
-        console.log(no);
-        var cek = parseInt($('#nodetail').val());
-        if (cek != 0) {
-            $('#nodetail').val(cek - 1);
-        }
-        $('#id_table_personil' + no).remove();
+    function delete_personil(obj) {
+        console.log(obj);
+        var table = $('#dt_basic_3').DataTable();
+        // var cek = parseInt($('#nodetail').val());
+        // if (cek != 0) {
+        //     $('#nodetail').val(cek - 1);
+        // }
+        // $('#id_table_personil' + no).remove();
+        table.$(obj).closest("tr").empty();
         var count_personil = parseFloat($('#count_personil').val()) - 1;
         $('#count_personil').val(count_personil);
     }
@@ -1006,17 +1007,17 @@ Dashboard E-Report
                             var satuan_data = '<td><center><input type="text" style="display:none;" name="satuan_s[]" value="' +
                                 data[az]['satuan_asal'] + '">' + data[az]['satuan_asal'] + '</td>';
 
-                            var hapus_data = '<td><center><button type="button" onclick="delete_personil(' + az + ')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
+                            var hapus_data = '<td><center><button type="button" onclick="delete_personil(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
 
                             var textPesan = 'Personil dengan NRP '+nip+' Sudah Dalam Operasi Lain';
                             $.post('{{URL::to("/entry-operasi/cek-personil")}}',{
                                     _token:"{{csrf_token()}}",
                                     nip:nip}, function (data) {
+                                    $('#count_personil').val(data.length);
                                     if(data.length > 0){
                                         // alert(textPesan);
                                         console.log(textPesan);
                                     }else{
-                                        $('#count_personil').val(data.length);
                                         table.row.add([
                                             nama_data,
                                             nip_data,
