@@ -4,9 +4,9 @@ Dashboard E-Report
 @endsection
 @section('ribbon')
 <style>
-    .textAreaIinput{
-        width:100%;
-        height:100px;
+    .textAreaIinput {
+        width: 100%;
+        height: 100px;
     }
 </style>
 <ol class="breadcrumb">
@@ -211,7 +211,7 @@ function tgl_indo($tanggal)
                                                     <div class="tab-pane fade in active" id="s1">
                                                         <div class="row" style="padding: 2% 0 2% 0;">
                                                             <div class="col-sm-12">
-                                                            <div class="form-group">
+                                                                <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         No Renops</label>
                                                                     <div class="col-sm-4">
@@ -247,12 +247,34 @@ function tgl_indo($tanggal)
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-sm-2 control-label">
-                                                                        Dokumen Pendukung</label>
-                                                                    <div class="col-sm-4">
-                                                                        <a href="{{ asset('upload-dokumen/dok_rencana/'.$perencanaan->dokumen) }}"
-                                                                        target="_blank" class="btn btn-default" style="color: orange;background-color:#525252;"> <i class="fa fa-download"></i>&nbspDownload</a>
+                                                                    <div class="col-md-10 col-md-offset-1">
+                                                                        <table id="dt_basic_0" class="table table-striped table-bordered table-hover" width="100%">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        Nama Dokumen
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        Dokumen
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        Aksi
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <?php $no = 1; ?>
+                                                                            <tbody id="id_table_dok_pelaporan">
+                                                                                @foreach($dok_lapor as $dl)
+                                                                                <tr>
+                                                                                    <td>{{$no++}}</td>
+                                                                                    <td>{{$dl->nama_dokumen}}</td>
+                                                                                    <td><a href="{{asset($dl->path.$dl->dokumen)}}" target="_blank" class="btn btn-default">Dokumen</td>
+                                                                                </tr>
+                                                                                @endforeach
+                                                                            </tbody>
+                                                                        </table>
                                                                     </div>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -364,7 +386,7 @@ function tgl_indo($tanggal)
                                                     <div class="tab-pane fade" id="s4">
                                                         <div class="row" style="padding: 2% 0 2% 0;">
                                                             <div class="col-sm-12">
-                                                            <div class="form-group">
+                                                                <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Hasil yang Dicapai</label>
                                                                     <div class="col-sm-9">
@@ -389,8 +411,7 @@ function tgl_indo($tanggal)
                                                                     <label class="col-sm-2 control-label">
                                                                         Dokumen Pendukung</label>
                                                                     <div class="col-sm-4">
-                                                                        <a href="{{ asset('upload-dokumen/dok_laporan/'.$pa->dokumen) }}"
-                                                                        target="_blank" class="btn btn-default" style="color: orange;background-color:#525252;"> <i class="fa fa-download"></i>&nbspDownload</a>
+                                                                        <a href="{{ asset('upload-dokumen/dok_laporan/'.$pa->dokumen) }}" target="_blank" class="btn btn-default" style="color: orange;background-color:#525252;"> <i class="fa fa-download"></i>&nbspDownload</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -433,11 +454,11 @@ function tgl_indo($tanggal)
                                                                     <?php $no = 1; ?>
                                                                     <tbody id="id_table_dok_anggaran">
                                                                         @foreach($dokumenAnggaran as $da)
-                                                                            <tr>
-                                                                                <td>{{$no++}}</td>
-                                                                                <td>{{$da->nama_dokumen}}</td>
-                                                                                <td><a href="{{$da->path}}" class="btn btn-default">Dokumen</td>
-                                                                            </tr>
+                                                                        <tr>
+                                                                            <td>{{$no++}}</td>
+                                                                            <td>{{$da->nama_dokumen}}</td>
+                                                                            <td><a href="{{asset($da->path.$da->dokumen)}}" target="_blank" class="btn btn-default">Dokumen</td>
+                                                                        </tr>
                                                                         @endforeach
                                                                     </tbody>
                                                                 </table>
@@ -510,23 +531,26 @@ function tgl_indo($tanggal)
     //     dateFormat: "Y-m-d",
     //     minDate: "today",
     // });
-    function getKabupaten(){
+    function getKabupaten() {
         var provinsi = $('#prov').val();
         var token = $('meta[name="csrf-token"]').attr('content');
 
-        $.get('{{URL::to("/entry-operasi/prov")}}',{ provinsi:provinsi,_token:token},function(data){
+        $.get('{{URL::to("/entry-operasi/prov")}}', {
+            provinsi: provinsi,
+            _token: token
+        }, function(data) {
 
             var html = '';
             var kabkota_id = '{{$operasi->kabkota_id}}';
             var selec = '';
-            $.each(data, function( index, value ) {
-                
-            if(kabkota_id == value.id){
-                selec = 'selected';
-            }else{
-                selec = '';
-            }
-                html += '<option value="'+value.id+'" '+selec+'>'+value.kab_kota+'</option>';
+            $.each(data, function(index, value) {
+
+                if (kabkota_id == value.id) {
+                    selec = 'selected';
+                } else {
+                    selec = '';
+                }
+                html += '<option value="' + value.id + '" ' + selec + '>' + value.kab_kota + '</option>';
             });
 
             $('#kabupaten').append(html);
@@ -571,11 +595,11 @@ function tgl_indo($tanggal)
         var html = '';
         var no = 0;
         //var doc = $('#dok_perencanaan').val();
-        var no = parseFloat($('#nodetaidok_rencana').val()) +1;
+        var no = parseFloat($('#nodetaidok_rencana').val()) + 1;
         $('#nodetaidok_rencana').val(no);
         $('#halu').css("display", "none");
 
-        html += '<tr id="id_table_dok_perencanaan' +no + '">';
+        html += '<tr id="id_table_dok_perencanaan' + no + '">';
         // html += '<td><center>' + $('#nodetail').val() + '</center></td>';
         html += '<td><center><input type="text" class="form-control" name="name_dok_perencanaans[]"></center></td>';
         html += '<td><center><input type="file" class="form-control" name="dok_perencanaans[]"></center></td>';
@@ -598,7 +622,7 @@ function tgl_indo($tanggal)
         var html = '';
         var no = 0;
         //var doc = $('#nodetaidok_laporan').val();
-        var no = parseFloat($('#nodetaidok_laporan').val()) +1;
+        var no = parseFloat($('#nodetaidok_laporan').val()) + 1;
         $('#nodetaidok_laporan').val(no);
         $('#halu').css("display", "none");
 
@@ -625,7 +649,7 @@ function tgl_indo($tanggal)
         var html = '';
         var no = 0;
         //var doc = $('#dok_perencanaan').val();
-        var no = parseFloat($('#nodetaidok_anggaran').val()) +1;
+        var no = parseFloat($('#nodetaidok_anggaran').val()) + 1;
         $('#nodetaidok_anggaran').val(no);
         $('#halu').css("display", "none");
 

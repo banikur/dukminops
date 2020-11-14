@@ -230,9 +230,37 @@ Dashboard E-Report
                                                                     <label class="col-sm-2 control-label">
                                                                         Dokumen Pendukung</label>
                                                                     <div class="col-sm-4">
-                                                                        <input class="form-control" type="file" name="dok_perencanaan" id="dok_perencanaan" autocomplete="off">
+                                                                        <!-- <input class="form-control" type="file" name="dok_perencanaan" id="dok_perencanaan" autocomplete="off"> -->
+                                                                        <input type="hidden" name="nodetaidok_laporan" id="nodetaidok_laporan" value="0" />
+                                                                        <button type="button" id="add_dok_laporan" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
                                                                     </div>
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <div class="col-md-10 col-md-offset-1">
+                                                                        <table id="dt_basic_0" class="table table-striped table-bordered table-hover" width="100%">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        Nama Dokumen
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        Dokumen
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        Aksi
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <?php $no = 1; ?>
+                                                                            <tbody id="id_table_dok_pelaporan">
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -702,7 +730,7 @@ Dashboard E-Report
     $('#add_laporan_anggaran').on('click', function() {
         var html = '';
         var no = 0;
-        //var doc = $('#dok_perencanaan').val();
+        var doc = $('#dok_perencanaan').val();
         var no = parseFloat($('#nodetaidok_anggaran').val()) + 1;
         $('#nodetaidok_anggaran').val(no);
         $('#halu').css("display", "none");
@@ -1009,24 +1037,25 @@ Dashboard E-Report
 
                             var hapus_data = '<td><center><button type="button" onclick="delete_personil(this)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></center></td>';
 
-                            var textPesan = 'Personil dengan NRP '+nip+' Sudah Dalam Operasi Lain';
-                            $.post('{{URL::to("/entry-operasi/cek-personil")}}',{
-                                    _token:"{{csrf_token()}}",
-                                    nip:nip}, function (datas) {
-                                    if(datas.length > 0){
-                                        console.log(textPesan);
-                                    }else{
-                                        var count_personil = parseFloat($('#count_personil').val()) + 1;
-                                        $('#count_personil').val(count_personil);
-                                        table.row.add([
-                                            nama_data,
-                                            nip_data,
-                                            pangkat_data,
-                                            jab_struk_data,
-                                            jab_fung_data,
-                                            satuan_data,
-                                            hapus_data
-                                        ]).draw(false);
+                            var textPesan = 'Personil dengan NRP ' + nip + ' Sudah Dalam Operasi Lain';
+                            $.post('{{URL::to("/entry-operasi/cek-personil")}}', {
+                                _token: "{{csrf_token()}}",
+                                nip: nip
+                            }, function(datas) {
+                                if (datas.length > 0) {
+                                    console.log(textPesan);
+                                } else {
+                                    var count_personil = parseFloat($('#count_personil').val()) + 1;
+                                    $('#count_personil').val(count_personil);
+                                    table.row.add([
+                                        nama_data,
+                                        nip_data,
+                                        pangkat_data,
+                                        jab_struk_data,
+                                        jab_fung_data,
+                                        satuan_data,
+                                        hapus_data
+                                    ]).draw(false);
                                     // $('#id_table_personil').append(html);
                                 }
 

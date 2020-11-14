@@ -191,6 +191,24 @@ class InputDataController extends Controller
             ];
             DB::table('dokumen_operasi')->insert($dok_anggaran_array);
         }
+
+        
+        for ($dok_lapor = 0; $dok_lapor < $request->nodetaidok_laporan; $dok_lapor++) {
+            $bukti_bayar = $request->file('dok_pelaporan')[$dok_lapor];
+            $destination = public_path() . '/upload-dokumen/dok_lapor\\';
+            $nama_file1 = 'dok_lapor-' . uniqid() . '.' . $bukti_bayar->getClientOriginalExtension();
+            $bukti_bayar->move($destination, $nama_file1);
+
+            $dok_lapor_array = [
+                'id_operasi' => $id,
+                'path' => 'upload-dokumen/dok_lapor/',
+                'nama_dokumen' => $request->name_dok_pelaporan[$dok_lapor],
+                'created_at' => date('Y-m-d h:i:s'),
+                'kategori_dokumen' => 1,
+                'dokumen' => $nama_file1,
+            ];
+            DB::table('dokumen_operasi')->insert($dok_lapor_array);
+        }
         return redirect()->back()->with(['success' => 'Data Simpan']);
     }
 
@@ -207,6 +225,7 @@ class InputDataController extends Controller
         $data['peralatan'] = DB::table('peralatan')->where('operasi_id', $id)->get();
         $data['master_jo'] = DB::table('master_jenis_operasi')->get();
         $data['dokumenAnggaran'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 3)->get();
+        $data['dok_lapor'] = DB::table('dokumen_operasi')->where('id_operasi', $id)->where('kategori_dokumen', 1)->get();
 
         $data['perencanaan'] = DB::table('perencanaan')->where('operasi_id', $id)->first();
         $data['pa'] = DB::table('pelaporan_akhir')->where('operasi_id', $id)->first();
