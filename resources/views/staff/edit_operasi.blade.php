@@ -217,35 +217,35 @@ function tgl_indo($tanggal)
                                                                     <label class="col-sm-2 control-label">
                                                                         No Renops</label>
                                                                     <div class="col-sm-4">
-                                                                        <input class="form-control" type="text" name="no_renops" id="no_renops" autocomplete="off">
+                                                                        <input class="form-control" type="text" name="no_renops" id="no_renops" value="{{$perencanaan->no_renops}}" autocomplete="off">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Tujuan</label>
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="textAreaIinput" type="text" name="tujuan" id="tujuan" autocomplete="off"></textarea>
+                                                                        <textarea class="textAreaIinput" type="text" name="tujuan" id="tujuan" autocomplete="off">{{$perencanaan->tujuan}}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Sasaran</label>
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="textAreaIinput" type="text" name="sasaran" id="sasaran" autocomplete="off"></textarea>
+                                                                        <textarea class="textAreaIinput" type="text" name="sasaran" id="sasaran" autocomplete="off">{{$perencanaan->sasaran}}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Target Operasi</label>
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="textAreaIinput" type="text" name="target_operasi" id="target_operasi" autocomplete="off"></textarea>
+                                                                        <textarea class="textAreaIinput" type="text" name="target_operasi" id="target_operasi" autocomplete="off">{{$perencanaan->target_operasi}}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-sm-2 control-label">
                                                                         Cara Bertindak</label>
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="textAreaIinput" type="text" name="cara_tindak" id="cara_tindak" autocomplete="off"></textarea>
+                                                                        <textarea class="textAreaIinput" type="text" name="cara_tindak" id="cara_tindak" autocomplete="off">{{$perencanaan->cara_bertindak}}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
@@ -253,7 +253,7 @@ function tgl_indo($tanggal)
                                                                         Dokumen Pendukung</label>
                                                                     <div class="col-sm-4">
                                                                         <!-- <input class="form-control" type="file" name="dok_perencanaan" id="dok_perencanaan" autocomplete="off"> -->
-                                                                        <input type="hidden" name="nodetaidok_laporan" id="nodetaidok_laporan" value="0" />
+                                                                        <input type="hidden" name="nodetaidok_laporan" id="nodetaidok_laporan" value="{{count($dokumenPerencanan)}}" />
                                                                         <button type="button" id="add_dok_laporan" class="btn bg-color-magenta txt-color-white btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp; Tambah</button>
                                                                     </div>
                                                                 </div>
@@ -688,42 +688,54 @@ function tgl_indo($tanggal)
     }
 
     function konfirmasi() {
-        $('#employee_form input[name="dok_anggaran[]"]').each(function () {
+        $('#employee_form input[name="dok_pelaporan[]"]').each(function () {
             if ($(this).val()) {
-                event.preventDefault(); // prevent form submit
-                var form = event.target.form; // storing the form
+                $('#employee_form input[name="dok_anggaran[]"]').each(function () {
+                    if ($(this).val()) {
+                        event.preventDefault(); // prevent form submit
+                        var form = event.target.form; // storing the form
 
-                Swal.fire({
-                    title: 'Apakah Data yang di Masukan Sudah Benar ?',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#5cb85c',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya',
-                    cancelButtonText: 'Batal',
-                    allowOutsideClick: false,
-                }).then((result) => {
-                    if (result.value) {
-                        form.submit();
+                        Swal.fire({
+                            title: 'Apakah Data yang di Masukan Sudah Benar ?',
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#5cb85c',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Ya',
+                            cancelButtonText: 'Batal',
+                            allowOutsideClick: false,
+                        }).then((result) => {
+                            if (result.value) {
+                                form.submit();
 
+                            } else {
+                                Swal.fire({
+                                    title: "Batal memverifikasi",
+                                    type: "error",
+                                    allowOutsideClick: false,
+                                })
+                            }
+                        })
                     } else {
                         Swal.fire({
-                            title: "Batal memverifikasi",
-                            type: "error",
-                            allowOutsideClick: false,
-                        })
+                            position: 'center',
+                            type: 'error',
+                            title: 'Silahkan upload file anggaran terlebih dahulu',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                        
                     }
-                })
-            } else {
+                });
+            }else{
                 Swal.fire({
                     position: 'center',
                     type: 'error',
-                    title: 'Silahkan upload file anggaran terlebih dahulu',
+                    title: 'Silahkan upload file Perencanaan terlebih dahulu',
                     showConfirmButton: false,
                     timer: 1500
                 });
-
-                
             }
         });
     }
@@ -770,6 +782,8 @@ function tgl_indo($tanggal)
 
     function delete_dok_pelaporan(obj) {
         $(obj).closest("tr").remove();
+        var no = parseFloat($('#nodetaidok_laporan').val()) - 1;
+        $('#nodetaidok_laporan').val(no);
     }
 
     $('#add_laporan_anggaran').on('click', function() {
